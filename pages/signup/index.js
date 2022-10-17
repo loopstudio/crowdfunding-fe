@@ -35,9 +35,9 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Title>Register</Title>
         <Label htmlFor="nameInput">Name:</Label>
-        <Input id="nameInput" {...register("name", { required: true })} />
+        <Input id="nameInput" {...register("name")} />
         <Label htmlFor="emailInput">Email:</Label>
-        <Input id="emailInput" {...register("email", { required: true })} />
+        <Input id="emailInput" {...register("email")} />
 
         <Button type="submit" disabled={areFieldsEmpty || hasErrors}>
           Submit
