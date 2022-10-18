@@ -29,7 +29,7 @@ export const Input = styled.input`
   color: black;
   background-color: white;
   height: 42px;
-  padding: 12px 128px 12px 13px;
+  padding: 12px;
 
   :focus {
     outline: none;

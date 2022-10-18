@@ -12,23 +12,22 @@ const SignUp = () => {
   });
 
   const {
-    register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(validationSchema) });
+    register,
+    reset,
+    formState: { errors, isValid, isDirty },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: { name: "", email: "" },
+    mode: "onChange",
+  });
   const { address } = useAccount();
 
   const onSubmit = (data) => {
     const { name, email } = data;
     console.log("POST", { name, email, publicAddress: address });
+    reset();
   };
-
-  const areFieldsEmpty =
-    Object.values(watch()).length === 0 ||
-    Object.values(watch()).some((fieldValue) => fieldValue === "");
-
-  const hasErrors = Object.keys(errors).length > 0;
 
   return (
     <Container>
@@ -39,7 +38,7 @@ const SignUp = () => {
         <Label htmlFor="emailInput">Email:</Label>
         <Input id="emailInput" {...register("email")} />
 
-        <Button type="submit" disabled={areFieldsEmpty || hasErrors}>
+        <Button type="submit" disabled={!isDirty || !isValid}>
           Submit
         </Button>
       </Form>
