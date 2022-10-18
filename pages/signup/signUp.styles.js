@@ -25,7 +25,8 @@ export const Title = styled.h1`
 
 export const Input = styled.input`
   border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid;
+  border-color: ${({ error }) => (error ? "red" : "black")};
   color: black;
   background-color: white;
   height: 42px;
@@ -56,4 +57,9 @@ export const Button = styled.button`
     color: white;
     cursor: not-allowed;
   }
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-size: 14px;
 `;

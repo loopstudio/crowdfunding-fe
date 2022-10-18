@@ -3,7 +3,15 @@ import { useForm } from "react-hook-form";
 import { useAccount } from "wagmi";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Container, Form, Title, Input, Label, Button } from "./signUp.styles";
+import {
+  Button,
+  Container,
+  ErrorText,
+  Form,
+  Input,
+  Label,
+  Title,
+} from "./signUp.styles";
 
 const SignUp = () => {
   const validationSchema = object().shape({
@@ -18,14 +26,14 @@ const SignUp = () => {
     formState: { errors, isValid, isDirty },
   } = useForm({
     resolver: yupResolver(validationSchema),
-    defaultValues: { name: "", email: "" },
+    defaultValues: { username: "", email: "" },
     mode: "onChange",
   });
   const { address } = useAccount();
 
   const onSubmit = (data) => {
-    const { name, email } = data;
-    console.log("POST", { name, email, publicAddress: address });
+    const { username, email } = data;
+    console.log("POST", { username, email, publicAddress: address });
     reset();
   };
 
@@ -33,10 +41,16 @@ const SignUp = () => {
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Title>Register</Title>
-        <Label htmlFor="nameInput">Name:</Label>
-        <Input id="nameInput" {...register("name")} />
+
+        <Label htmlFor="usernameInput">Username:</Label>
+        <Input id="usernameInput" {...register("username")} />
+        {errors?.username && (
+          <ErrorText>Error: {errors?.username.message}</ErrorText>
+        )}
+
         <Label htmlFor="emailInput">Email:</Label>
-        <Input id="emailInput" {...register("email")} />
+        <Input id="emailInput" {...register("email")} error={errors?.email} />
+        {errors?.email && <ErrorText>Error: {errors?.email.message}</ErrorText>}
 
         <Button type="submit" disabled={!isDirty || !isValid}>
           Submit
