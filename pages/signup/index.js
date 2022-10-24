@@ -49,7 +49,7 @@ const SignUp = () => {
         publicAddress: address,
       }
     );
-    console.log(data);
+
     signMessage({ message: data?.data?.nonce });
 
     reset();
