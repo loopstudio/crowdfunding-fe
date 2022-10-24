@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAccount } from "wagmi";
+import { useAccount, useSignMessage } from "wagmi";
+import axios from "axios";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ConnectWallet from "../../components/ConnectWallet";
 import {
   Button,
   Container,
@@ -13,12 +15,18 @@ import {
   Title,
 } from "./signUp.styles";
 
-const SignUp = () => {
-  const validationSchema = object().shape({
-    name: string().required(),
-    email: string().email().required(),
-  });
+const validationSchema = object().shape({
+  username: string().required(),
+  email: string().email().required(),
+});
 
+const SignUp = () => {
+  const { address, isConnected } = useAccount();
+  const { signMessage } = useSignMessage({
+    onSuccess(data) {
+      console.log(data, address);
+    },
+  });
   const {
     handleSubmit,
     register,
@@ -29,13 +37,25 @@ const SignUp = () => {
     defaultValues: { username: "", email: "" },
     mode: "onChange",
   });
-  const { address } = useAccount();
 
-  const onSubmit = (data) => {
-    const { username, email } = data;
-    console.log("POST", { username, email, publicAddress: address });
+  const onSubmit = async (formData) => {
+    const { username, email } = formData;
+
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/api/v1/users`,
+      {
+        username,
+        email,
+        publicAddress: address,
+      }
+    );
+    console.log(data);
+    signMessage({ message: data?.data?.nonce });
+
     reset();
   };
+
+  if (!isConnected) return <ConnectWallet />;
 
   return (
     <Container>
