@@ -19,7 +19,7 @@ jobs:
       - name: Set up NodeJS environment
         uses: actions/setup-node@v2
         with:
-          node-version-file: ".nvmrc"
+          node-version: 16
 
       - name: Cache node modules
         id: cache-npm
