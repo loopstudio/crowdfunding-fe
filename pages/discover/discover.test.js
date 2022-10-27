@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import Discover from "../../pages/discover";
+import Discover from "./index.page";
 
 describe("Discover page", () => {
   it("renders the text Discover", () => {
