@@ -16,11 +16,6 @@
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
-  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -39,7 +34,7 @@
     "@testing-library/react": "^13.4.0",
     "eslint": "8.25.0",
     "eslint-plugin-testing-library": "^5.9.1",
-    "husky": "4",
+    "husky": "^8.0.0",
     "jest": "^29.2.2",
     "jest-environment-jsdom": "^29.2.2",
     "eslint-config-next": "^13.0.0"
