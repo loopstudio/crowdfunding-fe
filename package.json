@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "test": "jest",
     "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false",
     "pre-commit": "yarn lint",
