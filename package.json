@@ -8,13 +8,20 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false"
+    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false",
+    "pre-commit": "yarn lint",
+    "pre-push": "yarn lint & yarn test:cov",
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@hookform/resolvers": "^2.9.9",
     "ethers": "^5.7.1",
+    "husky": "^8.0.1",
     "next": "^13.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
