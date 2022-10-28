@@ -16,6 +16,11 @@
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
+  "husky": {
+    "hooks":{
+      "pre-commit":"lint"
+    }
+  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
