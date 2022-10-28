@@ -17,8 +17,8 @@
     "postpack": "pinst --enable"
   },
   "husky": {
-    "hooks":{
-      "pre-commit":"lint"
+    "hooks": {
+      "pre-commit": "yarn lint"
     }
   },
   "dependencies": {
