@@ -8,7 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false"
+    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false",
+    "pre-commit": "yarn run lint",
+    "pre-push": "yarn run test:cov",
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -27,6 +33,7 @@
     "@testing-library/react": "^13.4.0",
     "eslint": "8.25.0",
     "eslint-plugin-testing-library": "^5.9.1",
+    "husky": "^8.0.0",
     "jest": "^29.2.2",
     "jest-environment-jsdom": "^29.2.2",
     "eslint-config-next": "^13.0.0"
