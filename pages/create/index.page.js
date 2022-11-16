@@ -14,11 +14,11 @@ const Create = () => {
       >
         <label>
           Project Name
-          <Input type="text" name="project-name" style={{ display: "block" }} />
+          <Input type="text" name="project-name" onChange={() => {}} />
         </label>
         <label>
           Subtitle
-          <Input type="text" name="subtitle" />
+          <Input type="text" name="subtitle" onChange={() => {}} />
         </label>
         <label>
           Category
@@ -36,11 +36,12 @@ const Create = () => {
               { value: "non-profit", name: "Non profit" },
               { value: "other", name: "Other" },
             ]}
+            onChange={() => {}}
           />
         </label>
         <label>
           Description
-          <Input type="text-area" name="description" />
+          <Input type="text-area" name="description" onChange={() => {}} />
         </label>
         <label>
           Currency
@@ -55,20 +56,21 @@ const Create = () => {
               { value: "NGN", name: "NGN" },
               { value: "EUR", name: "EUR" },
             ]}
+            onChange={() => {}}
           />
         </label>
         <label>
           Fund Goal
-          <Input type="number" name="fund-goal" />
+          <Input type="number" name="fund-goal" onChange={() => {}} />
         </label>
         <p>Dates</p>
         <label>
           Start Date
-          <Input type="date" name="start-date" />
+          <Input type="date" name="start-date" onChange={() => {}} />
         </label>
         <label>
           End Date
-          <Input type="date" name="end-date" />
+          <Input type="date" name="end-date" onChange={() => {}} />
         </label>
         <Button type="submit">Create</Button>
       </form>
