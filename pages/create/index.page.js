@@ -56,7 +56,7 @@ const Create = () => {
           id="subtitle"
           error={errors?.subtitle}
         />
-        <Label htmlFor="category">Category</Label>
+        {/* <Label htmlFor="category">Category</Label>
         <Select
           type="text"
           name="category"
@@ -72,7 +72,7 @@ const Create = () => {
             { value: "non-profit", name: "Non profit" },
             { value: "other", name: "Other" },
           ]}
-        />
+        /> */}
         <Label htmlFor="description">Description</Label>
         <Input
           type="text-area"
