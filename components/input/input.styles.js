@@ -1,3 +1,5 @@
 import styled from "@emotion/styled";
 
-export const StyledInput = styled.input``;
+export const StyledInput = styled.input`
+  display: block;
+`;
