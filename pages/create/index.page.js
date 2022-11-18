@@ -19,8 +19,7 @@ const Create = () => {
       .min(new Date(), "Created date can not be future"),
     endDate: date()
       .required()
-      .min(new Date(), "Created date can not be future")
-      .min(ref("startDate"), "Modified date should be after start date"),
+      .min(ref("startDate"), "End date should be after start date"),
   });
 
   const {
@@ -56,23 +55,6 @@ const Create = () => {
           id="subtitle"
           error={errors?.subtitle}
         />
-        {/* <Label htmlFor="category">Category</Label>
-        <Select
-          type="text"
-          name="category"
-          id="category"
-          error={errors?.category}
-          options={[
-            { value: "technology", name: "Technology" },
-            { value: "nfts", name: "NFTs" },
-            { value: "games", name: "Games" },
-            { value: "education", name: "Education" },
-            { value: "music", name: "Music" },
-            { value: "community", name: "Community" },
-            { value: "non-profit", name: "Non profit" },
-            { value: "other", name: "Other" },
-          ]}
-        /> */}
         <Label htmlFor="description">Description</Label>
         <Input
           type="text-area"
