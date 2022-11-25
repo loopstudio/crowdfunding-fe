@@ -10,7 +10,7 @@ export const Title = styled.h1`
 
 export const Form = styled.form`
   display: flex;
-  min-height: 100vh;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   gap: 10px;
