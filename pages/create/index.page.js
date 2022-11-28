@@ -1,35 +1,63 @@
+import { useForm } from "react-hook-form";
+import { number, object, string, date, ref } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import moment from "moment";
+
+import crowdfundingConfig from "../../crowdfunding.config.json";
+
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import Select from "../../components/select/select";
 import { Container, Form, Title } from "./create.styles";
-import { useForm } from "react-hook-form";
-import { number, object, string, date, ref } from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+
+const validationSchema = object().shape({
+  title: string().required(),
+  subtitle: string().required(),
+  story: string().required(),
+  token: string().required(),
+  fundGoal: number().required(),
+  startDate: date()
+    .required()
+    .max(new Date(), "Created date can not be future"),
+  endDate: date()
+    .required()
+    .min(ref("startDate"), "End date should be after start date"),
+});
 
 const Create = () => {
-  const validationSchema = object().shape({
-    title: string().required(),
-    subtitle: string().required(),
-    story: string().required(),
-    token: string().required(),
-    fundGoal: number().required(),
-    startDate: date()
-      .required()
-      .max(new Date(), "Created date can not be future"),
-    endDate: date()
-      .required()
-      .min(ref("startDate"), "End date should be after start date"),
-  });
+  const { address, abi } = crowdfundingConfig;
 
   const formOptions = {
     resolver: yupResolver(validationSchema),
     defaultValues: {},
     mode: "onChange",
   };
-  const { handleSubmit, reset, register, formState } = useForm(formOptions);
+  const { handleSubmit, reset, register, formState, getValues } =
+    useForm(formOptions);
   const { errors } = formState;
 
+  const { config } = usePrepareContractWrite({
+    address,
+    abi,
+    functionName: "launch",
+    args: [
+      getValues("fundGoal"),
+      moment.unix(getValues("startDate")),
+      moment.unix(getValues("endDate")),
+    ],
+  });
+
+  const { write } = useContractWrite({
+    ...config,
+    onSuccess() {
+      console.log("launch");
+    },
+  });
+
   const onSubmit = (data) => {
+    write();
+
     console.log("POST:", data);
     const nextMinute = Date.now() + 1000 * 60;
     const nextHour = Date.now() + 1000 * 60 * 60;
