@@ -2,13 +2,11 @@ import { useForm } from "react-hook-form";
 import { number, object, string, date, ref } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import moment from "moment";
+import useDebounce from "../../hooks/useDebounce";
 
+import Select from "../../components/select/select";
 import crowdfundingConfig from "../../crowdfunding.config.json";
 
-import Button from "../../components/button/button";
-import Input from "../../components/input/input";
-import Select from "../../components/select/select";
 import { Container, Form, Title } from "./create.styles";
 
 const validationSchema = object().shape({
@@ -19,33 +17,51 @@ const validationSchema = object().shape({
   fundGoal: number().required(),
   startDate: date()
     .required()
-    .max(new Date(), "Created date can not be future"),
+    .min(new Date(), "Date should be greater than now"),
   endDate: date()
     .required()
     .min(ref("startDate"), "End date should be after start date"),
 });
 
 const Create = () => {
-  const { address, abi } = crowdfundingConfig;
+  const { abi, address } = crowdfundingConfig;
 
   const formOptions = {
     resolver: yupResolver(validationSchema),
     defaultValues: {},
     mode: "onChange",
   };
-  const { handleSubmit, reset, register, formState, getValues } =
-    useForm(formOptions);
-  const { errors } = formState;
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+    getValues,
+    setValue,
+  } = useForm(formOptions);
+  const debouncedStartDate = useDebounce(
+    new Date(getValues("startDate")).getTime(),
+    500
+  );
+  const debouncedEndDate = useDebounce(
+    new Date(getValues("endDate")).getTime(),
+    500
+  );
+  const debouncedFundGoal = useDebounce(getValues("fundGoal"), 500);
+
+  const isEnabled =
+    !!debouncedFundGoal && !!debouncedStartDate && !!debouncedEndDate;
 
   const { config } = usePrepareContractWrite({
     address,
     abi,
     functionName: "launch",
     args: [
-      getValues("fundGoal"),
-      moment.unix(getValues("startDate")),
-      moment.unix(getValues("endDate")),
+      debouncedFundGoal,
+      debouncedStartDate?.toString(),
+      debouncedEndDate?.toString(),
     ],
+    enabled: isEnabled,
   });
 
   const { write } = useContractWrite({
@@ -56,8 +72,7 @@ const Create = () => {
   });
 
   const onSubmit = (data) => {
-    write();
-
+    write?.();
     console.log("POST:", data);
     const nextMinute = Date.now() + 1000 * 60;
     const nextHour = Date.now() + 1000 * 60 * 60;
@@ -97,31 +112,38 @@ const Create = () => {
     console.log(res);
   };
 
+  const handleDate = (field, date) => {
+    setValue(field, date, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  };
+
   return (
     <Container>
       <Title>Create New Project</Title>
       <button onClick={() => testApi()}>TEST APIS</button>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Input
+        <input
           label="Project Title"
           name="title"
-          register={register}
+          {...register("title")}
           type="text"
           error={errors?.title}
         />
-        <Input
+        <input
           id="subtitle"
           label="Subtitle"
           name="subtitle"
-          register={register}
+          {...register("subtitle")}
           type="text"
           error={errors?.subtitle}
         />
-        <Input
+        <input
           id="story"
           label="Description / Story"
           name="story"
-          register={register}
+          {...register("story")}
           type="text"
           error={errors?.story}
         />
@@ -140,35 +162,37 @@ const Create = () => {
             { value: "EUR", name: "EUR" },
           ]}
         />
-        <Input
+        <input
           label="Fund Goal"
-          type="number"
           name="fundGoal"
           id="fundGoal"
-          register={register}
+          {...register("fundGoal")}
           error={errors?.fundGoal}
         />
         <br />
         <h2>Dates</h2>
-        <Input
+        <input
           type="date"
           label="Start Date"
           name="startDate"
-          register={register}
+          {...register("startDate")}
           id="startDate"
-          value={new Date().toISOString().split("T")[0]}
+          onChange={(event) => handleDate("startDate", event.target.value)}
           error={errors?.startDate}
         />
-        <Input
+        <input
           type="date"
           name="endDate"
           label="End Date"
           id="endDate"
-          register={register}
+          {...register("endDate")}
+          onChange={(event) => handleDate("endDate", event.target.value)}
           error={errors?.endDate}
         />
         <br />
-        <Button type="submit">Create</Button>
+        <button type="submit" disabled={!write}>
+          Create
+        </button>
       </Form>
     </Container>
   );
