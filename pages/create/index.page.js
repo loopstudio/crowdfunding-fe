@@ -31,9 +31,10 @@ const Create = () => {
 
   const onSubmit = (data) => {
     console.log("POST:", data);
+
+    // The testData was copied from the Postman requests:
     const nextMinute = Date.now() + 1000 * 60;
     const nextHour = Date.now() + 1000 * 60 * 60;
-
     const testData = {
       title: "My campaign",
       subtitle: "An amazing campaign",
@@ -52,10 +53,10 @@ const Create = () => {
 
     fetch("http://localhost:10000/api/v1/campaigns", {
       method: "POST",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      // },
+      headers: {
+        // TBD: What headers are needed?
+        // "Content-Type": "application/json",
+      },
       body: JSON.stringify(testData),
     })
       .then((response) => response.json())
@@ -72,7 +73,9 @@ const Create = () => {
   return (
     <Container>
       <Title>Create New Project</Title>
+      {/* Testing buttons (to be deleted) */}
       <button onClick={() => testApi()}>TEST APIS</button>
+      <button onClick={() => onSubmit()}>TEST SUBMIT</button>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Project Title"
