@@ -1,159 +1,89 @@
-import { useForm } from "react-hook-form";
-import { number, object, string, date, ref } from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import useDebounce from "../../hooks/useDebounce";
+import axios from "axios";
+import { useLaunch } from "../../hooks/useLaunch";
+import { useCreateForm } from "../../hooks/useCreateForm";
+import { Select, Input, Button } from "../../components";
 
-import Select from "../../components/select/select";
-import crowdfundingConfig from "../../crowdfunding.config.json";
+import {
+  START_DATE,
+  END_DATE,
+  FUND_GOAL,
+  TITLE,
+  SUBTITLE,
+  STORY,
+  TOKEN,
+} from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
 
-const validationSchema = object().shape({
-  title: string().required(),
-  subtitle: string().required(),
-  story: string().required(),
-  token: string().required(),
-  fundGoal: number().required(),
-  startDate: date()
-    .required()
-    .min(new Date(), "Date should be greater than now"),
-  endDate: date()
-    .required()
-    .min(ref("startDate"), "End date should be after start date"),
-});
-
 const Create = () => {
-  const { abi, address } = crowdfundingConfig;
-
-  const formOptions = {
-    resolver: yupResolver(validationSchema),
-    defaultValues: {},
-    mode: "onChange",
-  };
   const {
-    handleSubmit,
-    reset,
-    register,
-    formState: { errors },
+    errors,
     getValues,
-    setValue,
-  } = useForm(formOptions);
-  const debouncedStartDate = useDebounce(
-    new Date(getValues("startDate")).getTime(),
-    500
-  );
-  const debouncedEndDate = useDebounce(
-    new Date(getValues("endDate")).getTime(),
-    500
-  );
-  const debouncedFundGoal = useDebounce(getValues("fundGoal"), 500);
+    handleDate,
+    handleTokenSelect,
+    handleSubmit,
+    register,
+  } = useCreateForm();
 
-  const isEnabled =
-    !!debouncedFundGoal && !!debouncedStartDate && !!debouncedEndDate;
-
-  const { config } = usePrepareContractWrite({
-    address,
-    abi,
-    functionName: "launch",
-    args: [
-      debouncedFundGoal,
-      debouncedStartDate?.toString(),
-      debouncedEndDate?.toString(),
-    ],
-    enabled: isEnabled,
-  });
-
-  const { write } = useContractWrite({
-    ...config,
-    onSuccess() {
-      console.log("launch");
-    },
-  });
-
-  const onSubmit = (data) => {
-    write?.();
-    console.log("POST:", data);
-    const nextMinute = Date.now() + 1000 * 60;
-    const nextHour = Date.now() + 1000 * 60 * 60;
-
-    const testData = {
-      title: "My campaign",
-      subtitle: "An amazing campaign",
-      story: "This is the long short story: We need the money",
-      startDate: new Date(nextMinute),
-      endDate: new Date(nextHour),
-      image: "image.png",
-      video: "video.mp4",
-      goal: [
+  const postData = async (formData) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`,
         {
-          token: "637e538f6e0eb6be40e2790f",
-          amount: "100",
-        },
-      ],
-    };
-
-    fetch("http://localhost:10000/api/v1/campaigns", {
-      method: "POST",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      // },
-      body: JSON.stringify(testData),
-    })
-      .then((response) => response.json())
-      .then((response) => console.log(JSON.stringify(response)));
-
-    reset();
+          ...formData,
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const testApi = async () => {
-    const res = await fetch("http://localhost:10000/api/v1/health");
-    console.log(res);
-  };
+  const { write, isLoading } = useLaunch(
+    getValues(START_DATE),
+    getValues(END_DATE),
+    getValues(FUND_GOAL),
+    getValues(),
+    postData
+  );
 
-  const handleDate = (field, date) => {
-    setValue(field, date, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
+  const onSubmit = () => {
+    write?.();
   };
 
   return (
     <Container>
       <Title>Create New Project</Title>
-      <button onClick={() => testApi()}>TEST APIS</button>
+
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          label="Project Title"
-          name="title"
-          {...register("title")}
-          type="text"
+        <Input
+          {...register(TITLE)}
           error={errors?.title}
-        />
-        <input
-          id="subtitle"
-          label="Subtitle"
-          name="subtitle"
-          {...register("subtitle")}
+          label="Project Title"
+          name={TITLE}
           type="text"
+        />
+        <Input
+          {...register(SUBTITLE)}
           error={errors?.subtitle}
-        />
-        <input
-          id="story"
-          label="Description / Story"
-          name="story"
-          {...register("story")}
+          label="Subtitle"
+          name={SUBTITLE}
           type="text"
+        />
+        <Input
+          {...register(STORY)}
           error={errors?.story}
+          label="Description / Story"
+          name={STORY}
+          type="text"
         />
         <Select
-          type="text"
-          name="token"
-          label="Token"
-          id="token"
-          register={register}
+          {...register(TOKEN)}
           error={errors?.token}
+          label="Token"
+          name={TOKEN}
+          type="text"
+          onChange={handleTokenSelect}
           options={[
             { value: "USD", name: "USD" },
             { value: "BTC", name: "BTC" },
@@ -162,37 +92,34 @@ const Create = () => {
             { value: "EUR", name: "EUR" },
           ]}
         />
-        <input
-          label="Fund Goal"
-          name="fundGoal"
-          id="fundGoal"
-          {...register("fundGoal")}
+        <Input
+          {...register(FUND_GOAL)}
           error={errors?.fundGoal}
+          label="Fund Goal"
+          name={FUND_GOAL}
         />
         <br />
         <h2>Dates</h2>
-        <input
-          type="date"
-          label="Start Date"
-          name="startDate"
-          {...register("startDate")}
-          id="startDate"
-          onChange={(event) => handleDate("startDate", event.target.value)}
+        <Input
+          {...register(START_DATE)}
           error={errors?.startDate}
-        />
-        <input
+          label="Start Date"
+          name={START_DATE}
+          onChange={(event) => handleDate(START_DATE, event.target.value)}
           type="date"
-          name="endDate"
-          label="End Date"
-          id="endDate"
-          {...register("endDate")}
-          onChange={(event) => handleDate("endDate", event.target.value)}
+        />
+        <Input
+          {...register(END_DATE)}
           error={errors?.endDate}
+          label="End Date"
+          name={END_DATE}
+          onChange={(event) => handleDate(END_DATE, event.target.value)}
+          type="date"
         />
         <br />
-        <button type="submit" disabled={!write}>
+        <Button type="submit" disabled={!write || isLoading}>
           Create
-        </button>
+        </Button>
       </Form>
     </Container>
   );
