@@ -1,73 +1,89 @@
-import Button from "../../components/button/button";
-import Input from "../../components/input/input";
-import Select from "../../components/select/select";
-import { Container, Form, Label, Title } from "./create.styles";
-import { useForm } from "react-hook-form";
-import { number, object, string, date, ref } from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { useLaunch } from "../../hooks/useLaunch";
+import { useCreateForm } from "../../hooks/useCreateForm";
+import { Select, Input, Button } from "../../components";
+
+import {
+  START_DATE,
+  END_DATE,
+  FUND_GOAL,
+  TITLE,
+  SUBTITLE,
+  STORY,
+  TOKEN,
+} from "../../constants";
+
+import { Container, Form, Title } from "./create.styles";
 
 const Create = () => {
-  const validationSchema = object().shape({
-    projectName: string().required(),
-    subtitle: string().required(),
-    category: object().required(),
-    description: string().required(),
-    currency: object().required(),
-    fundGoal: number().required(),
-    startDate: date()
-      .required()
-      .min(new Date(), "Created date can not be future"),
-    endDate: date()
-      .required()
-      .min(ref("startDate"), "End date should be after start date"),
-  });
-
   const {
+    errors,
+    getValues,
+    handleDate,
+    handleTokenSelect,
     handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {},
-    mode: "onChange",
-  });
+    register,
+  } = useCreateForm();
 
-  const onSubmit = (data) => {
-    console.log("POST", data);
-    reset();
+  const postData = async (formData) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`,
+        {
+          ...formData,
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const { write, isLoading } = useLaunch(
+    getValues(START_DATE),
+    getValues(END_DATE),
+    getValues(FUND_GOAL),
+    getValues(),
+    postData
+  );
+
+  const onSubmit = () => {
+    write?.();
   };
 
   return (
     <Container>
       <Title>Create New Project</Title>
+
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="projectName">Project Name</Label>
         <Input
+          {...register(TITLE)}
+          error={errors?.title}
+          label="Project Title"
+          name={TITLE}
           type="text"
-          name="projectName"
-          id="projectName"
-          error={errors?.projectName}
         />
-        <Label htmlFor="subtitle">Subtitle</Label>
         <Input
-          type="text"
-          name="subtitle"
-          id="subtitle"
+          {...register(SUBTITLE)}
           error={errors?.subtitle}
-        />
-        <Label htmlFor="description">Description</Label>
-        <Input
-          type="text-area"
-          name="description"
-          id="description"
-          error={errors?.description}
-        />
-        <Label htmlFor="token">Token</Label>
-        <Select
+          label="Subtitle"
+          name={SUBTITLE}
           type="text"
-          name="token"
-          id="token"
+        />
+        <Input
+          {...register(STORY)}
+          error={errors?.story}
+          label="Description / Story"
+          name={STORY}
+          type="text"
+        />
+        <Select
+          {...register(TOKEN)}
           error={errors?.token}
+          label="Token"
+          name={TOKEN}
+          type="text"
+          onChange={handleTokenSelect}
           options={[
             { value: "USD", name: "USD" },
             { value: "BTC", name: "BTC" },
@@ -76,30 +92,34 @@ const Create = () => {
             { value: "EUR", name: "EUR" },
           ]}
         />
-        <Label htmlFor="fundGoal">Fund Goal</Label>
         <Input
-          type="number"
-          name="fundGoal"
-          id="fundGoal"
+          {...register(FUND_GOAL)}
           error={errors?.fundGoal}
+          label="Fund Goal"
+          name={FUND_GOAL}
         />
-        <p>Dates</p>
-        <Label htmlFor="startDate">Start Date</Label>
+        <br />
+        <h2>Dates</h2>
         <Input
-          type="date"
-          name="startDate"
-          id="startDate"
+          {...register(START_DATE)}
           error={errors?.startDate}
-        />
-
-        <Label htmlFor="endDate">End Date</Label>
-        <Input
+          label="Start Date"
+          name={START_DATE}
+          onChange={(event) => handleDate(START_DATE, event.target.value)}
           type="date"
-          name="endDate"
-          id="endDate"
-          error={errors?.endDate}
         />
-        <Button type="submit">Create</Button>
+        <Input
+          {...register(END_DATE)}
+          error={errors?.endDate}
+          label="End Date"
+          name={END_DATE}
+          onChange={(event) => handleDate(END_DATE, event.target.value)}
+          type="date"
+        />
+        <br />
+        <Button type="submit" disabled={!write || isLoading}>
+          Create
+        </Button>
       </Form>
     </Container>
   );

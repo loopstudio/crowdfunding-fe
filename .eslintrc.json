@@ -3,5 +3,8 @@
   "plugins": ["testing-library"],
   "env": {
     "jest": true
+  },
+  "rules": {
+    "no-unused-vars": "warn"
   }
 }
