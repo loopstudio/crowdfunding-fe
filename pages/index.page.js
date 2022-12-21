@@ -34,6 +34,12 @@ export default function Home() {
             </div>
           </Link>
 
+          <Link href="/my-projects">
+            <div className={styles.card}>
+              <h2>my projects &rarr;</h2>
+            </div>
+          </Link>
+
           <Link href="/create">
             <div className={styles.card}>
               <h2>create &rarr;</h2>
