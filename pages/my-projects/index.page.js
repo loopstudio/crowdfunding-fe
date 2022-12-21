@@ -57,7 +57,7 @@ const MyProjects = () => {
 
   const getProjects = () => {
     setLoading(true);
-    const result = setProjectsList(result); //fetch to API
+    const result = setProjectsList(result); //FIXME interact with API when endpoint is ready
     setProjectsList(examplelist);
     setLoading(false);
   };
