@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { getFormattedDate } from "../../utils/date";
 
 import { Button, ProgressBar } from "../../components";
+import { getFormattedDate } from "../../utils/date";
+import { getProgressPercentage } from "../../utils/percentage";
+import { CAMPAIGNS } from "../../constants/queries";
 import { Card, Container, Text } from "./projects.styles";
 
 const ProjectsList = () => {
   const { data: campaigns, isLoading } = useQuery({
-    queryKey: ["campaigns"],
+    queryKey: [CAMPAIGNS],
     queryFn: async () => {
       try {
         const res = await axios.get(
@@ -15,7 +17,7 @@ const ProjectsList = () => {
         );
         return res.data.data;
       } catch (error) {
-        console.log(error);
+        console.log(`Error querying campaigns: ${error}`);
       }
     },
   });
@@ -31,10 +33,10 @@ const ProjectsList = () => {
             <Text>Expiration date: {getFormattedDate(campaign.endDate)}</Text>
             <Text>Goal: ${campaign.goal[0].amount}</Text>
             <ProgressBar
-              percentage={
-                (campaign.currentAmount[0].amount / campaign.goal[0].amount) *
-                100
-              }
+              percentage={getProgressPercentage(
+                campaign.currentAmount[0].amount,
+                campaign.goal[0].amount
+              )}
             />
             <Button>Pledge</Button>
           </Card>
