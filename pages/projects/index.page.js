@@ -1,15 +1,21 @@
+import { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import { Button, ProgressBar } from "../../components";
 import { getFormattedDate } from "../../utils/date";
 import { getProgressPercentage } from "../../utils/percentage";
 import { QUERIES } from "../../constants";
+import loopTokenConfig from "../../loopToken.config.json";
+import crowdfundingConfig from "../../crowdfunding.config.json";
 import { Card, Container, Text } from "./projects.styles";
 
 const ProjectsList = () => {
+  const { abi } = loopTokenConfig;
+  const { abi: cfAbi } = crowdfundingConfig;
   const { data: campaigns, isLoading } = useQuery({
-    queryKey: [QUERIES.campaings],
+    queryKey: [QUERIES.campaigns],
     queryFn: async () => {
       try {
         const res = await axios.get(
@@ -21,6 +27,40 @@ const ProjectsList = () => {
       }
     },
   });
+
+  const { config } = usePrepareContractWrite({
+    address: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    abi,
+    functionName: "approve",
+    args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, 2021],
+  });
+
+  const { write } = useContractWrite({
+    ...config,
+    onSuccess() {
+      cfWrite?.();
+    },
+  });
+
+  useEffect(() => {}, []);
+
+  const { config: cfConfig } = usePrepareContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: cfAbi,
+    functionName: "pledge",
+    args: ["0x1", 123],
+  });
+
+  const { write: cfWrite } = useContractWrite({
+    ...cfConfig,
+    onSuccess() {
+      console.log("success");
+    },
+  });
+
+  const handleClick = () => {
+    write?.();
+  };
 
   return (
     <Container>
@@ -38,7 +78,7 @@ const ProjectsList = () => {
                 campaign.goal[0].amount
               )}
             />
-            <Button>Pledge</Button>
+            <Button onClick={handleClick}>Pledge</Button>
           </Card>
         ))
       )}
