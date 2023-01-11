@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
 import { useLaunch } from "../../hooks/useLaunch";
 import { useCreateForm } from "../../hooks/useCreateForm";
+import { formatSelectOptions } from "../../utils/select";
 import { Select, Input, Button } from "../../components";
 
 import {
@@ -11,6 +14,7 @@ import {
   SUBTITLE,
   STORY,
   TOKEN,
+  QUERIES,
 } from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
@@ -30,7 +34,16 @@ const Create = () => {
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`,
         {
-          ...formData,
+          title: formData.title,
+          subtitle: formData.subtitle,
+          startDate: new Date(formData.startDate).getTime(),
+          endDate: new Date(formData.endDate).getTime(),
+          goal: [
+            {
+              amount: Number(formData.fundGoal),
+              tokenAddress: formData.token,
+            },
+          ],
         }
       );
       console.log(data);
@@ -38,6 +51,20 @@ const Create = () => {
       console.error(error);
     }
   };
+
+  const { data: tokens, isLoading: isTokensLoading } = useQuery({
+    queryKey: [QUERIES.tokens],
+    queryFn: async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/tokens`
+        );
+        return res.data.data;
+      } catch (error) {
+        console.log(`Error querying campaigns: ${error}`);
+      }
+    },
+  });
 
   const { write, isLoading } = useLaunch(
     getValues(START_DATE),
@@ -82,15 +109,10 @@ const Create = () => {
           error={errors?.token}
           label="Token"
           name={TOKEN}
+          disabled={isTokensLoading}
           type="text"
           onChange={handleTokenSelect}
-          options={[
-            { value: "USD", name: "USD" },
-            { value: "BTC", name: "BTC" },
-            { value: "ETH", name: "ETH" },
-            { value: "NGN", name: "NGN" },
-            { value: "EUR", name: "EUR" },
-          ]}
+          options={formatSelectOptions(tokens)}
         />
         <Input
           {...register(FUND_GOAL)}

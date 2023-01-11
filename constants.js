@@ -6,3 +6,8 @@ export const TITLE = "title";
 export const SUBTITLE = "subtitle";
 export const STORY = "story";
 export const TOKEN = "token";
+
+export const QUERIES = {
+  campaigns: "campaigns",
+  tokens: "tokens",
+};
