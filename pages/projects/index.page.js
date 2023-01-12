@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Button, ProgressBar } from "../../components";
 import { getFormattedDate } from "../../utils/date";
 import { getProgressPercentage } from "../../utils/percentage";
-import { CAMPAIGNS } from "../../constants/queries";
+import { QUERIES } from "../../constants";
 import { Card, Container, Text } from "./projects.styles";
 
 const ProjectsList = () => {
   const { data: campaigns, isLoading } = useQuery({
-    queryKey: [CAMPAIGNS],
+    queryKey: [QUERIES.campaings],
     queryFn: async () => {
       try {
         const res = await axios.get(
