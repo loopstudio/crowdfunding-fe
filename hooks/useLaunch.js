@@ -1,7 +1,7 @@
 import {
-  usePrepareContractWrite,
-  useContractWrite,
-  useWaitForTransaction,
+    usePrepareContractWrite,
+    useContractWrite,
+    useWaitForTransaction,
 } from "wagmi";
 
 import { useDebounce } from "./useDebounce";
@@ -9,39 +9,47 @@ import crowdfundingConfig from "../crowdfunding.config.json";
 import { LAUNCH } from "../constants";
 
 export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
-  const { abi } = crowdfundingConfig;
-  const address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+    const { abi } = crowdfundingConfig;
+    const address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
-  const debouncedStartDate = useDebounce(new Date(startDate).getTime(), 500);
-  const debouncedEndDate = useDebounce(new Date(endDate).getTime(), 500);
-  const debouncedFundGoal = useDebounce(fundGoal, 500);
+    const debouncedStartDate = useDebounce(
+        Math.floor(new Date(startDate).getTime() / 1000),
+        500
+    );
+    const debouncedEndDate = useDebounce(
+        Math.floor(new Date(endDate).getTime() / 1000),
+        500
+    );
+    const debouncedFundGoal = useDebounce(fundGoal, 500);
 
-  const isEnabled =
-    !!debouncedFundGoal && !!debouncedStartDate && !!debouncedEndDate;
+    const isEnabled =
+        !!debouncedFundGoal && !!debouncedStartDate && !!debouncedEndDate;
 
-  const { config } = usePrepareContractWrite({
-    address,
-    abi,
-    functionName: LAUNCH,
-    args: [
-      debouncedFundGoal,
-      debouncedStartDate?.toString(),
-      debouncedEndDate?.toString(),
-    ],
-    enabled: isEnabled,
-  });
+    console.log(debouncedEndDate.toString(), debouncedStartDate);
 
-  const { data, write } = useContractWrite({
-    ...config,
-    onSuccess() {
-      console.log(LAUNCH);
-      postData(formData);
-    },
-  });
+    const { config } = usePrepareContractWrite({
+        address,
+        abi,
+        functionName: LAUNCH,
+        args: [
+            debouncedFundGoal,
+            debouncedStartDate?.toString(),
+            debouncedEndDate?.toString(),
+        ],
+        enabled: isEnabled,
+    });
 
-  const { isLoading } = useWaitForTransaction({
-    hash: data?.hash,
-  });
+    const { data, write } = useContractWrite({
+        ...config,
+        onSuccess() {
+            console.log(LAUNCH);
+            postData(formData);
+        },
+    });
 
-  return { write, isLoading };
+    const { isLoading } = useWaitForTransaction({
+        hash: data?.hash,
+    });
+
+    return { write, isLoading };
 };
