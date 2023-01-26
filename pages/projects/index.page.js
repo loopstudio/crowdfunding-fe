@@ -1,14 +1,16 @@
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 import { ACCESS_TOKEN, PLEDGE, APPROVE } from "../../constants";
-import { Button, ProgressBar } from "../../components";
+import {  ProgressBar } from "../../components";
 import { getFormattedDate } from "../../utils/date";
 import { getProgressPercentage } from "../../utils/percentage";
 import loopTokenConfig from "../../loopToken.config.json";
 import crowdfundingConfig from "../../crowdfunding.config.json";
 import { Card, Container, Text } from "./projects.styles";
+
 
 const ProjectsList = () => {
   const { abi } = loopTokenConfig;
@@ -90,7 +92,8 @@ const ProjectsList = () => {
                 campaign.goal[0].amount
               )}
             />
-            <Button onClick={handleClick}>Pledge</Button>
+            <Link href={`/pledge/${campaign._id}`}>Pledge</Link>
+            {/* // <Button onClick={handleClick}>Pledge</Button> */}
           </Card>
         ))
       )}
