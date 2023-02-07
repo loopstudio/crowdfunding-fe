@@ -1,5 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
+
+import smallLogo from "../assets/small-logo.svg";
+import bigLogo from "../assets/big-logo.svg";
 
 import styles from "../styles/Home.module.css";
 
@@ -13,21 +17,37 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>CROWD FOUNDING</h1>
+        <div className={styles.header}>
+          <div className={styles.row}>
+            <Image priority src={smallLogo} height={34} width={39} alt="SmallLogo" />
+            <p>Crowdfunding</p>
+          </div>
+
+          <div className={styles.row}>
+            <Link href="/discover">
+              <p>Discover</p>
+            </Link>
+            <p>|</p>
+            <Link href="/login">
+              <p>Login</p>
+            </Link>
+            <p>|</p>
+            <Link href="/signup">
+              <p>Sign Up</p>
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.title}>
+          <p>CROWD</p>
+          <p>FOUNDING</p>
+        </div>
+
+        <div className={styles.logo}>
+          <Image priority src={bigLogo} height={580} width={661} alt="Logo" />
+        </div>
 
         <div className={styles.grid}>
-          <Link href="/login">
-            <div className={styles.card}>
-              <h2>login &rarr;</h2>
-            </div>
-          </Link>
-
-          <Link href="/signup">
-            <div className={styles.card}>
-              <h2>signup &rarr;</h2>
-            </div>
-          </Link>
-
           <Link href="/account">
             <div className={styles.card}>
               <h2>account &rarr;</h2>
@@ -43,12 +63,6 @@ export default function Home() {
           <Link href="/create">
             <div className={styles.card}>
               <h2>create &rarr;</h2>
-            </div>
-          </Link>
-
-          <Link href="/discover">
-            <div className={styles.card}>
-              <h2>discover &rarr;</h2>
             </div>
           </Link>
 

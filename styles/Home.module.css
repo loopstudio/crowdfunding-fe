@@ -1,14 +1,36 @@
 .container {
-  padding: 0 2rem;
+  background-color: black;
 }
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 0 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+
+.header {
+  display: flex;
+  padding: 12px 18px 12px 18px;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(30, 30, 30);
+  border-bottom: .1px solid #FFFFFF;
+  align-items: center;
+}
+
+.header p {
+  font-size: 16;
+  font-weight: 400;
+  color: #D0D0D0;
+  margin: 0 6px 0 6px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
@@ -28,26 +50,23 @@
   flex-grow: 1;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
 .title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+  margin-left: 0;
+  margin-top: 133px;
+  padding-top: 100px;
+  width: 50%;
+  height: 391px;
+  background-color: rgba(255, 255, 255, 0.06);
+  justify-content: space-around;
+  backdrop-filter: blur(10px);
+  z-index: 1;
 }
 
-.title,
-.description {
-  text-align: center;
+.title p {
+  color: #B1B1B1;
+  margin: 30px 0 0 60px;
+  font-size: 50px;
+  font-weight: 400;
 }
 
 .description {
@@ -67,6 +86,7 @@
 
 .grid {
   display: flex;
+  margin-top: 200px;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -104,8 +124,12 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  position: absolute;
+  align-self: center;
+  margin-top: 130px;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
 }
 
 @media (max-width: 600px) {
@@ -122,8 +146,5 @@
   }
   .code {
     background: #111;
-  }
-  .logo img {
-    filter: invert(1);
   }
 }
