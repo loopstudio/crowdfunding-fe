@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useAccount, useSignMessage } from "wagmi";
 
 import { ACCESS_TOKEN } from "../../constants";
-import { ConnectWallet, Button } from "../../components";
+import { ConnectWallet } from "../../components";
 import { Container, StyledButton } from "./login.styles";
 
 const Login = () => {
