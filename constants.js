@@ -6,8 +6,12 @@ export const TITLE = "title";
 export const SUBTITLE = "subtitle";
 export const STORY = "story";
 export const TOKEN = "token";
+export const USERNAME = "username";
+export const EMAIL = "email";
+export const ACCESS_TOKEN = "accessToken";
 
 export const QUERIES = {
   campaigns: "campaigns",
   tokens: "tokens",
+  nonce: "nonce",
 };
