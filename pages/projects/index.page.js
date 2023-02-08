@@ -11,7 +11,6 @@ import loopTokenConfig from "../../loopToken.config.json";
 import crowdfundingConfig from "../../crowdfunding.config.json";
 import { Card, Container, Text } from "./projects.styles";
 
-
 const ProjectsList = () => {
   const { abi } = loopTokenConfig;
   const { abi: cfAbi } = crowdfundingConfig;
@@ -47,10 +46,6 @@ const ProjectsList = () => {
       console.log("success");
     },
   });
-
-  const handleClick = () => {
-    write?.();
-  };
 
   const fetchCampaigns = async () => {
     try {
@@ -93,7 +88,6 @@ const ProjectsList = () => {
               )}
             />
             <Link href={`/pledge/${campaign._id}`}>Pledge</Link>
-            {/* // <Button onClick={handleClick}>Pledge</Button> */}
           </Card>
         ))
       )}

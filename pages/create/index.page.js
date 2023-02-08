@@ -33,7 +33,6 @@ const Create = () => {
 
   const postData = (formData) => {
     try {
-      console.log(formData);
       axios.post(
         `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`,
         {
