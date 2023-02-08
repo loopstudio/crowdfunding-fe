@@ -1,25 +1,27 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 import { useLaunch } from "../../hooks/useLaunch";
 import { useCreateForm } from "../../hooks/useCreateForm";
 import { formatSelectOptions } from "../../utils/select";
 import { Select, Input, Button } from "../../components";
-
 import {
-  START_DATE,
+  ACCESS_TOKEN,
   END_DATE,
   FUND_GOAL,
-  TITLE,
-  SUBTITLE,
+  START_DATE,
   STORY,
+  SUBTITLE,
+  TITLE,
   TOKEN,
-  QUERIES,
 } from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
 
 const Create = () => {
+  const [tokens, setTokens] = useState([]);
+  const [isTokensLoading, setIsTokensLoading] = useState(false);
+
   const {
     errors,
     getValues,
@@ -31,36 +33,50 @@ const Create = () => {
 
   const postData = (formData) => {
     try {
-      axios.post(`${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`, {
-        title: formData.title,
-        subtitle: formData.subtitle,
-        startDate: Math.floor(new Date(formData.startDate).getTime() / 1000),
-        endDate: Math.floor(new Date(formData.endDate).getTime() / 1000),
-        goal: [
-          {
-            amount: Number(formData.fundGoal),
-            tokenAddress: formData.token,
+      console.log(formData);
+      axios.post(
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns`,
+        {
+          title: formData.title,
+          subtitle: formData.subtitle,
+          // startDate: Math.floor(new Date(formData.startDate).getTime() / 1000),
+          // endDate: Math.floor(new Date(formData.endDate).getTime() / 1000),
+          startDate: Math.floor(new Date(formData.startDate).getTime()),
+          endDate: Math.floor(new Date(formData.endDate).getTime()),
+          goal: [
+            {
+              amount: Number(formData.fundGoal),
+              tokenAddress: formData.token,
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
           },
-        ],
-      });
+        }
+      );
     } catch (error) {
       console.error(error);
     }
   };
 
-  const { data: tokens, isLoading: isTokensLoading } = useQuery({
-    queryKey: [QUERIES.tokens],
-    queryFn: async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/tokens`
-        );
-        return res.data.data;
-      } catch (error) {
-        console.log(`Error querying campaigns: ${error}`);
-      }
-    },
-  });
+  const fetchTokens = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/tokens`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+          },
+        }
+      );
+      setTokens(res.data.data);
+    } catch (error) {
+      console.log(`Error querying campaigns: ${error}`);
+    }
+    setIsTokensLoading(false);
+  };
 
   const { write } = useLaunch(
     getValues(START_DATE),
@@ -73,6 +89,11 @@ const Create = () => {
   const onSubmit = () => {
     write?.();
   };
+
+  useEffect(() => {
+    setIsTokensLoading(true);
+    fetchTokens();
+  }, []);
 
   return (
     <Container>
