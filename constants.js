@@ -9,6 +9,8 @@ export const TOKEN = "token";
 export const USERNAME = "username";
 export const EMAIL = "email";
 export const ACCESS_TOKEN = "accessToken";
+export const PLEDGE = "pledge";
+export const APPROVE = "approve";
 
 export const QUERIES = {
   campaigns: "campaigns",

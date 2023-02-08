@@ -31,7 +31,7 @@ const SignUp = () => {
   const login = async (address, data) => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/api/v1/auth/login`,
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/login`,
         {
           publicAddress: address,
           signature: data,
@@ -63,14 +63,11 @@ const SignUp = () => {
 
     const {
       data: { data },
-    } = await axios.post(
-      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/api/v1/users`,
-      {
-        username,
-        email,
-        publicAddress: address,
-      }
-    );
+    } = await axios.post(`${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/users`, {
+      username,
+      email,
+      publicAddress: address,
+    });
 
     setNonce(data.nonce);
 

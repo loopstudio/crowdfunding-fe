@@ -1,26 +1,78 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
+import { ACCESS_TOKEN, PLEDGE, APPROVE } from "../../constants";
 import { Button, ProgressBar } from "../../components";
 import { getFormattedDate } from "../../utils/date";
 import { getProgressPercentage } from "../../utils/percentage";
-import { QUERIES } from "../../constants";
+import loopTokenConfig from "../../loopToken.config.json";
+import crowdfundingConfig from "../../crowdfunding.config.json";
 import { Card, Container, Text } from "./projects.styles";
 
 const ProjectsList = () => {
-  const { data: campaigns, isLoading } = useQuery({
-    queryKey: [QUERIES.campaings],
-    queryFn: async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=0&size=20`
-        );
-        return res.data.data;
-      } catch (error) {
-        console.log(`Error querying campaigns: ${error}`);
-      }
+  const { abi } = loopTokenConfig;
+  const { abi: cfAbi } = crowdfundingConfig;
+  const [campaigns, setCampaigns] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { config } = usePrepareContractWrite({
+    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    abi,
+    functionName: APPROVE,
+    args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT, 2021],
+  });
+
+  const { write } = useContractWrite({
+    ...config,
+    onSuccess() {
+      cfWrite?.();
     },
   });
+
+  useEffect(() => {}, []);
+
+  const { config: cfConfig } = usePrepareContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
+    abi: cfAbi,
+    functionName: PLEDGE,
+    args: ["0x1", 123],
+  });
+
+  const { write: cfWrite } = useContractWrite({
+    ...cfConfig,
+    onSuccess() {
+      console.log("success");
+    },
+  });
+
+  const handleClick = () => {
+    write?.();
+  };
+
+  const fetchCampaigns = async () => {
+    try {
+      const {
+        data: { data },
+      } = await axios.get(
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=0&size=20`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+          },
+        }
+      );
+      setCampaigns(data);
+    } catch (error) {
+      console.log(`Error querying campaigns: ${error}`);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchCampaigns();
+  }, []);
 
   return (
     <Container>
@@ -38,7 +90,7 @@ const ProjectsList = () => {
                 campaign.goal[0].amount
               )}
             />
-            <Button>Pledge</Button>
+            <Button onClick={handleClick}>Pledge</Button>
           </Card>
         ))
       )}
