@@ -1,13 +1,28 @@
+import { useEffect, useRef } from "react";
+
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
 import smallLogo from "../assets/small-logo.svg";
 import bigLogo from "../assets/big-logo.svg";
+import ellipse from "../assets/ellipse.svg";
+
+import { Project } from "../components/project/project";
+import { examplelist } from "../utils/exampleList";
+import { scrollElements } from "../utils/scrollElements";
 
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const sliderRecently = useRef();
+  const sliderArts = useRef();
+
+  useEffect(() => {
+    scrollElements(sliderRecently);
+    scrollElements(sliderArts);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,14 +31,42 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+
+          <div className={styles.upellipse}>
+            <Image
+              priority
+              src={ellipse}
+              height={1082}
+              width={1393}
+              alt="upEllipse"
+            />
+          </div>
+
+          <div className={styles.downellipse}>
+            <Image
+              priority
+              src={ellipse}
+              height={1082}
+              width={1393}
+              alt="downEllipse"
+            />
+          </div>
+
+
       <main className={styles.main}>
         <div className={styles.header}>
-          <div className={styles.row}>
-            <Image priority src={smallLogo} height={34} width={39} alt="SmallLogo" />
+          <div className={styles.header__row}>
+            <Image
+              priority
+              src={smallLogo}
+              height={34}
+              width={39}
+              alt="SmallLogo"
+            />
             <p>Crowdfunding</p>
           </div>
 
-          <div className={styles.row}>
+          <div className={styles.header__row}>
             <Link href="/discover">
               <p>Discover</p>
             </Link>
@@ -38,40 +81,55 @@ export default function Home() {
           </div>
         </div>
 
+        <div className={styles.logo}>
+          <Image
+            src={bigLogo}
+            alt="Logo"
+            fill
+          />
+        </div>
+        
         <div className={styles.title}>
           <p>CROWD</p>
           <p>FOUNDING</p>
         </div>
 
-        <div className={styles.logo}>
-          <Image priority src={bigLogo} height={580} width={661} alt="Logo" />
-        </div>
-
         <div className={styles.grid}>
-          <Link href="/account">
-            <div className={styles.card}>
-              <h2>account &rarr;</h2>
+          <div className={styles.grid__buttons}>
+            <div>
+              <input
+                type="text"
+                className={styles.box__search}
+                name="search"
+                value="Search  Project"
+                id="search"
+                readOnly
+              />
+              <input
+                type="button"
+                className={styles.box}
+                value="Filter"
+                readOnly
+              />
             </div>
-          </Link>
+            <Link href="/create" className={styles.box__project}>
+              + New Project
+            </Link>
+          </div>
 
-          <Link href="/my-projects">
-            <div className={styles.card}>
-              <h2>my projects &rarr;</h2>
-            </div>
-          </Link>
+          <p className={styles.grid_titles}>Recently launched projects</p>
 
-          <Link href="/create">
-            <div className={styles.card}>
-              <h2>create &rarr;</h2>
-            </div>
-          </Link>
-
-          <Link href="/projects">
-            <div className={styles.card}>
-              <h2>projects &rarr;</h2>
-              <p>/[author]/[projectId]</p>
-            </div>
-          </Link>
+          <div className={styles.projects} ref={sliderRecently}>
+            {examplelist.map((element, key) => (
+              <Project project={element} key={key} />
+            ))}
+          </div>
+          <p className={styles.grid_titles}>Arts & Crafts</p>
+          <div className={styles.projects} ref={sliderArts}>
+            {examplelist.map((element, key) => (
+              <Project project={element} key={key} />
+            ))}
+          </div>
         </div>
       </main>
     </div>
