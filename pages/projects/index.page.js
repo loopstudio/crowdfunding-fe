@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
-import { ACCESS_TOKEN, PLEDGE, APPROVE } from "../../constants";
-import { Button, ProgressBar } from "../../components";
-import { getFormattedDate } from "../../utils/date";
-import { getProgressPercentage } from "../../utils/percentage";
-import loopTokenConfig from "../../loopToken.config.json";
-import crowdfundingConfig from "../../crowdfunding.config.json";
+import loopTokenConfig from "loopToken.config.json";
+import crowdfundingConfig from "crowdfunding.config.json";
+import { getFormattedDate } from "utils/date";
+import { getProgressPercentage } from "utils/percentage";
+import { Button, ProgressBar } from "components";
+import { ACCESS_TOKEN, PLEDGE, APPROVE } from "constants";
+
 import { Card, Container, Text } from "./projects.styles";
 
 const ProjectsList = () => {

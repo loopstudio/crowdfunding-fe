@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Label } from "../../pages/create/create.styles";
+import { Label } from "pages/create/create.styles";
 
 export const Select = forwardRef(function SelectWithRef(
   { options, name, id, onChange, label, error, ...props },

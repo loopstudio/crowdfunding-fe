@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
 import {
   Card,
   CardProject,
@@ -12,7 +14,6 @@ import {
   Title,
   TitleContainer,
 } from "./my-projects.styles";
-import Link from "next/link";
 
 const examplelist = [
   {
