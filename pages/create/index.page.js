@@ -39,10 +39,8 @@ const Create = () => {
         {
           title: formData.title,
           subtitle: formData.subtitle,
-          // startDate: Math.floor(new Date(formData.startDate).getTime() / 1000),
-          // endDate: Math.floor(new Date(formData.endDate).getTime() / 1000),
-          startDate: Math.floor(new Date(formData.startDate).getTime()),
-          endDate: Math.floor(new Date(formData.endDate).getTime()),
+          startDate: Math.floor(new Date(formData.startDate).getTime() / 1000),
+          endDate: Math.floor(new Date(formData.endDate).getTime() / 1000),
           goal: [
             {
               amount: Number(formData.fundGoal),
