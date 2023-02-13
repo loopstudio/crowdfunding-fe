@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { useLaunch } from "../../hooks/useLaunch";
-import { useCreateForm } from "../../hooks/useCreateForm";
-import { formatSelectOptions } from "../../utils/select";
-import { Select, Input, Button } from "../../components";
+import { useLaunch } from "hooks/useLaunch";
+import { useCreateForm } from "hooks/useCreateForm";
+import { formatSelectOptions } from "utils/select";
+import { Select, Input, Button } from "components";
 import {
   ACCESS_TOKEN,
   END_DATE,
@@ -14,7 +14,7 @@ import {
   SUBTITLE,
   TITLE,
   TOKEN,
-} from "../../constants";
+} from "constants";
 
 import { Container, Form, Title } from "./create.styles";
 
