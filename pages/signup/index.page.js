@@ -130,7 +130,7 @@ const SignUp = () => {
             error={errors.email}
           />
           <Button type="submit" disabled={!isDirty || !isValid}>
-            Login with metamask
+            Sign up with metamask
           </Button>
         </Form>
       </Container>
