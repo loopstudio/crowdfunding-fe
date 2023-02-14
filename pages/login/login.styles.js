@@ -23,7 +23,7 @@ export const Container = styled.div`
   height: 521px;
 `;
 
-export const StyledButton = styled.button`
+export const StyledButton = styled(Button)`
   border: 1px solid #fff;
   background-color: transparent;
   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
