@@ -11,7 +11,6 @@ export const RightContent = styled.div`
   width: 30%;
   margin: 20px;
   height: 100vh;
-  border: 1px solid white;
 `;
 
 export const ImageContainer = styled.div`
@@ -48,4 +47,8 @@ export const Text = styled.p`
   font-size: 18px;
   line-height: 150%;
   color: #ffffff;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
 `;

@@ -1,6 +1,16 @@
+import axios from "axios";
+import ReactModal from "react-modal";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
-import { CAMPAIGNS } from "../../constants/queries";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { object, number } from "yup";
+
+import { ACCESS_TOKEN, PLEDGE_AMOUNT } from "../../constants";
+import { usePledge } from "../../hooks/usePledge";
+import { Button, ProgressBar, Input } from "../../components";
+import { getProgressPercentage } from "../../utils/percentage";
+
 import {
   Container,
   DescriptionBox,
@@ -10,28 +20,56 @@ import {
   RightContent,
   Text,
   Title,
+  ButtonsContainer,
 } from "./pledge.styles";
-import { Button, ProgressBar } from "../../components";
-import { getProgressPercentage } from "../../utils/percentage";
-import axios from "axios";
+
+const validationSchema = object().shape({
+  [PLEDGE_AMOUNT]: number().positive().min(1).required(),
+});
 
 const PledgePage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [campaign, setCampaign] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { data: campaign, isLoading } = useQuery({
-    queryKey: [CAMPAIGNS],
-    queryFn: async () => {
+  const {
+    formState: { errors, isValid, isDirty },
+    handleSubmit,
+    register,
+    getValues,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      [PLEDGE_AMOUNT]: 0,
+    },
+    mode: "onChange",
+  });
+
+  const { onSubmit } = usePledge(id, getValues(PLEDGE_AMOUNT));
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchCampaign = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaign/${id}`
+          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+            },
+          }
         );
-        return res.data.data;
+        setCampaign(res.data.data);
       } catch (error) {
         console.log(`Error querying campaign ${id}: ${error}`);
       }
-    },
-  });
+      setIsLoading(false);
+    };
+
+    fetchCampaign();
+  }, [id]);
 
   return (
     <div>
@@ -63,10 +101,41 @@ const PledgePage = () => {
             <Text>Revenue: ${campaign.fiatAmount}</Text>
             <Text>Pledged: </Text>
 
-            <Button> Pledge Now</Button>
+            <Button onClick={() => setIsModalOpen((prev) => !prev)}>
+              Pledge Now
+            </Button>
           </RightContent>
         </Container>
       )}
+
+      <ReactModal
+        isOpen={isModalOpen}
+        shouldCloseOnEsc
+        style={{
+          content: {
+            height: "200px",
+            backgroundColor: "black",
+            color: "white",
+            borderRadius: "10px",
+          },
+        }}
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            {...register(PLEDGE_AMOUNT)}
+            label="Amount"
+            name={PLEDGE_AMOUNT}
+            type="number"
+            error={errors[PLEDGE_AMOUNT]}
+          />
+          <ButtonsContainer>
+            <Button onClick={() => setIsModalOpen((prev) => !prev)}>
+              Cancel
+            </Button>
+            <Button disabled={!isDirty || !isValid}>Pledge</Button>
+          </ButtonsContainer>
+        </form>
+      </ReactModal>
     </div>
   );
 };

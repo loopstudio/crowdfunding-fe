@@ -2,6 +2,7 @@ import {
   usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
+  useContractEvent,
 } from "wagmi";
 
 import { useDebounce } from "./useDebounce";
@@ -47,6 +48,15 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
+  });
+
+  useContractEvent({
+    address,
+    abi,
+    eventName: "Launch",
+    listener(id, goal, creator, startDate, endDate) {
+      console.log(id, goal, creator, startDate, endDate);
+    },
   });
 
   return { write, isLoading };
