@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
 
 export const ProjectContainer = styled.div`
+  @media (max-width: 600px) {
+    margin: 0 0 50px 0;
+  }
   background-color: #1b1b1b;
-  margin: 0 42px 20px 0;
+  margin: 0 42px 50px 0;
   border: 1px solid white;
   z-index: 0
 `;

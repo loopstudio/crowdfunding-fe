@@ -1,42 +1,11 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-  background-color: black;
-  z-index: -2;
-`;
-
 export const Main = styled.main`
   min-height: 100vh;
   padding: 0 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-export const Header = styled.div`
-  display: flex;
-  padding: 12px 18px 12px 18px;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: rgba(30, 30, 30);
-  border-bottom: .1px solid #FFFFFF;
-  align-items: center;
-`;
-
-export const HeaderText = styled.p`
-  @media (max-width: 600px) {
-    font-size: 12px;
-  }
-  font: 400 16px 'Share Tech Mono';
-  color: #D0D0D0;
-  margin: 0 6px 0 6px;
-`;
-
-export const HeaderRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 
 export const TitleContainer = styled.div`
@@ -51,7 +20,6 @@ export const TitleContainer = styled.div`
   height: 391px;
   background-color: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(10px);
-  z-index: 1;
 `;
 
 export const Title = styled.p`
@@ -122,7 +90,6 @@ export const BoxSearch = styled.input`
   border: 1px solid white;
   font: 400 16px 'share-tech-mono';
   padding: 12px;
-  z-index: 0;
 `;
 
 export const BoxProject = styled.a`
@@ -136,7 +103,6 @@ export const BoxProject = styled.a`
   border: 1px solid white;
   font: 400 16px 'share-tech-mono';
   padding: 12px;
-  z-index: 0;
 `;
 
 export const BoxFilter = styled.input`
@@ -149,7 +115,6 @@ export const BoxFilter = styled.input`
   border: 1px solid white;
   font: 400 16px 'share-tech-mono';
   padding: 12px;
-  z-index: 0;
 `;
 
 export const ProjectContainer = styled.div`
@@ -165,25 +130,4 @@ export const ProjectContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
 }
-`;
-
-export const UpEllipse = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
-  position: absolute;
-  right: -50vw;
-  top: -102;
-  z-index: 0;
-`;
-
-
-export const DownEllipse = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
-  position: absolute;
-  top: 100vh;
-  left: -50vw;
-  z-index: 0;
 `;
