@@ -8,6 +8,11 @@ export const Background = styled.div`
   align-items: center;
 `;
 
+export const Img = styled.img`
+  width: 71.82px;
+  height: 63px;
+`;
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -38,8 +43,9 @@ export const Title = styled.h1`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 1px;
-  color: #fff;
-  border-right: ${(props) => (props.login ? '1px solid' : null)};
+  color: ${(props) => (props.link ? 'rgba(255, 255, 255, 0.42)' : '#fff')};
+  color: ${(props) => (props.isHere ? '#fff' : null)};
+  border-right: ${(props) => (props.login ? '1px solid #fff' : null)};
   padding-right: ${(props) => (props.login ? '10px' : null)};
 `;
 

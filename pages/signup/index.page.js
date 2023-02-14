@@ -8,12 +8,7 @@ import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 
-<<<<<<< HEAD
-import { Input, Button, ConnectWallet } from "components";
-import { USERNAME, EMAIL, ACCESS_TOKEN } from "constants";
-
-import { Container, Form, Title } from "./signup.styles";
-=======
+import logo from '../../assets/small-logo.svg';
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
 import { Input, Button, ConnectWallet } from '../../components';
 import {
@@ -22,8 +17,8 @@ import {
   Form,
   TitleContainer,
   Title,
+  Img,
 } from './signup.styles';
->>>>>>> 5b44218 (sign up styles)
 
 const validationSchema = object().shape({
   username: string().required(),
@@ -105,14 +100,19 @@ const SignUp = () => {
   return (
     <Background>
       <Container>
+        <Img src={logo} />
         <Title>Crowfunding</Title>
         <TitleContainer>
           <Link href={'/login'}>
-            <Title login>Login</Title>
+            <Title login link>
+              Login
+            </Title>
           </Link>
 
           <Link href={'/signup'}>
-            <Title>Sign Up</Title>
+            <Title link isHere>
+              Sign Up
+            </Title>
           </Link>
         </TitleContainer>
 
@@ -130,7 +130,7 @@ const SignUp = () => {
             error={errors.email}
           />
           <Button type="submit" disabled={!isDirty || !isValid}>
-            Submit
+            Login with metamask
           </Button>
         </Form>
       </Container>
