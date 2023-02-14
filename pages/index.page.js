@@ -8,9 +8,9 @@ import smallLogo from "../assets/small-logo.svg";
 import bigLogo from "../assets/big-logo.svg";
 import ellipse from "../assets/ellipse.svg";
 
-import { Project } from "../components/project/project";
-import { examplelist } from "../utils/exampleList";
-import { scrollElements } from "../utils/scrollElements";
+import { Project } from "components/project/project";
+import { examplelist } from "utils/exampleList";
+import { scrollElements } from "utils/scrollElements";
 
 import {
   Container,
@@ -108,7 +108,7 @@ export default function Home() {
 
         <Grid>
           <GridButtonsContainer>
-          <div>
+            <div>
               <BoxSearch
                 type="text"
                 name="search"

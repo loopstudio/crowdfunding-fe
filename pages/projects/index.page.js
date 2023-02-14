@@ -3,9 +3,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ACCESS_TOKEN } from "../../constants";
-import { ProgressBar, Button } from "../../components";
-import { getFormattedDate } from "../../utils/date";
-import { getProgressPercentage } from "../../utils/percentage";
+import { ProgressBar, Button } from "components";
+import { getFormattedDate } from "utils/date";
+import { getProgressPercentage } from "utils/percentage";
 
 import { Card, Container, Text } from "./projects.styles";
 

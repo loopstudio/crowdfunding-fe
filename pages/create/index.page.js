@@ -14,7 +14,7 @@ import {
   SUBTITLE,
   TITLE,
   TOKEN,
-} from "constants";
+} from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
 

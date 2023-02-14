@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form";
 import { object, number } from "yup";
 
 import { ACCESS_TOKEN, PLEDGE_AMOUNT } from "../../constants";
-import { usePledge } from "../../hooks/usePledge";
-import { Button, ProgressBar, Input } from "../../components";
-import { getProgressPercentage } from "../../utils/percentage";
+import { usePledge } from "hooks/usePledge";
+import { Button, ProgressBar, Input } from "components";
+import { getProgressPercentage } from "utils/percentage";
 
 import {
   Container,
