@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAccount, useSignMessage } from "wagmi";
 
-import { ACCESS_TOKEN } from "../../constants";
-import { ConnectWallet } from "../../components";
+import { ConnectWallet } from "components";
+import { ACCESS_TOKEN } from "constants";
+
 import { Container, StyledButton } from "./login.styles";
 
 const Login = () => {
