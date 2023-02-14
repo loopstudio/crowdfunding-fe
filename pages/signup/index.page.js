@@ -6,9 +6,7 @@ import { useAccount, useSignMessage } from 'wagmi';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Link from 'next/link';
 
-import logo from '../../assets/small-logo.svg';
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
 import { Input, Button, ConnectWallet } from '../../components';
 import {
@@ -17,8 +15,10 @@ import {
   Form,
   TitleContainer,
   Title,
-  Img,
 } from './signup.styles';
+import logo from '../../assets/small-logo.svg';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const validationSchema = object().shape({
   username: string().required(),
@@ -100,7 +100,7 @@ const SignUp = () => {
   return (
     <Background>
       <Container>
-        <Img src={logo} />
+        <Image src={logo} height={63} width={71.82} alt={'crowfunding logo'} />
         <Title>Crowfunding</Title>
         <TitleContainer>
           <Link href={'/login'}>
