@@ -10,7 +10,7 @@ import {
   FUND_GOAL,
   START_DATE,
   END_DATE,
-} from "../constants";
+} from "constants";
 
 const validationSchema = object().shape({
   [TITLE]: string().required(),

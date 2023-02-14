@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { USERNAME, EMAIL, ACCESS_TOKEN } from "../../constants";
-import { Input, Button, ConnectWallet } from "../../components";
+import { Input, Button, ConnectWallet } from "components";
+import { USERNAME, EMAIL, ACCESS_TOKEN } from "constants";
+
 import { Container, Form, Title } from "./signup.styles";
 
 const validationSchema = object().shape({
