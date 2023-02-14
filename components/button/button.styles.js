@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 // Chosen from:
 // https://getcssscan.com/css-buttons-examples
@@ -18,6 +18,7 @@ export const StyledButton = styled.button`
   font-weight: 500;
   line-height: 20px;
   list-style: none;
+  margin: 70px 0 0 0;
   padding: 6px 16px;
   position: relative;
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
