@@ -11,10 +11,16 @@ export const EMAIL = "email";
 export const ACCESS_TOKEN = "accessToken";
 export const PLEDGE = "pledge";
 export const APPROVE = "approve";
-export const PLEDGE_AMOUNT = 'pledgeAmount'
+export const PLEDGE_AMOUNT = "pledgeAmount";
 
 export const QUERIES = {
   campaigns: "campaigns",
   tokens: "tokens",
   nonce: "nonce",
+};
+
+export const EVENTS = {
+  approval: "Approval",
+  pledge: "Pledge",
+  launch: "Launch",
 };

@@ -1,6 +1,11 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useContractEvent,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 
-import { PLEDGE, APPROVE } from "./../constants";
+import { PLEDGE, APPROVE, EVENTS } from "./../constants";
 import { useDebounce } from "./useDebounce";
 
 import loopTokenConfig from "../loopToken.config.json";
@@ -16,13 +21,12 @@ export const usePledge = (id, pledgeAmount) => {
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT,
     abi,
     functionName: APPROVE,
-    args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT, debouncedPledgeAmount],
+    args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF, debouncedPledgeAmount],
   });
 
   const { write } = useContractWrite({
     ...config,
-    onSuccess(data) {
-      console.log("Success", data);
+    onSuccess() {
       cfWrite?.();
     },
   });
@@ -34,7 +38,7 @@ export const usePledge = (id, pledgeAmount) => {
     args: [id, debouncedPledgeAmount],
   });
 
-  const { write: cfWrite } = useContractWrite({
+  const { data, write: cfWrite } = useContractWrite({
     ...cfConfig,
   });
 
@@ -42,5 +46,27 @@ export const usePledge = (id, pledgeAmount) => {
     write?.();
   };
 
-  return { onSubmit };
+  useContractEvent({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT,
+    abi,
+    eventName: EVENTS.approval,
+    listener(owner, spender, value) {
+      console.log("APPROVAL:", owner, spender, value);
+    },
+  });
+
+  useContractEvent({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
+    abi: cfAbi,
+    eventName: EVENTS.pledge,
+    listener(id, pledger, amount) {
+      console.log("PLEDGE:", id, pledger, amount);
+    },
+  });
+
+  const { data: isTransactionComplete } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  return { onSubmit, isTransactionComplete };
 };

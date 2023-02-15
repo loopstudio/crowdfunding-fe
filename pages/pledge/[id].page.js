@@ -47,7 +47,10 @@ const PledgePage = () => {
     mode: "onChange",
   });
 
-  const { onSubmit } = usePledge(id, getValues(PLEDGE_AMOUNT));
+  const { onSubmit, isTransactionComplete } = usePledge(
+    id,
+    getValues(PLEDGE_AMOUNT)
+  );
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,6 +73,10 @@ const PledgePage = () => {
 
     fetchCampaign();
   }, [id]);
+
+  useEffect(() => {
+    if (isTransactionComplete) setIsModalOpen(false);
+  }, [isTransactionComplete]);
 
   return (
     <div>

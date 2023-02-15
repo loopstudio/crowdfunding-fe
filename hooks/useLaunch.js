@@ -7,7 +7,7 @@ import {
 
 import { useDebounce } from "./useDebounce";
 import crowdfundingConfig from "../crowdfunding.config.json";
-import { LAUNCH } from "../constants";
+import { LAUNCH, EVENTS } from "../constants";
 
 export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   const { abi } = crowdfundingConfig;
@@ -53,9 +53,9 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   useContractEvent({
     address,
     abi,
-    eventName: "Launch",
+    eventName: EVENTS.launch,
     listener(id, goal, creator, startDate, endDate) {
-      console.log(id, goal, creator, startDate, endDate);
+      console.log("LAUNCH:", id, goal, creator, startDate, endDate);
     },
   });
 
