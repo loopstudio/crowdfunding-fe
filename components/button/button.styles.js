@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
 
-// Chosen from:
-// https://getcssscan.com/css-buttons-examples
-
 export const StyledButton = styled.button`
   border: 1px solid #fff;
   background-color: transparent;
