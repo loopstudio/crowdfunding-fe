@@ -124,6 +124,8 @@ const PledgePage = () => {
             backgroundColor: "black",
             color: "white",
             borderRadius: "10px",
+            width: "250px",
+            margin: "0 auto",
           },
         }}
       >
