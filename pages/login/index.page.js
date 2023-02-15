@@ -1,13 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useAccount, useSignMessage } from "wagmi";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import { ConnectWallet } from "components";
 import { ACCESS_TOKEN } from "../../constants";
 
-import { Container, StyledButton } from "./login.styles";
+import {
+  Container,
+  StyledButton,
+  Background,
+  Title,
+  TitleContainer,
+} from './login.styles';
+
+import logo from '../../assets/small-logo.svg';
+
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Login = () => {
   const router = useRouter();
@@ -27,7 +38,7 @@ const Login = () => {
       const accessToken = res.data.data.accessToken;
       sessionStorage.setItem(ACCESS_TOKEN, accessToken);
 
-      router.push("/");
+      router.push('/');
     } catch (error) {
       console.error(`Error logging in: ${error}`);
     }
@@ -58,16 +69,32 @@ const Login = () => {
   useEffect(() => {
     const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
 
-    if (accessToken) router.push("/");
+    if (accessToken) router.push('/');
   }, []);
 
   if (!isConnected) return <ConnectWallet />;
   return (
-    <Container>
-      <StyledButton onClick={() => signMessage()} disabled={!nonce}>
-        Login
-      </StyledButton>
-    </Container>
+    <Background>
+      <Container>
+        <Image src={logo} height={63} width={71.82} alt={'crowfunding logo'} />
+        <Title>Crowfunding</Title>
+        <TitleContainer>
+          <Link href={'/login'}>
+            <Title login link isHere>
+              Login
+            </Title>
+          </Link>
+
+          <Link href={'/signup'}>
+            <Title link>Sign Up</Title>
+          </Link>
+        </TitleContainer>
+
+        <StyledButton onClick={() => signMessage()} disabled={!nonce}>
+          Login with metamask
+        </StyledButton>
+      </Container>
+    </Background>
   );
 };
 
