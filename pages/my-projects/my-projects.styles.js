@@ -1,86 +1,100 @@
 import styled from "@emotion/styled";
-import Link from "next/link";
 
 export const Container = styled.div`
-  padding: 30px;
-`;
-
-export const ProjectsContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-direction: row;
 `;
 
-export const ImageContainer = styled.div`
-  width: 100%;
-  height: 75px;
-  background: url(${(props) => props.bkgImage});
+export const SideBarContainer = styled.div`
+  @media (max-width: 600px) {
+    display: none;
+  }
   display: flex;
-  justify-content: flex-end;
-  border-radius: 13px 13px 0 0;
-`;
-
-export const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const EditButton = styled(Link)`
-  color: #000;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 40px;
+  left: 0px;
+  width: 300px;
+  border-right: .1px solid #FFFFFF;
+  height: 100maxh;
+  background-color: rgba(30, 30, 30);
+  flex-direction: column;
 `;
 
 export const Title = styled.h1`
-  font-weight: bold;
+  font: 400 24px 'Share Tech Mono';
+  margin-top: 40px;
 `;
 
-export const Text = styled.p`
-  font-weight: normal;
+export const Subtitle = styled.a`
+  font: 400 14px 'Share Tech Mono';
+  margin-top: 15px;
 `;
 
-export const DescriptionBox = styled.div``;
-
-export const Form = styled.form`
-  display: flex;
-  min-height: 100vh;
+export const Content = styled.div`
+  @media (max-width: 600px) {
+    padding: 38px 40px 50px 40px;
+  }
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  text-align: start;
-`;
-
-export const Label = styled.label`
-  font-weight: bold;
-`;
-
-export const Card = styled.div`
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-`;
-
-export const CardProject = styled(Link)`
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-  width: 30%;
-  border-radius: 13px;
-`;
-
-export const ClaimButton = styled.button`
+  padding: 38px 78px 50px 78px;
   width: 100%;
+`;
+
+export const ProjectsContainer = styled.div`
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  width: 100%;
+`;
+
+export const NewProject = styled.a`
+  display: flex;
+  height: 300px;
+  width: 243px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px dashed #FFFFFF;
+  background-color: #1B1B1B;
+`;
+
+export const SideBarButtonContainer = styled.div`
+  display: flex;
+  margin-top: 40vh;
+`;
+
+export const Button = styled.a`
+  display: flex;
+  height: 40px;
+  font: 400 16px 'Share Tech Mono';
+  padding: 10px;
+  border: 0.5px solid #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.06);
+`;
+
+export const Search = styled.input`
+  @media (max-width: 600px) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  width: 388px;
+  margin-right: 36px;
+  border: 0.5px solid #FFFFFF;
+  font: 400 16px 'Share Tech Mono';
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.06);
+`;
+
+export const SearchContainer = styled.div`
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+  display: flex;
+  flex-direction: row;
 `;
