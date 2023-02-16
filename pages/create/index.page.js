@@ -5,6 +5,7 @@ import { useLaunch } from "hooks/useLaunch";
 import { useCreateForm } from "hooks/useCreateForm";
 import { formatSelectOptions } from "utils/select";
 import { fetchTokens } from "utils/fetch";
+import { getMaxMinDate, getTomorrow } from "utils/date";
 import { Select, Input, Button } from "components";
 import {
   ACCESS_TOKEN,
@@ -125,6 +126,7 @@ const Create = () => {
           name={START_DATE}
           onChange={(event) => handleDate(START_DATE, event.target.value)}
           type="date"
+          min={getTomorrow()}
         />
         <Input
           {...register(END_DATE)}
@@ -133,6 +135,8 @@ const Create = () => {
           name={END_DATE}
           onChange={(event) => handleDate(END_DATE, event.target.value)}
           type="date"
+          min={getMaxMinDate(getValues(START_DATE), 2)}
+          max={getMaxMinDate(getValues(START_DATE), 21)}
         />
         <br />
         <Button type="submit" disabled={false}>
