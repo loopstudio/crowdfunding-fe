@@ -135,8 +135,8 @@ const Create = () => {
           name={END_DATE}
           onChange={(event) => handleDate(END_DATE, event.target.value)}
           type="date"
-          min={getMaxMinDate(getValues(START_DATE), 2)}
-          max={getMaxMinDate(getValues(START_DATE), 21)}
+          min={getMaxMinDate(getValues(START_DATE), 1)}
+          max={getMaxMinDate(getValues(START_DATE), 20)}
         />
         <br />
         <Button type="submit" disabled={false}>
