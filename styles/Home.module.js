@@ -88,7 +88,7 @@ export const BoxSearch = styled.input`
   margin-right: 36px;
   background-color: #646464;
   border: 1px solid white;
-  font: 400 16px 'share-tech-mono';
+  font: 400 16px 'Share Tech Mono';
   padding: 12px;
 `;
 
@@ -101,7 +101,7 @@ export const BoxProject = styled.a`
   right: 0;
   background-color: #646464;
   border: 1px solid white;
-  font: 400 16px 'share-tech-mono';
+  font: 400 16px 'Share Tech Mono';
   padding: 12px;
 `;
 
@@ -113,7 +113,7 @@ export const BoxFilter = styled.input`
   }
   background-color: #646464;
   border: 1px solid white;
-  font: 400 16px 'share-tech-mono';
+  font: 400 16px 'Share Tech Mono';
   padding: 12px;
 `;
 

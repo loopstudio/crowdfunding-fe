@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const ProjectContainer = styled.div`
+export const ProjectContainer = styled.a`
   @media (max-width: 600px) {
     margin: 0 0 50px 0;
   }
@@ -12,14 +12,14 @@ export const ProjectContainer = styled.div`
 
 export const Button = styled.input`
   background-color: white;
-  font: 400 14px "share-tech-mono";
+  font: 400 14px 'Share Tech Mono';
   color: black;
   width: 100%;
   height: 37px;
 `;
 
 export const Text = styled.p`
-  font: 400 14px "share-tech-mono";
+  font: 400 14px 'Share Tech Mono';
   color: white;
   margin: 15px 0 0 0;
 `;

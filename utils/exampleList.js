@@ -22,7 +22,7 @@ export const examplelist = [
     story: "This is the Projects story",
     startDate: "",
     endSate: "01/01/2023",
-    id: "1234",
+    id: "12345",
     fiatAmount: 5000,
     image:
       "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
@@ -39,7 +39,7 @@ export const examplelist = [
     story: "This is the Projects story",
     startDate: "",
     endSate: "01/01/2023",
-    id: "1234",
+    id: "12346",
     fiatAmount: 5000,
     image:
       "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
@@ -56,7 +56,7 @@ export const examplelist = [
     story: "This is the Projects story",
     startDate: "",
     endSate: "01/01/2023",
-    id: "1234",
+    id: "12347",
     fiatAmount: 5000,
     image:
       "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
@@ -73,7 +73,7 @@ export const examplelist = [
     story: "This is the Projects story",
     startDate: "",
     endSate: "01/01/2023",
-    id: "1234",
+    id: "12348",
     fiatAmount: 5000,
     image:
       "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
@@ -90,7 +90,7 @@ export const examplelist = [
     story: "This is the Projects story",
     startDate: "",
     endSate: "01/01/2023",
-    id: "1234",
+    id: "12349",
     fiatAmount: 5000,
     image:
       "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
@@ -100,5 +100,35 @@ export const examplelist = [
     category: "Technology",
     owner: "user",
     statusHistory: [{ date: "", statis: "active", statusName: "active" }],
+  },
+];
+
+export const forumlist = [
+  {
+    image: "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
+    username: 'Username',
+    date: 'Tues 14 Feb | 8:02 am',
+    title: 'Discussion title',
+    content:
+    'Lörem ipsum gädiv trivåmon har prening än kodådat makronat kvasin. Posttropi antina flexidaritet fan. Tirar preren fastän poligen fåning. Trespeligen nytipyrad ultrar, nydat att byn tills rekoring. Fåll nispepågisk...',
+    replies: 2,
+  },
+  {
+    image: "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
+    username: 'Username',
+    date: 'Tues 14 Feb | 8:02 am',
+    title: 'Discussion title',
+    content:
+    'Lörem ipsum gädiv trivåmon har prening än kodådat makronat kvasin. Posttropi antina flexidaritet fan. Tirar preren fastän poligen fåning. Trespeligen nytipyrad ultrar, nydat att byn tills rekoring. Fåll nispepågisk...',
+    replies: 2,
+  },
+  {
+    image: "https://www.shutterstock.com/image-photo/word-example-written-on-magnifying-260nw-1883859943.jpg",
+    username: 'Username',
+    date: 'Tues 14 Feb | 8:02 am',
+    title: 'Discussion title',
+    content:
+    'Lörem ipsum gädiv trivåmon har prening än kodådat makronat kvasin. Posttropi antina flexidaritet fan. Tirar preren fastän poligen fåning. Trespeligen nytipyrad ultrar, nydat att byn tills rekoring. Fåll nispepågisk...',
+    replies: 2,
   },
 ];
