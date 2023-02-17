@@ -2,11 +2,12 @@ import {
   usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
+  useContractEvent,
 } from "wagmi";
 
 import { useDebounce } from "./useDebounce";
 import crowdfundingConfig from "../crowdfunding.config.json";
-import { LAUNCH } from "../constants";
+import { FUNCTIONS, EVENTS } from "../constants";
 
 export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   const { abi } = crowdfundingConfig;
@@ -28,7 +29,7 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   const { config } = usePrepareContractWrite({
     address,
     abi,
-    functionName: LAUNCH,
+    functionName: FUNCTIONS.launch,
     args: [
       debouncedFundGoal,
       debouncedStartDate?.toString(),
@@ -40,13 +41,21 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   const { data, write } = useContractWrite({
     ...config,
     onSuccess() {
-      console.log(LAUNCH);
       postData(formData);
     },
   });
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
+  });
+
+  useContractEvent({
+    address,
+    abi,
+    eventName: EVENTS.launch,
+    listener(id, goal, creator, startDate, endDate) {
+      console.log("LAUNCH:", id, goal, creator, startDate, endDate);
+    },
   });
 
   return { write, isLoading };

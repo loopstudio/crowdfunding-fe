@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAccount, useSignMessage } from 'wagmi';
 
-import { ConnectWallet } from 'components';
-import { ACCESS_TOKEN } from 'constants';
+import { ConnectWallet } from "components";
+import { ACCESS_TOKEN } from "../../constants";
 
 import {
   Container,
@@ -28,7 +28,7 @@ const Login = () => {
   const login = async (address, data) => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/api/v1/auth/login`,
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/login`,
         {
           publicAddress: address,
           signature: data,
@@ -54,7 +54,7 @@ const Login = () => {
   const fetchNonce = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/api/v1/auth/${address}/nonce`
+        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/${address}/nonce`
       );
       setNonce(res.data.data);
     } catch (error) {
