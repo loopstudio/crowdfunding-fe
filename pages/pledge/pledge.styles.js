@@ -51,5 +51,4 @@ export const Text = styled.p`
 export const ButtonsContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 20px;
 `;

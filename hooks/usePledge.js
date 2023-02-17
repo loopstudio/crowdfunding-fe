@@ -5,7 +5,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-import { PLEDGE, APPROVE, EVENTS } from "./../constants";
+import { FUNCTIONS, EVENTS } from "./../constants";
 import { useDebounce } from "./useDebounce";
 
 import loopTokenConfig from "../loopToken.config.json";
@@ -20,7 +20,7 @@ export const usePledge = (id, pledgeAmount) => {
   const { config } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT,
     abi,
-    functionName: APPROVE,
+    functionName: FUNCTIONS.approve,
     args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF, debouncedPledgeAmount],
   });
 
@@ -34,7 +34,7 @@ export const usePledge = (id, pledgeAmount) => {
   const { config: cfConfig } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
     abi: cfAbi,
-    functionName: PLEDGE,
+    functionName: FUNCTIONS.pledge,
     args: [id, debouncedPledgeAmount],
   });
 

@@ -1,4 +1,3 @@
-export const LAUNCH = "launch";
 export const START_DATE = "startDate";
 export const END_DATE = "endDate";
 export const FUND_GOAL = "fundGoal";
@@ -9,8 +8,6 @@ export const TOKEN = "token";
 export const USERNAME = "username";
 export const EMAIL = "email";
 export const ACCESS_TOKEN = "accessToken";
-export const PLEDGE = "pledge";
-export const APPROVE = "approve";
 export const PLEDGE_AMOUNT = "pledgeAmount";
 
 export const QUERIES = {
@@ -23,4 +20,10 @@ export const EVENTS = {
   approval: "Approval",
   pledge: "Pledge",
   launch: "Launch",
+};
+
+export const FUNCTIONS = {
+  approve: "approve",
+  launch: "launch",
+  pledge: "pledge",
 };
