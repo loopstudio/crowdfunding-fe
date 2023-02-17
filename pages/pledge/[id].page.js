@@ -72,7 +72,7 @@ const PledgePage = () => {
     };
 
     fetchCampaign();
-  }, [id]);
+  }, [id, isTransactionComplete]);
 
   useEffect(() => {
     if (isTransactionComplete) setIsModalOpen(false);
@@ -106,7 +106,7 @@ const PledgePage = () => {
             />
             <Text>Weekly Report</Text>
             <Text>Revenue: ${campaign.fiatAmount}</Text>
-            <Text>Pledged: </Text>
+            <Text>Pledged: ${campaign.currentAmount[0].amount}</Text>
 
             <Button onClick={() => setIsModalOpen((prev) => !prev)}>
               Pledge Now
