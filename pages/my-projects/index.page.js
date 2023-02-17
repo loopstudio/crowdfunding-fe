@@ -10,14 +10,12 @@ import {
   ProjectsContainer,
   Search,
   SearchContainer,
-  SideBarButtonContainer,
-  SideBarContainer,
-  Subtitle,
   Title,
 } from "./my-projects.styles";
 
 import { Project } from "../../components/project/project.js";
 import { Header } from "../../components/header/header.js";
+import { SideBar } from "../../components/sideBar/sideBar.js";
 
 const MyProjects = () => {
   const [projectsList, setProjectsList] = useState([]);
@@ -38,16 +36,7 @@ const MyProjects = () => {
     <>
       <Header />
       <Container>
-        <SideBarContainer>
-          <Title>My Projects</Title>
-          <Subtitle>Pledged projects</Subtitle>
-          <Subtitle>Created projects</Subtitle>
-          <Subtitle>Saved projects</Subtitle>
-
-          <SideBarButtonContainer>
-            <Button href="/create">+ New project</Button>
-          </SideBarButtonContainer>
-        </SideBarContainer>
+      <SideBar />
 
         {loading ? (
           <p>Loading...</p>
@@ -60,6 +49,7 @@ const MyProjects = () => {
                 name="search"
                 value="Search Project"
                 id="search"
+                readOnly
               />
               <Button>Filter</Button>
             </SearchContainer>

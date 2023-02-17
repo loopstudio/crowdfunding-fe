@@ -11,7 +11,7 @@ import {
 
 export const Project = ({ project }) => {
   return (
-    <ProjectContainer>
+    <ProjectContainer href={`/project-detail?id=${project.id}`}>
       <Image
         priority
         src={project.image}
