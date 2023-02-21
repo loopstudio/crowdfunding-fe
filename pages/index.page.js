@@ -1,12 +1,15 @@
-import { useEffect, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { scrollElements } from "utils/scrollElements";
+import { useQuery } from "@tanstack/react-query";
 
-import bigLogo from "../assets/big-logo.svg";
-import { Header } from "../components/header/header";
-import { Project } from "../components/project/project";
-import { examplelist } from "../utils/exampleList";
-import { scrollElements } from "../utils/scrollElements";
+import { Header, CardSkeleton, Project } from "components";
+import { fetchCampaigns } from "utils/fetch";
+import { QUERIES } from "../constants";
+import background from "assets/background.gif";
+import add from "assets/icons/add.svg";
+import down from "assets/icons/Down 2.svg";
 
 import {
   Main,
@@ -15,16 +18,22 @@ import {
   LogoContainer,
   Grid,
   GridTitles,
-  GridButtonsContainer,
-  BoxSearch,
-  BoxProject,
-  BoxFilter,
+  ButtonsContainer,
+  Button,
   ProjectContainer,
+  Wrapper,
 } from "../styles/Home.module.js";
 
 export default function Home() {
   const sliderRecently = useRef();
   const sliderArts = useRef();
+  const skeletons = new Array(5).fill(null);
+
+  const {
+    data: campaigns,
+    isLoading,
+    isError,
+  } = useQuery([QUERIES.campaigns], fetchCampaigns);
 
   useEffect(() => {
     scrollElements(sliderRecently);
@@ -43,41 +52,35 @@ export default function Home() {
         <Header />
 
         <LogoContainer>
-          <Image src={bigLogo} alt="Logo" fill />
+          <Image src={background} alt="Logo" fill />
         </LogoContainer>
 
         <TitleContainer>
           <Title>CROWD</Title>
-          <Title>FOUNDING</Title>
+          <Title>FUNDING</Title>
         </TitleContainer>
 
         <Grid>
-          <GridButtonsContainer>
-            <div>
-              <BoxSearch
-                type="text"
-                name="search"
-                value="Search  Project"
-                id="search"
-                readOnly
-              />
-              <BoxFilter type="button" value="Filter" readOnly />
-            </div>
-            <BoxProject href="/create">+ New Project</BoxProject>
-          </GridButtonsContainer>
-
-          <GridTitles>Recently launched projects</GridTitles>
+          <Wrapper>
+            <GridTitles>Recently launched projects</GridTitles>
+            <ButtonsContainer>
+              <Button>
+                Filter
+                <Image height={25} width={25} src={down} alt="down icon" />
+              </Button>
+              <Button href="/create">
+                <Image height={15} width={15} src={add} alt="add icon" />
+                New Project
+              </Button>
+            </ButtonsContainer>
+          </Wrapper>
 
           <ProjectContainer ref={sliderRecently}>
-            {examplelist.map((element, key) => (
-              <Project project={element} key={key} />
-            ))}
-          </ProjectContainer>
-          <GridTitles>Arts & Crafts</GridTitles>
-          <ProjectContainer ref={sliderArts}>
-            {examplelist.map((element, key) => (
-              <Project project={element} key={key} />
-            ))}
+            {isLoading || isError
+              ? skeletons.map((_, index) => <CardSkeleton key={index} />)
+              : campaigns.map((campaign, index) => (
+                  <Project project={campaign} key={index} />
+                ))}
           </ProjectContainer>
         </Grid>
       </Main>

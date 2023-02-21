@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { examplelist } from "../../utils/exampleList.js";
+import { exampleList } from "../../utils/exampleList.js";
 
 import {
   Button,
@@ -24,7 +24,7 @@ const MyProjects = () => {
   const getProjects = () => {
     setLoading(true);
     // const result = setProjectsList(result); //FIXME interact with API when endpoint is ready
-    setProjectsList(examplelist);
+    setProjectsList(exampleList);
     setLoading(false);
   };
 
@@ -36,7 +36,7 @@ const MyProjects = () => {
     <>
       <Header />
       <Container>
-      <SideBar />
+        <SideBar />
 
         {loading ? (
           <p>Loading...</p>

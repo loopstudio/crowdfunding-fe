@@ -1,15 +1,16 @@
-import axios from "axios";
 import ReactModal from "react-modal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { object, number } from "yup";
 
-import { ACCESS_TOKEN, PLEDGE_AMOUNT } from "../../constants";
+import { QUERIES, PLEDGE_AMOUNT } from "../../constants";
 import { usePledge } from "hooks/usePledge";
-import { Button, ProgressBar, Input } from "components";
+import { Button, ProgressBar, Input, Header } from "components";
 import { getProgressPercentage } from "utils/percentage";
+import { fetchCampaign } from "utils/fetch";
 
 import {
   Container,
@@ -31,8 +32,7 @@ const PledgePage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [campaign, setCampaign] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     formState: { errors, isValid, isDirty },
@@ -52,35 +52,21 @@ const PledgePage = () => {
     getValues(PLEDGE_AMOUNT)
   );
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchCampaign = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
-            },
-          }
-        );
-        setCampaign(res.data.data);
-      } catch (error) {
-        console.log(`Error querying campaign ${id}: ${error}`);
-      }
-      setIsLoading(false);
-    };
-
-    fetchCampaign();
-  }, [id, isTransactionComplete]);
+  const { data: campaign, isLoading } = useQuery([QUERIES.campaign, id], () =>
+    fetchCampaign(id)
+  );
 
   useEffect(() => {
-    if (isTransactionComplete) setIsModalOpen(false);
+    if (isTransactionComplete) {
+      setIsModalOpen(false);
+      queryClient.refetchQueries([QUERIES.campaign, id]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTransactionComplete]);
 
   return (
-    <div>
-      <h1>Pledge Page</h1>
+    <>
+      <Header />
       {isLoading || !campaign ? (
         <p>Loading...</p>
       ) : (
@@ -145,7 +131,7 @@ const PledgePage = () => {
           </ButtonsContainer>
         </form>
       </ReactModal>
-    </div>
+    </>
   );
 };
 

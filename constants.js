@@ -9,9 +9,11 @@ export const USERNAME = "username";
 export const EMAIL = "email";
 export const ACCESS_TOKEN = "accessToken";
 export const PLEDGE_AMOUNT = "pledgeAmount";
+export const LOG_OUT = "logOut";
 
 export const QUERIES = {
   campaigns: "campaigns",
+  campaign: "campaign",
   tokens: "tokens",
   nonce: "nonce",
 };
@@ -27,3 +29,6 @@ export const FUNCTIONS = {
   launch: "launch",
   pledge: "pledge",
 };
+
+export const LINKS = ["discover", "logIn", "signUp"];
+export const LOGGED_LINKS = ["discover", "my-profile", "my-projects", "logOut"];

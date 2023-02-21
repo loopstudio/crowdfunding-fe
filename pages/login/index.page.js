@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAccount, useSignMessage } from 'wagmi';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useAccount, useSignMessage } from "wagmi";
 
-import { ConnectWallet, AuthWrapper } from 'components';
-import { ACCESS_TOKEN } from '../../constants';
+import { ConnectWallet, AuthWrapper } from "components";
+import { ACCESS_TOKEN } from "../../constants";
 
-import { StyledButton } from './login.styles';
+import { StyledButton } from "./login.styles";
 
 const Login = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ const Login = () => {
       const accessToken = res.data.data.accessToken;
       sessionStorage.setItem(ACCESS_TOKEN, accessToken);
 
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.error(`Error logging in: ${error}`);
     }
@@ -58,7 +58,7 @@ const Login = () => {
   useEffect(() => {
     const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
 
-    if (accessToken) router.push('/');
+    if (accessToken) router.push("/");
   }, []);
 
   if (!isConnected) return <ConnectWallet />;

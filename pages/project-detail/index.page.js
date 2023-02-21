@@ -20,7 +20,7 @@ import {
   TitleContainer,
 } from "./project-detail.styles.js";
 
-import { examplelist, forumlist } from "../../utils/exampleList.js";
+import { exampleList, forumlist } from "../../utils/exampleList.js";
 import { ProgressBar } from "../../components/ProgressBar/progressBar.js";
 import { Forum } from "../../components/forum/forum.js";
 
@@ -30,7 +30,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const projectById = examplelist.filter(
+    const projectById = exampleList.filter(
       (element) => element.id === urlParams.get("id")
     );
     if (projectById.length > 0) {

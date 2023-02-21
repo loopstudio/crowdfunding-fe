@@ -1,8 +1,21 @@
-import { Input } from './input/input';
-import { Select } from './select/select';
-import { Button } from './button/button';
-import { ProgressBar } from './ProgressBar/progressBar';
-import { ConnectWallet } from './ConnectWallet/connectWallet';
-import { AuthWrapper } from './authWraper/index.page';
+import { Input } from "./input/input";
+import { Select } from "./select/select";
+import { Button } from "./button/button";
+import { ProgressBar } from "./ProgressBar/progressBar";
+import { ConnectWallet } from "./ConnectWallet/connectWallet";
+import { Project } from "./project/project";
+import { Header } from "./header/header";
+import { CardSkeleton } from "./CardSkeleton/cardSkeleton";
+import { AuthWrapper } from "./authWraper/index.page";
 
-export { Input, Select, Button, ProgressBar, ConnectWallet, AuthWrapper };
+export {
+  Input,
+  Select,
+  Button,
+  ProgressBar,
+  ConnectWallet,
+  Project,
+  Header,
+  CardSkeleton,
+  AuthWrapper,
+};
