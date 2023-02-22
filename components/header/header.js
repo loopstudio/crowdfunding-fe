@@ -1,9 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import smallLogo from "../../assets/small-logo.svg";
+import smallLogo from '../../assets/small-logo.svg';
 
-import { HeaderContainer, HeaderRow, HeaderText } from "./header.styles.js";
+import { HeaderContainer, HeaderRow, HeaderText } from './header.styles.js';
 
 export const Header = () => {
   return (
@@ -21,17 +21,15 @@ export const Header = () => {
 
       <HeaderRow>
         <Link href="/discover">
-          <HeaderText>Discover</HeaderText>
+          <HeaderText hover>Discover</HeaderText>
         </Link>
-        <HeaderText>|</HeaderText>
         <Link href="/login">
-          <HeaderText>Login</HeaderText>
+          <HeaderText hover>Login</HeaderText>
         </Link>
-        <HeaderText>|</HeaderText>
         <Link href="/signup">
-          <HeaderText>Sign Up</HeaderText>
+          <HeaderText hover>Sign Up</HeaderText>
         </Link>
       </HeaderRow>
     </HeaderContainer>
   );
-}
+};

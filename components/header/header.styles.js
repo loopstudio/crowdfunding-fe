@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -6,8 +6,8 @@ export const HeaderContainer = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgba(30, 30, 30);
-  border-bottom: .1px solid #FFFFFF;
+  background-color: transparent;
+  border-bottom: 0.1px solid #ffffff;
   align-items: center;
 `;
 
@@ -16,8 +16,16 @@ export const HeaderText = styled.p`
     font-size: 12px;
   }
   font: 400 16px 'Share Tech Mono';
-  color: #D0D0D0;
-  margin: 0 6px 0 6px;
+  color: #d0d0d0;
+  margin: 0 10px 0 10px;
+
+  text-decoration: ${(props) =>
+    props.hover ? 'underline 0.15em transparent' : null};
+  transition: text-decoration-color 300ms;
+
+  :hover {
+    text-decoration-color: #d0d0d0;
+  }
 `;
 
 export const HeaderRow = styled.div`

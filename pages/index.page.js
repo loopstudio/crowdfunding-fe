@@ -1,12 +1,13 @@
-import { useEffect, useRef } from "react";
-import Head from "next/head";
-import Image from "next/image";
+import { useEffect, useRef } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
 
-import bigLogo from "../assets/big-logo.svg";
-import { Header } from "../components/header/header";
-import { Project } from "../components/project/project";
-import { examplelist } from "../utils/exampleList";
-import { scrollElements } from "../utils/scrollElements";
+import bigLogo from '../assets/big-logo.svg';
+import { Header } from '../components/header/header';
+import { Project } from '../components/project/project';
+import { examplelist } from '../utils/exampleList';
+import { scrollElements } from '../utils/scrollElements';
+import { ACCESS_TOKEN } from '../constants';
 
 import {
   Main,
@@ -20,7 +21,7 @@ import {
   BoxProject,
   BoxFilter,
   ProjectContainer,
-} from "../styles/Home.module.js";
+} from '../styles/Home.module.js';
 
 export default function Home() {
   const sliderRecently = useRef();
@@ -40,7 +41,7 @@ export default function Home() {
       </Head>
 
       <Main>
-        <Header />
+        {sessionStorage.getItem(ACCESS_TOKEN) ? null : <Header />}
 
         <LogoContainer>
           <Image src={bigLogo} alt="Logo" fill />
