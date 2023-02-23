@@ -9,16 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
 import { Input, Button, ConnectWallet } from '../../components';
-import {
-  Background,
-  Container,
-  Form,
-  TitleContainer,
-  Title,
-} from './signup.styles';
-import logo from '../../assets/small-logo.svg';
-import Image from 'next/image';
-import Link from 'next/link';
+
+import { Form } from './signup.styles';
+
+import { AuthWrapper } from 'pages/authWraper/index.page';
 
 const validationSchema = object().shape({
   username: string().required(),
@@ -98,24 +92,8 @@ const SignUp = () => {
   if (!isConnected) return <ConnectWallet />;
 
   return (
-    <Background>
-      <Container>
-        <Image src={logo} height={63} width={71.82} alt={'crowfunding logo'} />
-        <Title>Crowfunding</Title>
-        <TitleContainer>
-          <Link href={'/login'}>
-            <Title login link>
-              Login
-            </Title>
-          </Link>
-
-          <Link href={'/signup'}>
-            <Title link isHere>
-              Sign Up
-            </Title>
-          </Link>
-        </TitleContainer>
-
+    <>
+      <AuthWrapper>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             placeholder="Username"
@@ -133,8 +111,8 @@ const SignUp = () => {
             Sign up with metamask
           </Button>
         </Form>
-      </Container>
-    </Background>
+      </AuthWrapper>
+    </>
   );
 };
 
