@@ -17,6 +17,8 @@ import {
   TITLE,
   TOKEN,
   QUERIES,
+  CAMPAIGN_MAX_DURATION,
+  CAMPAIGN_MIN_DURATION,
 } from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
@@ -135,8 +137,8 @@ const Create = () => {
           name={END_DATE}
           onChange={(event) => handleDate(END_DATE, event.target.value)}
           type="date"
-          min={getMaxMinDate(getValues(START_DATE), 1)}
-          max={getMaxMinDate(getValues(START_DATE), 20)}
+          min={getMaxMinDate(getValues(START_DATE), CAMPAIGN_MIN_DURATION)}
+          max={getMaxMinDate(getValues(START_DATE), CAMPAIGN_MAX_DURATION)}
         />
         <br />
         <Button type="submit" disabled={false}>
