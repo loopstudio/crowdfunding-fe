@@ -10,15 +10,15 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 30px;
   border: 1px solid #fff;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(10px);
   width: 369px;
-  height: 521px;
+  height: 550px;
 `;
 
 export const Title = styled.h1`
