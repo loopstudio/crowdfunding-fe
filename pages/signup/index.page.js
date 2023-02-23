@@ -12,7 +12,7 @@ import { Input, Button, ConnectWallet } from '../../components';
 
 import { Form } from './signup.styles';
 
-import { AuthWrapper } from 'pages/authWraper/index.page';
+import { AuthWrapper } from 'components/authWraper/index.page';
 
 const validationSchema = object().shape({
   username: string().required(),
