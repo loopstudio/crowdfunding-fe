@@ -8,17 +8,9 @@ import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
-import { Input, Button, ConnectWallet } from '../../components';
-import {
-  Background,
-  Container,
-  Form,
-  TitleContainer,
-  Title,
-} from './signup.styles';
-import logo from '../../assets/small-logo.svg';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Input, Button, ConnectWallet, AuthWrapper } from 'components';
+
+import { Form } from './signup.styles';
 
 const validationSchema = object().shape({
   username: string().required(),
@@ -98,43 +90,25 @@ const SignUp = () => {
   if (!isConnected) return <ConnectWallet />;
 
   return (
-    <Background>
-      <Container>
-        <Image src={logo} height={63} width={71.82} alt={'crowfunding logo'} />
-        <Title>Crowfunding</Title>
-        <TitleContainer>
-          <Link href={'/login'}>
-            <Title login link>
-              Login
-            </Title>
-          </Link>
-
-          <Link href={'/signup'}>
-            <Title link isHere>
-              Sign Up
-            </Title>
-          </Link>
-        </TitleContainer>
-
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Username"
-            {...register(USERNAME)}
-            name={USERNAME}
-            error={errors.username}
-          />
-          <Input
-            placeholder="Email"
-            {...register(EMAIL)}
-            name={EMAIL}
-            error={errors.email}
-          />
-          <Button type="submit" disabled={!isDirty || !isValid}>
-            Sign up with metamask
-          </Button>
-        </Form>
-      </Container>
-    </Background>
+    <AuthWrapper>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          placeholder="Username"
+          {...register(USERNAME)}
+          name={USERNAME}
+          error={errors.username}
+        />
+        <Input
+          placeholder="Email"
+          {...register(EMAIL)}
+          name={EMAIL}
+          error={errors.email}
+        />
+        <Button type="submit" disabled={!isDirty || !isValid}>
+          Sign up with metamask
+        </Button>
+      </Form>
+    </AuthWrapper>
   );
 };
 

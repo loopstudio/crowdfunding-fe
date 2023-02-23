@@ -4,21 +4,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAccount, useSignMessage } from 'wagmi';
 
-import { ConnectWallet } from "components";
-import { ACCESS_TOKEN } from "../../constants";
+import { ConnectWallet, AuthWrapper } from 'components';
+import { ACCESS_TOKEN } from '../../constants';
 
-import {
-  Container,
-  StyledButton,
-  Background,
-  Title,
-  TitleContainer,
-} from './login.styles';
-
-import logo from '../../assets/small-logo.svg';
-
-import Image from 'next/image';
-import Link from 'next/link';
+import { StyledButton } from './login.styles';
 
 const Login = () => {
   const router = useRouter();
@@ -74,27 +63,11 @@ const Login = () => {
 
   if (!isConnected) return <ConnectWallet />;
   return (
-    <Background>
-      <Container>
-        <Image src={logo} height={63} width={71.82} alt={'crowfunding logo'} />
-        <Title>Crowfunding</Title>
-        <TitleContainer>
-          <Link href={'/login'}>
-            <Title login link isHere>
-              Login
-            </Title>
-          </Link>
-
-          <Link href={'/signup'}>
-            <Title link>Sign Up</Title>
-          </Link>
-        </TitleContainer>
-
-        <StyledButton onClick={() => signMessage()} disabled={!nonce}>
-          Login with metamask
-        </StyledButton>
-      </Container>
-    </Background>
+    <AuthWrapper>
+      <StyledButton onClick={() => signMessage()} disabled={!nonce}>
+        Login with metamask
+      </StyledButton>
+    </AuthWrapper>
   );
 };
 
