@@ -22,12 +22,14 @@ export const EVENTS = {
   approval: "Approval",
   pledge: "Pledge",
   launch: "Launch",
+  claim: "Claim",
 };
 
 export const FUNCTIONS = {
   approve: "approve",
   launch: "launch",
   pledge: "pledge",
+  claim: "claim",
 };
 
 export const LINKS = ["logIn", "signUp"];

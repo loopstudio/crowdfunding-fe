@@ -6,7 +6,7 @@ export const fetchCampaigns = async () => {
 
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=0&size=20`,
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=0&size=20&search=`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
