@@ -4,12 +4,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAccount, useSignMessage } from 'wagmi';
 
-import { ConnectWallet } from 'components';
+import { ConnectWallet, AuthWrapper } from 'components';
 import { ACCESS_TOKEN } from '../../constants';
 
 import { StyledButton } from './login.styles';
-
-import { AuthWrapper } from 'components';
 
 const Login = () => {
   const router = useRouter();

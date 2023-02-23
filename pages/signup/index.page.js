@@ -8,11 +8,9 @@ import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
-import { Input, Button, ConnectWallet } from '../../components';
+import { Input, Button, ConnectWallet, AuthWrapper } from '../../components';
 
 import { Form } from './signup.styles';
-
-import { AuthWrapper } from '../../components';
 
 const validationSchema = object().shape({
   username: string().required(),
