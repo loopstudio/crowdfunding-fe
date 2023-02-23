@@ -9,7 +9,7 @@ import { ACCESS_TOKEN } from '../../constants';
 
 import { StyledButton } from './login.styles';
 
-import { AuthWrapper } from 'components/authWraper/index.page';
+import { AuthWrapper } from 'components';
 
 const Login = () => {
   const router = useRouter();
