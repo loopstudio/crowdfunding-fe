@@ -63,13 +63,11 @@ const Login = () => {
 
   if (!isConnected) return <ConnectWallet />;
   return (
-    <>
-      <AuthWrapper>
-        <StyledButton onClick={() => signMessage()} disabled={!nonce}>
-          Login with metamask
-        </StyledButton>
-      </AuthWrapper>
-    </>
+    <AuthWrapper>
+      <StyledButton onClick={() => signMessage()} disabled={!nonce}>
+        Login with metamask
+      </StyledButton>
+    </AuthWrapper>
   );
 };
 

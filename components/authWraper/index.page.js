@@ -10,7 +10,7 @@ import {
   TitleContainer,
 } from './authWrapper.styles';
 
-export const AuthWrapper = ({ children }, inLogin) => {
+export const AuthWrapper = ({ children }) => {
   const location = window.location.pathname;
   return (
     <Background>

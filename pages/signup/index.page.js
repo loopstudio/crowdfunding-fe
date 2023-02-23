@@ -8,7 +8,7 @@ import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { USERNAME, EMAIL, ACCESS_TOKEN } from '../../constants';
-import { Input, Button, ConnectWallet, AuthWrapper } from '../../components';
+import { Input, Button, ConnectWallet, AuthWrapper } from 'components';
 
 import { Form } from './signup.styles';
 
@@ -90,27 +90,25 @@ const SignUp = () => {
   if (!isConnected) return <ConnectWallet />;
 
   return (
-    <>
-      <AuthWrapper>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Username"
-            {...register(USERNAME)}
-            name={USERNAME}
-            error={errors.username}
-          />
-          <Input
-            placeholder="Email"
-            {...register(EMAIL)}
-            name={EMAIL}
-            error={errors.email}
-          />
-          <Button type="submit" disabled={!isDirty || !isValid}>
-            Sign up with metamask
-          </Button>
-        </Form>
-      </AuthWrapper>
-    </>
+    <AuthWrapper>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          placeholder="Username"
+          {...register(USERNAME)}
+          name={USERNAME}
+          error={errors.username}
+        />
+        <Input
+          placeholder="Email"
+          {...register(EMAIL)}
+          name={EMAIL}
+          error={errors.email}
+        />
+        <Button type="submit" disabled={!isDirty || !isValid}>
+          Sign up with metamask
+        </Button>
+      </Form>
+    </AuthWrapper>
   );
 };
 
