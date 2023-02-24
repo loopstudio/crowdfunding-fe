@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-import { ProgressBar } from "../ProgressBar/progressBar";
+import { ProgressBar } from "components";
+import { getFormattedDate } from "utils/date";
+import productImage from "assets/productImage.png";
 
 import {
   ProjectContainer,
@@ -11,30 +13,27 @@ import {
 
 export const Project = ({ project }) => {
   return (
-    <ProjectContainer href={`/project-detail?id=${project.id}`}>
+    <ProjectContainer>
       <Image
         priority
-        src={project.image}
+        src={productImage}
         height={138}
         width={243}
-        alt="image"
+        alt="project image"
       />
+
       <InformationContainer>
         <Text>{project.title}</Text>
-        <Text>{project.endSate}</Text>
-        {project.goal.length > 0 && (
-          <Text>
-            {project.goal[0].token} {project.goal[0].amount}
-          </Text>
-        )}
+        <Text>{getFormattedDate(project.endDate)}</Text>
+        {project.goal.length > 0 && <Text>LT ${project.goal[0].amount}</Text>}
         <ProgressBar
           percentage={
             project.goal.length > 0 && project.currentAmount.length > 0
-              ? project.currentAmount[0].amount * 100 / project.goal[0].amount
+              ? (project.currentAmount[0].amount * 100) / project.goal[0].amount
               : 0
           }
         />
-        <Button type="button" value="Pledge" readOnly />
+        <Button href={`/pledge/${project.onchainId}`}>View details</Button>
       </InformationContainer>
     </ProjectContainer>
   );

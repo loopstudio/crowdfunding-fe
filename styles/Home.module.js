@@ -6,6 +6,7 @@ export const Main = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
+  font: 400 16px "Share Tech Mono";
 `;
 
 export const TitleContainer = styled.div`
@@ -13,46 +14,41 @@ export const TitleContainer = styled.div`
     height: 200px;
     padding-top: 20px;
   }
-  margin-left: 0;
   margin-top: 133px;
-  padding-top: 100px;
-  width: 50%;
+  width: 446px;
   height: 391px;
-  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 20%);
+  background: rgba(255, 255, 255, 6%);
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
 `;
 
-export const Title = styled.p`
+export const Title = styled.span`
   @media (max-width: 600px) {
     font-size: 20px;
   }
-  color: #B1B1B1;
-  margin: 30px 0 0 60px;
-  font: 400 50px 'Share Tech Mono';
+  color: #b1b1b1;
+  font-size: 50px;
+  line-height: 150%;
+  letter-spacing: 22px;
 `;
 
 export const LogoContainer = styled.div`
-  @media (max-width: 600px) {
-    margin-top: 70px;
-    height: 400px;
-    width: 350px;
-  }
   position: absolute;
   align-self: center;
-  margin-top: 130px;
+  margin-top: 60px;
   align-items: center;
   justify-content: center;
   z-index: 0;
-  width: 661px;
-  height: 580px;
+  width: 100%;
+  height: 700px;
   overflow: hidden;
 `;
 
 export const Grid = styled.div`
-  @media (max-width: 600px) {
-    width: 100%;
-    flex-direction: column;
-  }
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -61,73 +57,45 @@ export const Grid = styled.div`
   justify-content: center;
 `;
 
-export const GridTitles = styled.p`
-  font: 400 16px 'Share Tech Mono';
-  color: #FFFFFF;
-  margin: 31px 0 39px 0;
-`;
-
-export const GridButtonsContainer = styled.div`
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
+export const ButtonsContainer = styled.div`
   flex-direction: row;
   display: flex;
   width: 100%;
-  padding-right: 35px;
-  justify-content: space-between;
+  padding-right: 50px;
+  justify-content: flex-end;
+  gap: 20px;
+  align-self: flex-start;
+  margin-bottom: 80px;
 `;
 
-export const BoxSearch = styled.input`
-  @media (max-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  width: 388px;
-  margin-right: 36px;
-  background-color: #646464;
-  border: 1px solid white;
-  font: 400 16px 'Share Tech Mono';
-  padding: 12px;
-`;
-
-export const BoxProject = styled.a`
-  @media (max-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+export const Button = styled.a`
   right: 0;
-  background-color: #646464;
+  background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid white;
-  font: 400 16px 'Share Tech Mono';
-  padding: 12px;
-`;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  animation: fill-background 0.3s ease-in-out forwards;
 
-export const BoxFilter = styled.input`
-  @media (max-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
+  &:hover {
+    background-color: white;
+    color: black;
+
+    img {
+      filter: invert(100%) grayscale(100%);
+    }
   }
-  background-color: #646464;
-  border: 1px solid white;
-  font: 400 16px 'Share Tech Mono';
-  padding: 12px;
 `;
 
 export const ProjectContainer = styled.div`
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
   display: flex;
   overflow-x: scroll;
   flex-direction: row;
   width: 100%;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+
   &::-webkit-scrollbar {
     display: none;
-}
+  }
 `;

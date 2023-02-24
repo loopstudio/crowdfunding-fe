@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { useLaunch } from "hooks/useLaunch";
 import { useCreateForm } from "hooks/useCreateForm";
 import { formatSelectOptions } from "utils/select";
+import { fetchTokens } from "utils/fetch";
 import { Select, Input, Button } from "components";
 import {
   ACCESS_TOKEN,
@@ -14,14 +15,12 @@ import {
   SUBTITLE,
   TITLE,
   TOKEN,
+  QUERIES,
 } from "../../constants";
 
 import { Container, Form, Title } from "./create.styles";
 
 const Create = () => {
-  const [tokens, setTokens] = useState([]);
-  const [isTokensLoading, setIsTokensLoading] = useState(false);
-
   const {
     errors,
     getValues,
@@ -58,23 +57,6 @@ const Create = () => {
     }
   };
 
-  const fetchTokens = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/tokens`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
-          },
-        }
-      );
-      setTokens(res.data.data);
-    } catch (error) {
-      console.log(`Error querying campaigns: ${error}`);
-    }
-    setIsTokensLoading(false);
-  };
-
   const { write } = useLaunch(
     getValues(START_DATE),
     getValues(END_DATE),
@@ -87,10 +69,10 @@ const Create = () => {
     write?.();
   };
 
-  useEffect(() => {
-    setIsTokensLoading(true);
-    fetchTokens();
-  }, []);
+  const { data: tokens, isLoading: isTokensLoading } = useQuery(
+    [QUERIES.tokens],
+    fetchTokens
+  );
 
   return (
     <Container>
