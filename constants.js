@@ -30,5 +30,5 @@ export const FUNCTIONS = {
   pledge: "pledge",
 };
 
-export const LINKS = ["discover", "logIn", "signUp"];
-export const LOGGED_LINKS = ["discover", "my-profile", "my-projects", "logOut"];
+export const LINKS = ["logIn", "signUp"];
+export const LOGGED_LINKS = ["my-projects", "logOut"];

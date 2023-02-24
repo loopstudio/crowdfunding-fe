@@ -40,14 +40,3 @@ export const InformationContainer = styled.div`
   padding: 0 19px 14px 13px;
   justify-content: space-between;
 `;
-
-export const ImageContainer = styled.div`
-  position: relative;
-
-  img:nth-of-type(1) {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-  }
-`;

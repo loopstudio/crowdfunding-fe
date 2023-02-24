@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAccount, useSignMessage } from "wagmi";
 
-import { ConnectWallet, AuthWrapper } from "components";
+import { ConnectWallet, AuthWrapper, Header } from "components";
 import { ACCESS_TOKEN } from "../../constants";
 
 import { StyledButton } from "./login.styles";
@@ -63,11 +63,14 @@ const Login = () => {
 
   if (!isConnected) return <ConnectWallet />;
   return (
-    <AuthWrapper>
-      <StyledButton onClick={() => signMessage()} disabled={!nonce}>
-        Login with metamask
-      </StyledButton>
-    </AuthWrapper>
+    <>
+      <Header />
+      <AuthWrapper>
+        <StyledButton onClick={() => signMessage()} disabled={!nonce}>
+          Login With Metamask
+        </StyledButton>
+      </AuthWrapper>
+    </>
   );
 };
 

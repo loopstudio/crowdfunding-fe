@@ -1,10 +1,7 @@
 import Image from "next/image";
-import { useState } from "react";
 
 import { ProgressBar } from "components";
 import { getFormattedDate } from "utils/date";
-import bookmark from "assets/icons/bookmark.svg";
-import bookmarkFilled from "assets/icons/bookmarkFilled.svg";
 import productImage from "assets/productImage.png";
 
 import {
@@ -12,33 +9,19 @@ import {
   Button,
   Text,
   InformationContainer,
-  ImageContainer,
 } from "./project.styles.js";
 
 export const Project = ({ project }) => {
-  const [isSaved, setIsSaved] = useState(false);
-
-  const onBookmarkClick = () => {
-    setIsSaved((prev) => !prev);
-  };
-
   return (
     <ProjectContainer>
-      <ImageContainer>
-        <Image
-          onClick={onBookmarkClick}
-          src={isSaved ? bookmarkFilled : bookmark}
-          alt="bookmark icon"
-        />
+      <Image
+        priority
+        src={productImage}
+        height={138}
+        width={243}
+        alt="project image"
+      />
 
-        <Image
-          priority
-          src={productImage}
-          height={138}
-          width={243}
-          alt="project image"
-        />
-      </ImageContainer>
       <InformationContainer>
         <Text>{project.title}</Text>
         <Text>{getFormattedDate(project.endDate)}</Text>

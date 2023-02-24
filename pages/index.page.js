@@ -17,11 +17,9 @@ import {
   Title,
   LogoContainer,
   Grid,
-  GridTitles,
   ButtonsContainer,
   Button,
   ProjectContainer,
-  Wrapper,
 } from "../styles/Home.module.js";
 
 export default function Home() {
@@ -61,19 +59,16 @@ export default function Home() {
         </TitleContainer>
 
         <Grid>
-          <Wrapper>
-            <GridTitles>Recently launched projects</GridTitles>
-            <ButtonsContainer>
-              <Button>
-                Filter
-                <Image height={25} width={25} src={down} alt="down icon" />
-              </Button>
-              <Button href="/create">
-                <Image height={15} width={15} src={add} alt="add icon" />
-                New Project
-              </Button>
-            </ButtonsContainer>
-          </Wrapper>
+          <ButtonsContainer>
+            <Button>
+              Filter
+              <Image height={25} width={25} src={down} alt="down icon" />
+            </Button>
+            <Button href="/create">
+              <Image height={15} width={15} src={add} alt="add icon" />
+              New Project
+            </Button>
+          </ButtonsContainer>
 
           <ProjectContainer ref={sliderRecently}>
             {isLoading || isError

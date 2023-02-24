@@ -6,7 +6,7 @@ import { ConnectWallet } from "./ConnectWallet/connectWallet";
 import { Project } from "./project/project";
 import { Header } from "./header/header";
 import { CardSkeleton } from "./CardSkeleton/cardSkeleton";
-import { AuthWrapper } from "./authWraper/index.page";
+import { AuthWrapper } from "./authWrapper/authWrapper";
 
 export {
   Input,

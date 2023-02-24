@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Background = styled.div`
-  background-color: black;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -15,8 +14,7 @@ export const Container = styled.div`
   padding: 30px 30px 0 30px;
   border: 1px solid #fff;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(10px);
+  background-color: #222222;
   width: 369px;
   height: 500px;
 `;

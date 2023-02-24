@@ -57,14 +57,6 @@ export const Grid = styled.div`
   justify-content: center;
 `;
 
-export const GridTitles = styled.p`
-  color: #ffffff;
-  letter-spacing: 1px;
-  margin: 0;
-  width: 100%;
-  align-self: flex-end;
-`;
-
 export const ButtonsContainer = styled.div`
   flex-direction: row;
   display: flex;
@@ -73,11 +65,12 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   gap: 20px;
   align-self: flex-start;
+  margin-bottom: 80px;
 `;
 
 export const Button = styled.a`
   right: 0;
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid white;
   padding: 8px;
   display: flex;
@@ -101,15 +94,8 @@ export const ProjectContainer = styled.div`
   overflow-x: scroll;
   flex-direction: row;
   width: 100%;
+
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 80px;
 `;
