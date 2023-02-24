@@ -102,7 +102,9 @@ const PledgePage = () => {
             <Text>Pledged: ${campaign.currentAmount[0].amount}</Text>
 
             {isOwner ? (
-              <Button onClick={() => write?.()}>Claim</Button>
+              <Button disabled={!write} onClick={() => write?.()}>
+                Claim
+              </Button>
             ) : (
               <Button onClick={() => setIsModalOpen((prev) => !prev)}>
                 Pledge Now
