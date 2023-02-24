@@ -99,12 +99,3 @@ export const ProjectContainer = styled.div`
     display: none;
   }
 `;
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 80px;
->>>>>>> 5945443 (Connect home page with backend and amend styles)
-`;
