@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { object, string, date, number, ref } from "yup";
+import { object, string, date, number } from "yup";
 import {
   TITLE,
   SUBTITLE,
@@ -18,12 +18,8 @@ const validationSchema = object().shape({
   [STORY]: string().required(),
   [TOKEN]: string().required(),
   [FUND_GOAL]: number().required(),
-  [START_DATE]: date()
-    .required()
-    .min(new Date(), "Date should be greater than now"),
-  [END_DATE]: date()
-    .required()
-    .min(ref("startDate"), "End date should be after start date"),
+  [START_DATE]: date().required(),
+  [END_DATE]: date().required(),
 });
 
 export const useCreateForm = () => {

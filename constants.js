@@ -32,3 +32,6 @@ export const FUNCTIONS = {
 
 export const LINKS = ["logIn", "signUp"];
 export const LOGGED_LINKS = ["my-projects", "logOut"];
+
+export const CAMPAIGN_MAX_DURATION = 20;
+export const CAMPAIGN_MIN_DURATION = 1;
