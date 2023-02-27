@@ -2,12 +2,14 @@ import ReactModal from "react-modal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAccount } from "wagmi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { object, number } from "yup";
 
 import { QUERIES, PLEDGE_AMOUNT } from "../../constants";
 import { usePledge } from "hooks/usePledge";
+import { useClaim } from "hooks/useClaim";
 import { Button, ProgressBar, Input, Header } from "components";
 import { getProgressPercentage } from "utils/percentage";
 import { fetchCampaign } from "utils/fetch";
@@ -29,6 +31,7 @@ const validationSchema = object().shape({
 });
 
 const PledgePage = () => {
+  const { address } = useAccount();
   const router = useRouter();
   const { id } = router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +55,8 @@ const PledgePage = () => {
     getValues(PLEDGE_AMOUNT)
   );
 
+  const { write } = useClaim(id);
+
   const { data: campaign, isLoading } = useQuery([QUERIES.campaign, id], () =>
     fetchCampaign(id)
   );
@@ -63,6 +68,8 @@ const PledgePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTransactionComplete]);
+
+  const isOwner = address === campaign?.owner?.publicAddress;
 
   return (
     <>
@@ -94,9 +101,15 @@ const PledgePage = () => {
             <Text>Revenue: ${campaign.fiatAmount}</Text>
             <Text>Pledged: ${campaign.currentAmount[0].amount}</Text>
 
-            <Button onClick={() => setIsModalOpen((prev) => !prev)}>
-              Pledge Now
-            </Button>
+            {isOwner ? (
+              <Button disabled={!write} onClick={() => write?.()}>
+                Claim
+              </Button>
+            ) : (
+              <Button onClick={() => setIsModalOpen((prev) => !prev)}>
+                Pledge Now
+              </Button>
+            )}
           </RightContent>
         </Container>
       )}
