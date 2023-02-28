@@ -9,6 +9,7 @@ import { CardSkeleton } from "./CardSkeleton/cardSkeleton";
 import { AuthWrapper } from "./authWrapper/authWrapper";
 import { SideBar } from "./sideBar/sideBar";
 import { Filter } from "./filter/filter";
+import { Pagination } from "./pagination/pagination";
 
 export {
   Input,
@@ -22,4 +23,5 @@ export {
   AuthWrapper,
   SideBar,
   Filter,
+  Pagination,
 };

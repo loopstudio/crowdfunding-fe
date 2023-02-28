@@ -54,3 +54,21 @@ export const fetchTokens = async () => {
     console.log(`Error querying campaigns: ${error}`);
   }
 };
+
+export const fetchCreatedCampaigns = async (activePage, search) => {
+  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=${activePage}&size=6&own=true&search=${search}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return data.data;
+  } catch (error) {
+    console.log(`Error querying campaigns: ${error}`);
+  }
+};

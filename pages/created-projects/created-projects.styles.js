@@ -9,6 +9,12 @@ export const Content = styled.div`
   gap: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  width: 100%;
+
+  h2 {
+    margin-top: 6px;
+  }
 `;
 
 export const Wrapper = styled.div`
