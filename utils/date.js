@@ -9,7 +9,7 @@ export const getFormattedDate = (dateString) => {
 
 export const getMaxMinDate = (startDate = "", amountOfDays) => {
   const [year, month, day] = startDate.split("-");
-  const newDate = new Date(year, month, day);
+  const newDate = new Date(year, month - 1, day);
 
   newDate.setDate(newDate.getDate() + amountOfDays);
 
