@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const Background = styled.div`
   height: 100vh;
@@ -16,25 +16,25 @@ export const Container = styled.div`
   text-align: center;
   background-color: #222222;
   width: 369px;
-  height: 500px;
+  min-height: 510px;
 `;
 
 export const Title = styled.h1`
-  font-family: "Share Tech Mono";
+  font-family: 'Share Tech Mono';
   font-weight: 400;
   margin: 15px 5px 5px 5px;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 1px;
-  color: ${(props) => (props.link ? "rgba(255, 255, 255, 0.42)" : "#fff")};
+  color: ${(props) => (props.link ? 'rgba(255, 255, 255, 0.42)' : '#fff')};
   color: ${(props) =>
-    props.location === "/login" && props.login
-      ? "#fff"
-      : props.location === "/signup" && props.signUp
-      ? "#fff"
+    props.location === '/login' && props.login
+      ? '#fff'
+      : props.location === '/signup' && props.signUp
+      ? '#fff'
       : null};
-  border-right: ${(props) => (props.login ? "1px solid #fff" : null)};
-  padding-right: ${(props) => (props.login ? "10px" : null)};
+  border-right: ${(props) => (props.login ? '1px solid #fff' : null)};
+  padding-right: ${(props) => (props.login ? '10px' : null)};
 `;
 
 export const TitleContainer = styled.div`
