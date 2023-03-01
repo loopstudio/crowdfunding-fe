@@ -20,14 +20,14 @@ export const Pagination = ({ activePage, pages, setActivePage }) => {
   return (
     <Container>
       <Arrow
-        isInactive={activePage === 1}
+        isInactive={activePage === 1 || pages === 0}
         onClick={() => activePage !== 1 && setActivePage((page) => page - 1)}
       >
         {"<"}
       </Arrow>
       {getPages()}
       <Arrow
-        isInactive={activePage === pages}
+        isInactive={activePage === pages || pages === 0}
         onClick={() =>
           activePage !== pages && setActivePage((page) => page + 1)
         }

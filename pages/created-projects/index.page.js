@@ -12,7 +12,13 @@ import {
   Pagination,
 } from "components";
 import { fetchCreatedCampaigns } from "utils/fetch";
-import { QUERIES, SEARCH } from "../../constants";
+import { calculatePages } from "utils/pagination";
+import {
+  QUERIES,
+  SEARCH,
+  TOTAL,
+  AMOUNT_OF_ELEMENTS_PER_PAGE,
+} from "../../constants";
 
 import {
   Container,
@@ -31,12 +37,8 @@ const CreatedProjects = () => {
     mode: "onChange",
   });
 
-  const {
-    data: campaigns,
-    isLoading,
-    isError,
-  } = useQuery(
-    [QUERIES.campaigns, activePage, search],
+  const { data, isLoading, isError } = useQuery(
+    [QUERIES.campaigns, TOTAL, activePage, search],
     () => fetchCreatedCampaigns(activePage, search),
     {
       keepPreviousData: true,
@@ -65,19 +67,19 @@ const CreatedProjects = () => {
             <Filter />
           </Wrapper>
 
-          <h4>{campaigns?.length} Created Projects</h4>
+          <h4>{data?.total} Created Projects</h4>
 
           <CardContainer>
             {isLoading || isError
               ? skeletons.map((_, index) => <CardSkeleton key={index} />)
-              : campaigns.map((campaign, index) => (
+              : data.campaigns.map((campaign, index) => (
                   <Project project={campaign} key={index} />
                 ))}
           </CardContainer>
           <Pagination
             activePage={activePage}
             setActivePage={setActivePage}
-            pages={2}
+            pages={calculatePages(data?.total, AMOUNT_OF_ELEMENTS_PER_PAGE)}
           />
         </Content>
       </Container>

@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 30px 50px;
+  padding: 30px 80px;
   gap: 20px;
   display: flex;
   flex-direction: column;
@@ -30,5 +30,6 @@ export const Wrapper = styled.div`
 export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 40px;
 `;
