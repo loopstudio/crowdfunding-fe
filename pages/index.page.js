@@ -27,11 +27,10 @@ export default function Home() {
   const sliderArts = useRef();
   const skeletons = new Array(5).fill(null);
 
-  const {
-    data: campaigns,
-    isLoading,
-    isError,
-  } = useQuery([QUERIES.campaigns], fetchCampaigns);
+  const { data, isLoading, isError } = useQuery(
+    [QUERIES.campaigns],
+    fetchCampaigns
+  );
 
   useEffect(() => {
     scrollElements(sliderRecently);
@@ -73,7 +72,7 @@ export default function Home() {
           <ProjectContainer ref={sliderRecently}>
             {isLoading || isError
               ? skeletons.map((_, index) => <CardSkeleton key={index} />)
-              : campaigns.map((campaign, index) => (
+              : data.campaigns.map((campaign, index) => (
                   <Project project={campaign} key={index} />
                 ))}
           </ProjectContainer>
