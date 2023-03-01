@@ -1,8 +1,5 @@
-import Image from "next/image";
-
 import { ProgressBar } from "components";
 import { getFormattedDate } from "utils/date";
-import productImage from "assets/productImage.png";
 
 import {
   ProjectContainer,
@@ -14,14 +11,6 @@ import {
 export const Project = ({ project }) => {
   return (
     <ProjectContainer>
-      <Image
-        priority
-        src={productImage}
-        height={138}
-        width={243}
-        alt="project image"
-      />
-
       <InformationContainer>
         <Text>{project.title}</Text>
         <Text>{getFormattedDate(project.endDate)}</Text>
