@@ -9,6 +9,19 @@ export const HeaderContainer = styled.div`
   align-items: center;
 `;
 
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const AppName = styled.p`
+  font: 400 16px "Share Tech Mono";
+  color: #d0d0d0;
+  margin: 0 6px 0 6px;
+  letter-spacing: 0.5px;
+`;
+
 export const HeaderText = styled.p`
   @media (max-width: 600px) {
     font-size: 12px;
@@ -17,8 +30,7 @@ export const HeaderText = styled.p`
   color: #d0d0d0;
   margin: 0 6px 0 6px;
   letter-spacing: 0.5px;
-  text-decoration: ${({ isDropdownOpen }) =>
-    isDropdownOpen && "underline 1px white"};
+  border-bottom: ${({ isDropdownOpen }) => isDropdownOpen && "1px solid white"};
 
   position: relative;
 

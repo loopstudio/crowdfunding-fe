@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { scrollElements } from "utils/scrollElements";
 import { useQuery } from "@tanstack/react-query";
 
-import { Header, CardSkeleton, Project, Filter } from "components";
+import { Header, CardSkeleton, Project } from "components";
 import { fetchCampaigns } from "utils/fetch";
 import { QUERIES } from "../constants";
 import background from "assets/background.gif";
@@ -58,7 +58,6 @@ export default function Home() {
 
         <Grid>
           <ButtonsContainer>
-            <Filter />
             <Button href="/create">
               <Image height={15} width={15} src={add} alt="add icon" />
               New Project
