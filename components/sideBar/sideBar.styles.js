@@ -7,35 +7,19 @@ export const SideBarContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-left: 40px;
+  padding: 40px 70px 40px 40px;
   left: 0px;
-  width: 250px;
-  border-right: .1px solid #FFFFFF;
-  height: 100maxh;
-  background-color: rgba(30, 30, 30);
+  min-height: 100vh;
+  background-color: #ffffff0f;
   flex-direction: column;
+  gap: 18px;
+  white-space: nowrap;
 `;
 
-export const Title = styled.h1`
-  font: 400 24px 'Share Tech Mono';
-  margin-top: 40px;
+export const Title = styled.span`
+  font-size: 24px;
 `;
 
 export const Subtitle = styled.a`
-  font: 400 14px 'Share Tech Mono';
-  margin-top: 15px;
-`;
-
-export const SideBarButtonContainer = styled.div`
-  display: flex;
-  margin-top: 40vh;
-`;
-
-export const Button = styled.a`
-  display: flex;
-  height: 40px;
-  font: 400 16px 'Share Tech Mono';
-  padding: 10px;
-  border: 0.5px solid #FFFFFF;
-  background-color: rgba(255, 255, 255, 0.06);
+  font-size: 14px;
 `;
