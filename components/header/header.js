@@ -9,12 +9,14 @@ import { useHasMounted } from "hooks/useHasMounted";
 import { ACCESS_TOKEN, LINKS, HEADER_DROPDOWN_ITEMS } from "../../constants";
 
 import {
+  AppName,
   HeaderContainer,
   HeaderRow,
   HeaderText,
   LogOutButton,
   DropdownContent,
   DropdownButton,
+  LogoWrapper,
 } from "./header.styles.js";
 
 export const Header = () => {
@@ -39,15 +41,17 @@ export const Header = () => {
     <HeaderContainer>
       <HeaderRow>
         <Link href="/">
-          <Image
-            priority
-            src={smallLogo}
-            height={34}
-            width={39}
-            alt="SmallLogo"
-          />
+          <LogoWrapper>
+            <Image
+              priority
+              src={smallLogo}
+              height={34}
+              width={39}
+              alt="SmallLogo"
+            />
+            <AppName>Crowdfunding</AppName>
+          </LogoWrapper>
         </Link>
-        <HeaderText>Crowdfunding</HeaderText>
       </HeaderRow>
 
       <HeaderRow>

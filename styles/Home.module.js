@@ -65,7 +65,7 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   gap: 20px;
   align-self: flex-start;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 `;
 
 export const Button = styled.a`
