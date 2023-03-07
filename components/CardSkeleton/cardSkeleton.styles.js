@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const CardContainer = styled.div`
-  width: 245px;
-  height: 344px;
+  width: 250px;
+  height: 210px;
   overflow: hidden;
   position: relative;
   margin: 0 42px 50px 0;

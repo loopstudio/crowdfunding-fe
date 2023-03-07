@@ -8,6 +8,8 @@ export const ProjectContainer = styled.div`
   margin: 0 42px 50px 0;
   border: 1px solid white;
   z-index: 0;
+  min-width: 250px;
+  padding: 0 18px 18px;
 `;
 
 export const Button = styled.a`
@@ -37,6 +39,5 @@ export const InformationContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 190px;
-  padding: 0 19px 14px 13px;
   justify-content: space-between;
 `;
