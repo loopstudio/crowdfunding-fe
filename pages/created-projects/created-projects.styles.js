@@ -32,4 +32,9 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 40px;
+  margin-bottom: 35px;
+
+  div {
+    margin: 0;
+  }
 `;
