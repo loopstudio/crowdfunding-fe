@@ -19,13 +19,13 @@ export const StyledButton = styled(Button)`
   position: relative;
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
   user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
   word-wrap: break-word;
   cursor: pointer;
-  margin-top: 70px;
+  margin-top: 58px;
+  width: 310px;
 
   :hover {
     background-color: #f3f4f6;
@@ -54,4 +54,12 @@ export const StyledButton = styled(Button)`
   :before {
     display: none;
   }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: center;
 `;

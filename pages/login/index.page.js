@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAccount, useSignMessage } from "wagmi";
 
 import { ConnectWallet, AuthWrapper, Header } from "components";
+import MetamaskLogo from "assets/metamask-logo.svg";
 import { ACCESS_TOKEN } from "../../constants";
 
-import { StyledButton } from "./login.styles";
+import { StyledButton, Wrapper } from "./login.styles";
 
 const Login = () => {
   const router = useRouter();
@@ -66,9 +68,13 @@ const Login = () => {
     <>
       <Header />
       <AuthWrapper>
-        <StyledButton onClick={() => signMessage()} disabled={!nonce}>
-          Login With Metamask
-        </StyledButton>
+        <Wrapper>
+          <Image src={MetamaskLogo} alt="Metamask logo" />
+
+          <StyledButton onClick={() => signMessage()} disabled={!nonce}>
+            Login With Metamask
+          </StyledButton>
+        </Wrapper>
       </AuthWrapper>
     </>
   );
