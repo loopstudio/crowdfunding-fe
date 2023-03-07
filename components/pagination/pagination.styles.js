@@ -19,21 +19,20 @@ export const Container = styled.div`
     margin-right: 20px;
 
     :hover {
-      background-color: white;
-      color: black;
+      background-color: rgba(255, 255, 255, 0.19);
     }
   }
 `;
 
 export const Arrow = styled.div`
   font-size: 24px;
-  background-color: #ffffff0f;
   opacity: ${({ isInactive }) => isInactive && "0.7"};
   cursor: ${({ isInactive }) => (isInactive ? "not-allowed" : "pointer")};
 `;
 
 export const PageNumber = styled.div`
-  background-color: ${({ isActive }) => (isActive ? "white" : "#ffffff0f")};
-  color: ${({ isActive }) => (isActive ? "black" : "#bdbdbd")};
+  background-color: ${({ isActive }) =>
+    isActive && "rgba(255, 255, 255, 0.19)"};
+  color: white;
   cursor: pointer;
 `;

@@ -43,4 +43,4 @@ export const HEADER_DROPDOWN_ITEMS = [
 export const CAMPAIGN_MAX_DURATION = 20;
 export const CAMPAIGN_MIN_DURATION = 1;
 
-export const AMOUNT_OF_ELEMENTS_PER_PAGE = 6;
+export const AMOUNT_OF_ELEMENTS_PER_PAGE = 9;
