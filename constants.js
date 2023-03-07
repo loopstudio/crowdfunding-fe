@@ -9,7 +9,6 @@ export const USERNAME = "username";
 export const EMAIL = "email";
 export const ACCESS_TOKEN = "accessToken";
 export const PLEDGE_AMOUNT = "pledgeAmount";
-export const LOG_OUT = "logOut";
 
 export const QUERIES = {
   campaigns: "campaigns",
@@ -33,7 +32,10 @@ export const FUNCTIONS = {
 };
 
 export const LINKS = ["logIn", "signUp"];
-export const LOGGED_LINKS = ["my-projects", "logOut"];
+export const HEADER_DROPDOWN_ITEMS = [
+  { link: "pledged-projects", title: "Pledged Projects" },
+  { link: "created-projects", title: "Created Projects" },
+];
 
 export const CAMPAIGN_MAX_DURATION = 20;
 export const CAMPAIGN_MIN_DURATION = 1;
