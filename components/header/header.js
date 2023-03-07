@@ -1,28 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { startCase } from "lodash";
 
 import smallLogo from "assets/small-logo.svg";
 import { useHasMounted } from "hooks/useHasMounted";
-import { ACCESS_TOKEN, LINKS, LOGGED_LINKS, LOG_OUT } from "../../constants";
+import { ACCESS_TOKEN, LINKS, HEADER_DROPDOWN_ITEMS } from "../../constants";
 
 import {
   HeaderContainer,
   HeaderRow,
   HeaderText,
   LogOutButton,
+  DropdownContent,
+  DropdownButton,
 } from "./header.styles.js";
 
 export const Header = () => {
   const router = useRouter();
   const hasMounted = useHasMounted();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const accessToken =
     typeof window !== "undefined" && sessionStorage.getItem(ACCESS_TOKEN);
   const isLoggedIn = !!accessToken;
-
-  const linksToRender = isLoggedIn ? LOGGED_LINKS : LINKS;
 
   const onLogOut = () => {
     sessionStorage.removeItem(ACCESS_TOKEN);
@@ -49,17 +51,31 @@ export const Header = () => {
       </HeaderRow>
 
       <HeaderRow>
-        {linksToRender.map((link) => {
-          return link === LOG_OUT ? (
-            <LogOutButton onClick={onLogOut} key={link}>
-              {startCase(link)}
-            </LogOutButton>
-          ) : (
+        {isLoggedIn ? (
+          <>
+            <DropdownButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <HeaderText isDropdownOpen={isDropdownOpen}>
+                My Projects
+              </HeaderText>
+            </DropdownButton>
+            {isDropdownOpen && (
+              <DropdownContent>
+                {HEADER_DROPDOWN_ITEMS.map((item) => (
+                  <Link href={item.link} key={item.link}>
+                    <HeaderText>{item.title}</HeaderText>
+                  </Link>
+                ))}
+              </DropdownContent>
+            )}
+            <LogOutButton onClick={onLogOut}>Log Out</LogOutButton>
+          </>
+        ) : (
+          LINKS.map((link) => (
             <Link href={`/${link.toLowerCase()}`} key={link}>
               <HeaderText>{startCase(link)}</HeaderText>
             </Link>
-          );
-        })}
+          ))
+        )}
       </HeaderRow>
     </HeaderContainer>
   );

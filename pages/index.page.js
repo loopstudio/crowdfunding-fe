@@ -27,11 +27,10 @@ export default function Home() {
   const sliderArts = useRef();
   const skeletons = new Array(5).fill(null);
 
-  const {
-    data,
-    isLoading,
-    isError,
-  } = useQuery([QUERIES.campaigns], fetchCampaigns);
+  const { data, isLoading, isError } = useQuery(
+    [QUERIES.campaigns],
+    fetchCampaigns
+  );
 
   useEffect(() => {
     scrollElements(sliderRecently);
