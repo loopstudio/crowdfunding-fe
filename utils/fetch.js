@@ -78,7 +78,7 @@ export const fetchPledgedCampaigns = async (activePage, search) => {
 
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns-pledge?page=${activePage}&size=6`,
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns-pledge?page=${activePage}&size=9&search=${search}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

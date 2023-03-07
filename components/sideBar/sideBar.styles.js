@@ -20,6 +20,24 @@ export const Title = styled.span`
   font-size: 24px;
 `;
 
-export const Subtitle = styled.a`
+export const Subtitle = styled.span`
   font-size: 14px;
+  position: relative;
+
+  :before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  :hover:before {
+    visibility: visible;
+    width: 100%;
+  }
 `;
