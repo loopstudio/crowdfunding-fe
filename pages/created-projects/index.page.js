@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import {
   Header,
   Input,
-  Filter,
   SideBar,
   CardSkeleton,
   Project,
@@ -64,7 +63,6 @@ const CreatedProjects = () => {
             <form onSubmit={handleSubmit(onHandleSearch)}>
               <Input {...register(SEARCH)} placeholder="Search Project" />
             </form>
-            <Filter />
           </Wrapper>
 
           <h4>{data?.total} Created Projects</h4>

@@ -8,7 +8,7 @@ export const ProjectContainer = styled.div`
   margin: 0 42px 50px 0;
   border: 1px solid white;
   z-index: 0;
-  min-width: 250px;
+  min-width: 280px;
   padding: 0 18px 18px;
 `;
 
