@@ -10,11 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { USERNAME, EMAIL, ACCESS_TOKEN } from "../../constants";
 import { Input, Button, ConnectWallet, AuthWrapper, Header } from "components";
 
-import { Form } from "./signup.styles";
+import { Form, InputWrapper } from "./signup.styles";
 
 const validationSchema = object().shape({
-  username: string().required(),
-  email: string().email().required(),
+  username: string().required("This field is required*"),
+  email: string()
+    .email("Enter a valid email*")
+    .required("This field is required*"),
 });
 
 const SignUp = () => {
@@ -52,7 +54,7 @@ const SignUp = () => {
     handleSubmit,
     register,
     reset,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: { username: "", email: "" },
@@ -93,21 +95,28 @@ const SignUp = () => {
     <>
       <Header />
       <AuthWrapper>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Username"
-            {...register(USERNAME)}
-            name={USERNAME}
-            error={errors.username}
-          />
-          <Input
-            placeholder="Email"
-            {...register(EMAIL)}
-            name={EMAIL}
-            error={errors.email}
-          />
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          numOfErrors={Object.keys(errors).length}
+        >
+          <InputWrapper>
+            <Input
+              placeholder="Email"
+              {...register(EMAIL)}
+              name={EMAIL}
+              error={errors.email}
+              isDirty={dirtyFields[EMAIL]}
+            />
+            <Input
+              placeholder="Username"
+              {...register(USERNAME)}
+              name={USERNAME}
+              error={errors.username}
+              isDirty={dirtyFields[USERNAME]}
+            />
+          </InputWrapper>
           <Button type="submit" disabled={!isDirty || !isValid}>
-            Sign up With Metamask
+            Sign Up
           </Button>
         </Form>
       </AuthWrapper>
