@@ -1,11 +1,17 @@
+import Link from "next/link";
+
 import { SideBarContainer, Subtitle, Title } from "./sideBar.styles.js";
 
 export const SideBar = () => {
   return (
     <SideBarContainer>
       <Title>My Projects</Title>
-      <Subtitle>Pledged projects</Subtitle>
-      <Subtitle>Created projects</Subtitle>
+      <Link href="pledged-projects">
+        <Subtitle>Pledged projects</Subtitle>
+      </Link>
+      <Link href="created-projects">
+        <Subtitle>Created projects</Subtitle>
+      </Link>
     </SideBarContainer>
   );
 };
