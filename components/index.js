@@ -10,6 +10,8 @@ import { AuthWrapper } from "./authWrapper/authWrapper";
 import { SideBar } from "./sideBar/sideBar";
 import { Filter } from "./filter/filter";
 import { Pagination } from "./pagination/pagination";
+import { ProjectSideBar } from "./ProjectSideBar/projectSideBar";
+import { PledgeSideBar } from "./PledgeSideBar/pledgeSideBar";
 
 export {
   Input,
@@ -24,4 +26,6 @@ export {
   SideBar,
   Filter,
   Pagination,
+  ProjectSideBar,
+  PledgeSideBar,
 };

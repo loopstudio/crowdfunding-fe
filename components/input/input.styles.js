@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 const calculateBorderColor = (state, isFocus) => {
-  console.log(state);
   if (state === "error") return "#E74A3B";
   if (state === "valid") return "#3CBC81";
   return isFocus ? "white" : "#ffffff99";

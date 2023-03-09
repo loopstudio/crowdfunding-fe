@@ -1,54 +1,42 @@
 import styled from "@emotion/styled";
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 40px;
+`;
+
 export const Container = styled.div`
   display: flex;
 `;
-export const LeftContent = styled.div`
-  width: 70%;
-  padding: 20px;
-`;
-export const RightContent = styled.div`
-  width: 30%;
-  margin: 20px;
-  height: 100vh;
-`;
 
-export const ImageContainer = styled.div`
-  width: 100%;
-  height: 464px;
-`;
-
-export const ImageBanner = styled.img`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-`;
-
-export const Title = styled.h3`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 150%;
-  color: #ffffff;
-`;
-
-export const DescriptionBox = styled.div`
-  background: rgba(255, 255, 255, 0.06);
-  border: 0.2px solid #ffffff;
-  backdrop-filter: blur(10px);
-  padding: 20px;
-`;
-
-export const Text = styled.p`
-  font-style: normal;
-  font-weight: 400;
+export const DescriptionTag = styled.div`
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: #ffffff0f;
+  font-family: NTR;
   font-size: 18px;
-  line-height: 150%;
-  color: #ffffff;
+  border-radius: 1000px;
+  width: 129px;
+  text-align: center;
 `;
 
-export const ButtonsContainer = styled.div`
-  display: flex;
-  gap: 10px;
+export const Title = styled.h1`
+  margin: 0;
+  font-size: 40px;
 `;
+
+export const DescriptionContainer = styled.div`
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: #ffffff0f;
+  padding: 40px;
+
+  p {
+    margin: 0px;
+    font-family: NTR;
+    font-size: 18px;
+    line-height: 150%;
+  }
+`;
+
+export const ButtonsContainer = styled.div``;

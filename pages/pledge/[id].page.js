@@ -10,20 +10,22 @@ import { object, number } from "yup";
 import { QUERIES, PLEDGE_AMOUNT } from "../../constants";
 import { usePledge } from "hooks/usePledge";
 import { useClaim } from "hooks/useClaim";
-import { Button, ProgressBar, Input, Header } from "components";
-import { getProgressPercentage } from "utils/percentage";
+import {
+  Button,
+  Input,
+  Header,
+  ProjectSideBar,
+  PledgeSideBar,
+} from "components";
 import { fetchCampaign } from "utils/fetch";
 
 import {
   Container,
-  DescriptionBox,
-  ImageBanner,
-  ImageContainer,
-  LeftContent,
-  RightContent,
-  Text,
-  Title,
+  DescriptionTag,
   ButtonsContainer,
+  Title,
+  DescriptionContainer,
+  Wrapper,
 } from "./pledge.styles";
 
 const validationSchema = object().shape({
@@ -34,7 +36,7 @@ const PledgePage = () => {
   const { address } = useAccount();
   const router = useRouter();
   const { id } = router.query;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPledge, setIsPledge] = useState(false);
   const queryClient = useQueryClient();
 
   const {
@@ -63,7 +65,6 @@ const PledgePage = () => {
 
   useEffect(() => {
     if (isTransactionComplete) {
-      setIsModalOpen(false);
       queryClient.refetchQueries([QUERIES.campaign, id]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,51 +72,40 @@ const PledgePage = () => {
 
   const isOwner = address === campaign?.owner?.publicAddress;
 
+  if (isLoading || !campaign) return <p>Loading...</p>;
+
   return (
     <>
       <Header />
-      {isLoading || !campaign ? (
-        <p>Loading...</p>
-      ) : (
-        <Container>
-          <LeftContent>
-            <ImageContainer>
-              <ImageBanner src={campaign.image} />
-            </ImageContainer>
-            <Title>{campaign.title}</Title>
+      <Container>
+        <Wrapper>
+          <Title>{campaign?.title}</Title>
 
-            <DescriptionBox>
-              <Text>{campaign.subtitle}</Text>
-              <Text>{campaign.story}</Text>
-            </DescriptionBox>
-          </LeftContent>
-          <RightContent>
-            <Title>Goal</Title>
-            <ProgressBar
-              percentage={getProgressPercentage(
-                campaign.currentAmount[0].amount,
-                campaign.goal[0].amount
-              )}
-            />
-            <Text>Weekly Report</Text>
-            <Text>Revenue: ${campaign.fiatAmount}</Text>
-            <Text>Pledged: ${campaign.currentAmount[0].amount}</Text>
+          <DescriptionTag>Description</DescriptionTag>
 
-            {isOwner ? (
-              <Button disabled={!write} onClick={() => write?.()}>
-                Claim
-              </Button>
-            ) : (
-              <Button onClick={() => setIsModalOpen((prev) => !prev)}>
-                Pledge Now
-              </Button>
-            )}
-          </RightContent>
-        </Container>
-      )}
+          <DescriptionContainer>
+            <p>{campaign?.story}</p>
+          </DescriptionContainer>
+        </Wrapper>
+
+        {isPledge ? (
+          <PledgeSideBar
+            onClick={write}
+            register={register}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <ProjectSideBar
+            campaign={campaign}
+            onClick={write}
+            isOwner={isOwner}
+            setIsPledge={setIsPledge}
+          />
+        )}
+      </Container>
 
       <ReactModal
-        isOpen={isModalOpen}
         shouldCloseOnEsc
         style={{
           content: {
@@ -137,9 +127,7 @@ const PledgePage = () => {
             error={errors[PLEDGE_AMOUNT]}
           />
           <ButtonsContainer>
-            <Button onClick={() => setIsModalOpen((prev) => !prev)}>
-              Cancel
-            </Button>
+            <Button>Cancel</Button>
             <Button disabled={!isDirty || !isValid}>Pledge</Button>
           </ButtonsContainer>
         </form>
