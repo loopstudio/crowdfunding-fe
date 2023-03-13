@@ -55,6 +55,7 @@ export const Grid = styled.div`
   padding: 200px 0 100px 50px;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -94,12 +95,13 @@ export const Button = styled.a`
 
 export const ProjectContainer = styled.div`
   display: flex;
-  overflow-x: scroll;
-  flex-direction: row;
-  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 40px;
+  margin: 0 auto 0 35px;
 
-  &::-webkit-scrollbar {
-    display: none;
+  div {
+    margin: 0;
   }
 `;
 
@@ -113,4 +115,11 @@ export const Wrapper = styled.div`
 
 export const TextWrapper = styled.div`
   white-space: nowrap;
+`;
+
+export const PaginationContainer = styled.div`
+  > div {
+    bottom: 20px;
+    right: 10px;
+  }
 `;
