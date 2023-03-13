@@ -4,11 +4,12 @@ import { forwardRef } from "react";
 import { Label } from "pages/create/create.styles";
 import errorIcon from "assets/icons/error.svg";
 import validIcon from "assets/icons/valid.svg";
+import searchIcon from "assets/icons/search.svg";
 
 import { StyledInput, Message, Wrapper } from "./input.styles";
 
 export const Input = forwardRef(function InputWithRef(
-  { name, label, error, isDirty, type, ...props },
+  { name, label, error, isDirty, type, isSearch, ...props },
   ref
 ) {
   const isValid = isDirty && !error;
@@ -23,12 +24,15 @@ export const Input = forwardRef(function InputWithRef(
     <div>
       <Label htmlFor={name}>{label}</Label>
 
-      <Wrapper>
+      <Wrapper isSearch={isSearch}>
+        {isSearch && <Image src={searchIcon} alt="search icon" />}
+
         <StyledInput
           type={type}
           name={name}
           id={name}
           ref={ref}
+          isSearch={isSearch}
           state={calculateState()}
           {...props}
         />

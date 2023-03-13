@@ -65,13 +65,16 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   gap: 20px;
   align-self: flex-start;
-  margin-bottom: 40px;
+
+  input {
+    width: 340px;
+  }
 `;
 
 export const Button = styled.a`
   right: 0;
   background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid white;
+  border: 1px solid #ffffff99;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -98,4 +101,16 @@ export const ProjectContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+export const TextWrapper = styled.div`
+  white-space: nowrap;
 `;
