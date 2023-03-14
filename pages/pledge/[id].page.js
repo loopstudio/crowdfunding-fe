@@ -1,4 +1,3 @@
-import ReactModal from "react-modal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -10,19 +9,12 @@ import { object, number } from "yup";
 import { QUERIES, PLEDGE_AMOUNT } from "../../constants";
 import { usePledge } from "hooks/usePledge";
 import { useClaim } from "hooks/useClaim";
-import {
-  Button,
-  Input,
-  Header,
-  ProjectSideBar,
-  PledgeSideBar,
-} from "components";
+import { Header, ProjectSideBar, PledgeSideBar } from "components";
 import { fetchCampaign } from "utils/fetch";
 
 import {
   Container,
   DescriptionTag,
-  ButtonsContainer,
   Title,
   DescriptionContainer,
   Wrapper,
@@ -39,12 +31,7 @@ const PledgePage = () => {
   const [isPledge, setIsPledge] = useState(false);
   const queryClient = useQueryClient();
 
-  const {
-    formState: { errors, isValid, isDirty },
-    handleSubmit,
-    register,
-    getValues,
-  } = useForm({
+  const { handleSubmit, register, getValues } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       [PLEDGE_AMOUNT]: 0,
@@ -104,34 +91,6 @@ const PledgePage = () => {
           />
         )}
       </Container>
-
-      <ReactModal
-        shouldCloseOnEsc
-        style={{
-          content: {
-            height: "200px",
-            backgroundColor: "black",
-            color: "white",
-            borderRadius: "10px",
-            width: "250px",
-            margin: "0 auto",
-          },
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            {...register(PLEDGE_AMOUNT)}
-            label="Amount"
-            name={PLEDGE_AMOUNT}
-            type="number"
-            error={errors[PLEDGE_AMOUNT]}
-          />
-          <ButtonsContainer>
-            <Button>Cancel</Button>
-            <Button disabled={!isDirty || !isValid}>Pledge</Button>
-          </ButtonsContainer>
-        </form>
-      </ReactModal>
     </>
   );
 };

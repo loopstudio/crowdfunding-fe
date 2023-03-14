@@ -1,5 +1,8 @@
+import { useRouter } from "next/router";
+
 import { ProgressBar, Button } from "components";
 import { getProgressPercentage } from "utils/percentage";
+import { ACCESS_TOKEN } from "../../constants";
 
 import {
   Container,
@@ -14,7 +17,24 @@ import {
 } from "./projectSideBar.style";
 
 export const ProjectSideBar = ({ campaign, write, isOwner, setIsPledge }) => {
+  const router = useRouter();
   const { goal, currentAmount } = campaign;
+
+  const buttonToRender = () => {
+    if (!sessionStorage.getItem(ACCESS_TOKEN))
+      return (
+        <Button onClick={() => router.push("/login")}>Log in to Pledge</Button>
+      );
+
+    if (isOwner)
+      return (
+        <Button disabled={!write} onClick={() => write?.()}>
+          Claim
+        </Button>
+      );
+
+    return <Button onClick={() => setIsPledge(true)}>Pledge Now</Button>;
+  };
 
   return (
     <Container>
@@ -52,13 +72,7 @@ export const ProjectSideBar = ({ campaign, write, isOwner, setIsPledge }) => {
         </Box>
       </BoxContainer>
 
-      {isOwner ? (
-        <Button disabled={!write} onClick={() => write?.()}>
-          Claim
-        </Button>
-      ) : (
-        <Button onClick={() => setIsPledge(true)}>Pledge Now</Button>
-      )}
+      {buttonToRender()}
     </Container>
   );
 };
