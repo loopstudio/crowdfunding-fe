@@ -61,7 +61,11 @@ const CreatedProjects = () => {
           <h2>Created Projects</h2>
           <Wrapper>
             <form onSubmit={handleSubmit(onHandleSearch)}>
-              <Input {...register(SEARCH)} placeholder="Search Project" />
+              <Input
+                {...register(SEARCH)}
+                placeholder="Search Project"
+                isSearch
+              />
             </form>
           </Wrapper>
 

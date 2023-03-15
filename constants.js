@@ -44,3 +44,4 @@ export const CAMPAIGN_MAX_DURATION = 20;
 export const CAMPAIGN_MIN_DURATION = 1;
 
 export const AMOUNT_OF_ELEMENTS_PER_PAGE = 9;
+export const NUM_OF_ELEMENTS_MAIN = 12;

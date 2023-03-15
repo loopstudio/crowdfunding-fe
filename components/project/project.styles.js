@@ -21,6 +21,7 @@ export const Button = styled.a`
   border: none;
   letter-spacing: 0.5px;
   border: 1px solid;
+  text-align: center;
 
   :hover {
     background-color: #1b1b1b;

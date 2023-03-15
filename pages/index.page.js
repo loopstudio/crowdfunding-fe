@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { scrollElements } from "utils/scrollElements";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
-import { Header, CardSkeleton, Project } from "components";
+import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
-import { QUERIES } from "../constants";
+import { calculatePages } from "utils/pagination";
+import { QUERIES, SEARCH, NUM_OF_ELEMENTS_MAIN } from "../constants";
 import background from "assets/background.gif";
 import add from "assets/icons/add.svg";
 
@@ -19,22 +20,32 @@ import {
   ButtonsContainer,
   Button,
   ProjectContainer,
+  Wrapper,
+  TextWrapper,
+  PaginationContainer,
 } from "../styles/Home.module.js";
 
 export default function Home() {
-  const sliderRecently = useRef();
-  const sliderArts = useRef();
+  const [activePage, setActivePage] = useState(1);
+  const [search, setSearch] = useState("");
+
   const skeletons = new Array(5).fill(null);
 
   const { data, isLoading, isError } = useQuery(
-    [QUERIES.campaigns],
-    fetchCampaigns
+    [QUERIES.campaigns, activePage, search],
+    () => fetchCampaigns(activePage, search)
   );
 
-  useEffect(() => {
-    scrollElements(sliderRecently);
-    scrollElements(sliderArts);
-  }, []);
+  const { handleSubmit, register, reset } = useForm({
+    defaultValues: { [SEARCH]: "" },
+    mode: "onChange",
+  });
+
+  const onHandleSearch = ({ search }) => {
+    setSearch(search);
+
+    reset();
+  };
 
   return (
     <>
@@ -57,20 +68,41 @@ export default function Home() {
         </TitleContainer>
 
         <Grid>
-          <ButtonsContainer>
-            <Button href="/create">
-              <Image height={15} width={15} src={add} alt="add icon" />
-              New Project
-            </Button>
-          </ButtonsContainer>
+          <Wrapper>
+            <TextWrapper>
+              <span>Recently launched projects</span>
+            </TextWrapper>
 
-          <ProjectContainer ref={sliderRecently}>
+            <ButtonsContainer>
+              <form onSubmit={handleSubmit(onHandleSearch)}>
+                <Input
+                  placeholder="Search Project"
+                  isSearch
+                  {...register(SEARCH)}
+                />
+              </form>
+
+              <Button href="/create">
+                <Image height={15} width={15} src={add} alt="add icon" />
+                New Project
+              </Button>
+            </ButtonsContainer>
+          </Wrapper>
+
+          <ProjectContainer>
             {isLoading || isError
               ? skeletons.map((_, index) => <CardSkeleton key={index} />)
               : data.campaigns.map((campaign, index) => (
                   <Project project={campaign} key={index} />
                 ))}
           </ProjectContainer>
+          <PaginationContainer>
+            <Pagination
+              activePage={activePage}
+              setActivePage={setActivePage}
+              pages={calculatePages(data?.total, NUM_OF_ELEMENTS_MAIN)}
+            />
+          </PaginationContainer>
         </Grid>
       </Main>
     </>

@@ -55,6 +55,7 @@ export const Grid = styled.div`
   padding: 200px 0 100px 50px;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -65,13 +66,16 @@ export const ButtonsContainer = styled.div`
   justify-content: flex-end;
   gap: 20px;
   align-self: flex-start;
-  margin-bottom: 40px;
+
+  input {
+    width: 340px;
+  }
 `;
 
 export const Button = styled.a`
   right: 0;
   background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid white;
+  border: 1px solid #ffffff99;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -91,11 +95,31 @@ export const Button = styled.a`
 
 export const ProjectContainer = styled.div`
   display: flex;
-  overflow-x: scroll;
-  flex-direction: row;
-  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 40px;
+  margin: 0 auto 0 35px;
 
-  &::-webkit-scrollbar {
-    display: none;
+  div {
+    margin: 0;
+  }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+export const TextWrapper = styled.div`
+  white-space: nowrap;
+`;
+
+export const PaginationContainer = styled.div`
+  > div {
+    bottom: 20px;
+    right: 10px;
   }
 `;
