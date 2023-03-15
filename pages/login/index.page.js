@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAccount, useSignMessage } from "wagmi";
 
-import { ConnectWallet, AuthWrapper, Header } from "components";
+import { AuthWrapper, Header } from "components";
 import MetamaskLogo from "assets/metamask-logo.svg";
 import { ACCESS_TOKEN } from "../../constants";
 
@@ -63,7 +63,10 @@ const Login = () => {
     if (accessToken) router.push("/");
   }, []);
 
-  if (!isConnected) return <ConnectWallet />;
+  useEffect(() => {
+    if (!isConnected) router.push("/connect-wallet");
+  }, [isConnected]);
+
   return (
     <>
       <Header />

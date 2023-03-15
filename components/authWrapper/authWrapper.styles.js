@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Background = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 70px;
 `;
 
 export const Container = styled.div`

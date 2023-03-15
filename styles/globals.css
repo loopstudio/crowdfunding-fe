@@ -9,7 +9,10 @@ body {
   font-family: Share Tech Mono, -apple-system, BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-  background: black;
+  color: white;
+  background-image: url("../assets/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 a {

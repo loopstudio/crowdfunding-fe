@@ -1,30 +1,33 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-import logo from 'assets/small-logo.svg';
+import logo from "assets/small-logo.svg";
 
 import {
   Background,
   Container,
   Title,
   TitleContainer,
-} from './authWrapper.styles';
+} from "./authWrapper.styles";
 
 export const AuthWrapper = ({ children }) => {
-  const location = window.location.pathname;
+  const router = useRouter();
+  const location = router.pathname;
+
   return (
     <Background>
       <Container>
         <Image src={logo} height={63} width={71.82} alt="crowdfunding logo" />
         <Title>Crowdfunding</Title>
         <TitleContainer>
-          <Link href={'/login'}>
+          <Link href={"/login"}>
             <Title login link location={location}>
               Login
             </Title>
           </Link>
 
-          <Link href={'/signup'}>
+          <Link href={"/signup"}>
             <Title link signUp location={location}>
               Sign Up
             </Title>

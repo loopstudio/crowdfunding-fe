@@ -8,7 +8,7 @@ import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { USERNAME, EMAIL, ACCESS_TOKEN } from "../../constants";
-import { Input, Button, ConnectWallet, AuthWrapper, Header } from "components";
+import { Input, Button, AuthWrapper, Header } from "components";
 
 import { Form, InputWrapper } from "./signup.styles";
 
@@ -89,7 +89,9 @@ const SignUp = () => {
     if (accessToken) router.push("/");
   }, []);
 
-  if (!isConnected) return <ConnectWallet />;
+  useEffect(() => {
+    if (!isConnected) router.push("/connect-wallet");
+  }, [isConnected]);
 
   return (
     <>

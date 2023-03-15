@@ -57,6 +57,7 @@ export const HeaderRow = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  position: relative;
 `;
 
 export const LogOutButton = styled.button`
