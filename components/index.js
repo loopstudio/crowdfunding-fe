@@ -13,6 +13,8 @@ import { Pagination } from "./pagination/pagination";
 import { ProjectSideBar } from "./ProjectSideBar/projectSideBar";
 import { PledgeSideBar } from "./PledgeSideBar/pledgeSideBar";
 import { ProjectDetailSkeleton } from "./ProjectDetailSkeleton/projectDetailSkeleton";
+import { Slider } from "./slider/slider";
+import { Dropdown } from "./dropdown/dropdown";
 
 export {
   Input,
@@ -30,4 +32,6 @@ export {
   ProjectSideBar,
   PledgeSideBar,
   ProjectDetailSkeleton,
+  Slider,
+  Dropdown,
 };
