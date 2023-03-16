@@ -37,7 +37,7 @@ import {
   OptionalLabel,
 } from "./create.styles";
 
-const Creation = () => {
+const Create = () => {
   const { data: tokens, isLoading: isTokensLoading } = useQuery(
     [QUERIES.tokens],
     fetchTokens
@@ -166,4 +166,4 @@ const Creation = () => {
   );
 };
 
-export default Creation;
+export default Create;
