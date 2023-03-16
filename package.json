@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false",
+    "test:cov": "yarn test --silent --coverage --coverageReporters=text --coverageReporters=text-summary --watchAll=false --passWithNoTests",
     "pre-commit": "yarn run lint",
     "pre-push": "yarn run test:cov",
     "prepare": "husky install",
