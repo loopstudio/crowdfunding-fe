@@ -12,6 +12,8 @@ export const PLEDGE_AMOUNT = "pledgeAmount";
 export const LOG_OUT = "logOut";
 export const SEARCH = "search";
 export const TOTAL = "total";
+export const URL = "url";
+export const COLLABORATORS = "collaborators";
 
 export const QUERIES = {
   campaigns: "campaigns",

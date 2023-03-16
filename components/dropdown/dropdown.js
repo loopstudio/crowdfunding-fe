@@ -10,9 +10,10 @@ import {
   DropdownList,
   Label,
   Wrapper,
+  Skeleton,
 } from "./dropdown.styles";
 
-export const Dropdown = ({ options }) => {
+export const Dropdown = ({ options, handleSelect, label, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -21,15 +22,29 @@ export const Dropdown = ({ options }) => {
   };
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
+    setSelectedOption(option.symbol);
+    handleSelect(option.address);
     setIsOpen(false);
   };
+
+  if (isLoading)
+    return (
+      <div>
+        <Label htmlFor="dropdown">{label}</Label>
+        <Container>
+          <Skeleton />
+        </Container>
+      </div>
+    );
+
   return (
     <div>
-      <Label htmlFor="token">Token</Label>
-      <Container name="token">
+      <Label htmlFor="dropdown">{label}</Label>
+      <Container>
         <Wrapper isOpen={isOpen} onClick={handleButtonClick}>
-          <DropdownButton>{selectedOption || ""}</DropdownButton>
+          <DropdownButton id="dropdown" type="button">
+            {selectedOption || ""}
+          </DropdownButton>
           <Image src={downArrow} alt="arrow icon" />
         </Wrapper>
 
@@ -38,7 +53,7 @@ export const Dropdown = ({ options }) => {
             {options.map((option) => (
               <DropdownItem
                 key={option.symbol}
-                onClick={() => handleOptionClick(option.symbol)}
+                onClick={() => handleOptionClick(option)}
               >
                 {option.symbol}
               </DropdownItem>

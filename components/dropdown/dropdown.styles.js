@@ -62,3 +62,24 @@ export const Wrapper = styled.div`
     transition: transform 0.3s ease-in-out;
   }
 `;
+
+export const Skeleton = styled.div`
+  border: 1px solid #ffffff99;
+  height: 40px;
+  width: 100%;
+
+  background-color: #eee;
+  animation: pulse 1.5s ease-in-out infinite;
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+`;

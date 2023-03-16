@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
 import {
   Label,
@@ -7,20 +7,31 @@ import {
   SliderValues,
 } from "./slider.styles";
 
-export const Slider = ({ max, min }) => {
+export const Slider = forwardRef(function SliderWithRef(
+  { min, max, label, handleChange, name, ...props },
+  ref
+) {
   const [value, setValue] = useState(1);
+
+  const onChange = (e) => {
+    setValue(Number(e.target.value));
+    handleChange(e);
+  };
 
   return (
     <div>
-      <Label htmlFor="slider">Project Goal</Label>
+      <Label htmlFor="slider">{label}</Label>
 
       <SliderInput
-        name="slider"
+        id="slider"
         type="range"
+        name={name}
+        ref={ref}
         min={min}
         max={max}
         value={value}
-        onChange={(e) => setValue(Number(e.target.value))}
+        onChange={onChange}
+        {...props}
       />
       <SliderValuesContainer>
         <SliderValues>${min}</SliderValues>
@@ -28,4 +39,4 @@ export const Slider = ({ max, min }) => {
       </SliderValuesContainer>
     </div>
   );
-};
+});

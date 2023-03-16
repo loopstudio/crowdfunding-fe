@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { object, string, date, number } from "yup";
+
 import {
   TITLE,
   SUBTITLE,
@@ -10,7 +10,7 @@ import {
   FUND_GOAL,
   START_DATE,
   END_DATE,
-} from "constants";
+} from "../constants";
 
 const validationSchema = object().shape({
   [TITLE]: string().required(),
@@ -24,20 +24,20 @@ const validationSchema = object().shape({
 
 export const useCreateForm = () => {
   const {
-    formState: { errors, isValid, isSubmitSuccessful },
+    formState: { errors, isValid },
     handleSubmit,
     register,
     setValue,
-    reset,
     getValues,
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {},
     mode: "onChange",
   });
 
-  const handleTokenSelect = (event) => {
-    setValue(TOKEN, event.target.value, {
+  const handleTokenSelect = (value) => {
+    setValue(TOKEN, value, {
       shouldDirty: true,
       shouldValidate: true,
     });
@@ -50,17 +50,14 @@ export const useCreateForm = () => {
     });
   };
 
-  useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful, reset]);
-
   return {
     errors,
     getValues,
     handleDate,
-    handleTokenSelect,
     handleSubmit,
+    handleTokenSelect,
     isValid,
     register,
+    watch,
   };
 };
