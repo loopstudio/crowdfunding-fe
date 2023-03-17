@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { SideBar, Header, Input, Dropdown } from "components";
+import { SideBar, Header, Input, Dropdown, Modal } from "components";
 import { useLaunch } from "hooks/useLaunch";
 import { fetchTokens } from "utils/fetch";
 import { postData } from "utils/post";
@@ -32,12 +32,13 @@ import {
   DescriptionField,
   Label,
   StyledButton,
-  LinkWrapper,
+  BackButton,
   Title,
   OptionalLabel,
 } from "./create.styles";
 
 const Create = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: tokens, isLoading: isTokensLoading } = useQuery(
     [QUERIES.tokens],
     fetchTokens
@@ -62,18 +63,21 @@ const Create = () => {
     write?.();
   };
 
+  const handleModal = () => setIsModalOpen(true);
+
   return (
     <>
       <Header />
+
       <Container>
         <SideBar />
 
+        <Modal isModalOpen={isModalOpen} handleModal={setIsModalOpen} />
+
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Link href="/">
-            <LinkWrapper>
-              <Image src={arrowIcon} alt="arrow icon" /> <span>Back</span>
-            </LinkWrapper>
-          </Link>
+          <BackButton onClick={handleModal}>
+            <Image src={arrowIcon} alt="arrow icon" /> <span>Back</span>
+          </BackButton>
 
           <Title>Building My Project</Title>
 

@@ -12,6 +12,7 @@ import { Filter } from "./filter/filter";
 import { Pagination } from "./pagination/pagination";
 import { Slider } from "./slider/slider";
 import { Dropdown } from "./dropdown/dropdown";
+import { Modal } from "./modal/modal";
 
 export {
   Input,
@@ -28,4 +29,5 @@ export {
   Pagination,
   Slider,
   Dropdown,
+  Modal,
 };

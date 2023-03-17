@@ -71,10 +71,11 @@ export const StyledButton = styled(Button)`
   margin-top: 24px;
 `;
 
-export const LinkWrapper = styled.div`
+export const BackButton = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 
   img {
     transform: rotate(90deg);
