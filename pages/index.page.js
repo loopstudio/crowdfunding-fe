@@ -7,7 +7,12 @@ import { useForm } from "react-hook-form";
 import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
 import { calculatePages } from "utils/pagination";
-import { QUERIES, SEARCH, NUM_OF_ELEMENTS_MAIN } from "../constants";
+import {
+  QUERIES,
+  SEARCH,
+  NUM_OF_ELEMENTS_MAIN,
+  ACCESS_TOKEN,
+} from "../constants";
 import background from "assets/background.gif";
 import add from "assets/icons/add.svg";
 
@@ -29,7 +34,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const skeletons = new Array(5).fill(null);
+  const skeletons = new Array(4).fill(null);
 
   const { data, isLoading, isError } = useQuery(
     [QUERIES.campaigns, activePage, search],
@@ -46,6 +51,10 @@ export default function Home() {
 
     reset();
   };
+
+  const accessToken =
+    typeof window !== "undefined" && sessionStorage.getItem(ACCESS_TOKEN);
+  const isLoggedIn = !!accessToken;
 
   return (
     <>
@@ -82,7 +91,7 @@ export default function Home() {
                 />
               </form>
 
-              <Button href="/create">
+              <Button href={isLoggedIn ? "/create" : "/login"}>
                 <Image height={15} width={15} src={add} alt="add icon" />
                 New Project
               </Button>

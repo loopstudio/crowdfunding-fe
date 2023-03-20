@@ -2,16 +2,9 @@ import axios from "axios";
 import { ACCESS_TOKEN } from "../constants";
 
 export const fetchCampaigns = async (activePage, search) => {
-  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=${activePage}&size=12&search=${search}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns?page=${activePage}&size=12&search=${search}`
     );
     return data.data;
   } catch (error) {
@@ -20,16 +13,9 @@ export const fetchCampaigns = async (activePage, search) => {
 };
 
 export const fetchCampaign = async (id) => {
-  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/campaigns/${id}`
     );
     return data.data;
   } catch (error) {
