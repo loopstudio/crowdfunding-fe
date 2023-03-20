@@ -15,7 +15,7 @@ import {
   Input,
 } from "./pledgeSideBar.styles";
 
-export const PledgeSideBar = ({ write, register, handleSubmit, onSubmit }) => {
+export const PledgeSideBar = ({ register, handleSubmit, onSubmit }) => {
   const [isActive, setIsActive] = useState(false);
 
   const onActivateInput = () => {
@@ -26,30 +26,29 @@ export const PledgeSideBar = ({ write, register, handleSubmit, onSubmit }) => {
     <Container>
       <Title>Pledge</Title>
 
-      <InputContainer isActive={isActive}>
-        <ActiveInputContainer onClick={onActivateInput}>
-          {isActive && <ActiveInput />}
-        </ActiveInputContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputContainer isActive={isActive}>
+          <ActiveInputContainer onClick={onActivateInput}>
+            {isActive && <ActiveInput />}
+          </ActiveInputContainer>
 
-        {isActive ? (
-          <Wrapper>
-            <form onSubmit={handleSubmit(onSubmit)}>
+          {isActive ? (
+            <Wrapper>
               <Input
                 dir="rtl"
                 {...register(PLEDGE_AMOUNT)}
                 name={PLEDGE_AMOUNT}
               />
-            </form>
-            <Currency>LT</Currency>
-          </Wrapper>
-        ) : (
-          <Placeholder onClick={onActivateInput}>Type Pledge</Placeholder>
-        )}
-      </InputContainer>
 
-      <Button disabled={!write} onClick={() => write?.()}>
-        Go to Metamask
-      </Button>
+              <Currency>LT</Currency>
+            </Wrapper>
+          ) : (
+            <Placeholder onClick={onActivateInput}>Type Pledge</Placeholder>
+          )}
+        </InputContainer>
+
+        <Button type="submit">Go to Metamask</Button>
+      </form>
     </Container>
   );
 };

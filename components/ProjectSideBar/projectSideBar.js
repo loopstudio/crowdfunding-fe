@@ -16,7 +16,7 @@ import {
   Value,
 } from "./projectSideBar.style";
 
-export const ProjectSideBar = ({ campaign, write, isOwner, setIsPledge }) => {
+export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
   const router = useRouter();
   const { goal, currentAmount } = campaign;
 
@@ -28,7 +28,7 @@ export const ProjectSideBar = ({ campaign, write, isOwner, setIsPledge }) => {
 
     if (isOwner)
       return (
-        <Button disabled={!write} onClick={() => write?.()}>
+        <Button disabled={!onClick} onClick={() => onClick?.()}>
           Claim
         </Button>
       );
@@ -59,11 +59,6 @@ export const ProjectSideBar = ({ campaign, write, isOwner, setIsPledge }) => {
         <Box>
           <Subtitle>Revenue</Subtitle>
           <Value>{currentAmount[0].amount}LT</Value>
-        </Box>
-
-        <Box>
-          <Subtitle>Refunds</Subtitle>
-          <Value>0%</Value>
         </Box>
 
         <Box>

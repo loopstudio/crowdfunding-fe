@@ -12,7 +12,7 @@ export const SkeletonCard = styled.div`
   display: inline-block;
   width: 100%;
   height: 100%;
-  background-color: #eee;
+  background-color: #ffffff0f;
   animation: pulse 1.5s ease-in-out infinite;
 
   @keyframes pulse {

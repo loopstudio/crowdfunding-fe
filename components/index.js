@@ -12,6 +12,7 @@ import { Filter } from "./filter/filter";
 import { Pagination } from "./pagination/pagination";
 import { ProjectSideBar } from "./ProjectSideBar/projectSideBar";
 import { PledgeSideBar } from "./PledgeSideBar/pledgeSideBar";
+import { ProjectDetailSkeleton } from "./ProjectDetailSkeleton/projectDetailSkeleton";
 
 export {
   Input,
@@ -28,4 +29,5 @@ export {
   Pagination,
   ProjectSideBar,
   PledgeSideBar,
+  ProjectDetailSkeleton,
 };

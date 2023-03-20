@@ -30,6 +30,7 @@ export const DescriptionContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.25);
   background-color: #ffffff0f;
   padding: 40px;
+  width: 1000px;
 
   p {
     margin: 0px;

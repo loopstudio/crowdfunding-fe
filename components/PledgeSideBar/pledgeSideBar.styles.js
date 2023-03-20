@@ -15,7 +15,7 @@ export const Container = styled.div`
   button {
     font-size: 16px;
     padding: 12px 24px;
-    margin: 542px auto 0;
+    margin: 435px 0 0 65px;
   }
 `;
 
