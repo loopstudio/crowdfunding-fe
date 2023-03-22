@@ -15,6 +15,7 @@ import { PledgeSideBar } from "./PledgeSideBar/pledgeSideBar";
 import { ProjectDetailSkeleton } from "./ProjectDetailSkeleton/projectDetailSkeleton";
 import { Slider } from "./slider/slider";
 import { Dropdown } from "./dropdown/dropdown";
+import { Modal } from "./modal/modal";
 
 export {
   Input,
@@ -34,4 +35,5 @@ export {
   ProjectDetailSkeleton,
   Slider,
   Dropdown,
+  Modal,
 };
