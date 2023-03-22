@@ -4,14 +4,19 @@ import {
   useWaitForTransaction,
   useContractEvent,
 } from "wagmi";
+import { useRouter } from "next/router";
 
 import { useDebounce } from "./useDebounce";
-import crowdfundingConfig from "../crowdfunding.config.json";
 import { FUNCTIONS, EVENTS } from "../constants";
+import crowdfundingConfig from "../crowdfunding.config.json";
 
-export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
+export const useLaunch = (fundGoal, formData, postData) => {
   const { abi } = crowdfundingConfig;
   const address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF;
+
+  const { startDate, endDate } = formData;
+
+  const router = useRouter();
 
   const debouncedStartDate = useDebounce(
     Math.floor(new Date(startDate).getTime() / 1000),
@@ -31,7 +36,7 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
     abi,
     functionName: FUNCTIONS.launch,
     args: [
-      debouncedFundGoal,
+      Number(debouncedFundGoal),
       debouncedStartDate?.toString(),
       debouncedEndDate?.toString(),
     ],
@@ -41,7 +46,7 @@ export const useLaunch = (startDate, endDate, fundGoal, formData, postData) => {
   const { data, write } = useContractWrite({
     ...config,
     onSuccess() {
-      postData(formData);
+      postData(formData, router);
     },
   });
 

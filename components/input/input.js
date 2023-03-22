@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { forwardRef } from "react";
 
-import { Label } from "pages/create/create.styles";
 import errorIcon from "assets/icons/error.svg";
 import validIcon from "assets/icons/valid.svg";
 import searchIcon from "assets/icons/search.svg";
 
-import { StyledInput, Message, Wrapper } from "./input.styles";
+import { StyledInput, Message, Wrapper, Label } from "./input.styles";
 
 export const Input = forwardRef(function InputWithRef(
   { name, label, error, isDirty, type, isSearch, ...props },

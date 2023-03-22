@@ -25,6 +25,13 @@ export const StyledInput = styled.input`
     transition: background-color 5000s ease-in-out 0s;
   }
 
+  &::-webkit-datetime-edit-text,
+  &::-webkit-datetime-edit-month-field,
+  &::-webkit-datetime-edit-day-field,
+  &::-webkit-datetime-edit-year-field {
+    color: #ffffff99;
+  }
+
   :focus {
     outline: none;
     border: 1px solid;
@@ -52,3 +59,5 @@ export const Wrapper = styled.div`
     left: ${({ isSearch }) => isSearch && "10px"};
   }
 `;
+
+export const Label = styled.label``;
