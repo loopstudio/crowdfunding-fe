@@ -41,7 +41,7 @@ export const Modal = ({ isModalOpen, handleModal }) => {
         },
       }}
     >
-      <Question>Are You Sure?</Question>
+      <Question>Are you sure?</Question>
 
       <Description>
         The project will be deleted automatically and you will lose your
