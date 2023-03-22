@@ -7,7 +7,7 @@ import {
 import { FUNCTIONS, EVENTS } from "../constants";
 import crowdfundingConfig from "../crowdfunding.config.json";
 
-export const useClaim = (id) => {
+export const useClaim = (id, isOwner) => {
   const { abi } = crowdfundingConfig;
 
   const { config } = usePrepareContractWrite({
@@ -15,6 +15,7 @@ export const useClaim = (id) => {
     abi,
     functionName: FUNCTIONS.claim,
     args: [id],
+    enabled: isOwner,
   });
 
   const { write } = useContractWrite({

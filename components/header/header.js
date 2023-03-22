@@ -65,7 +65,7 @@ export const Header = () => {
             {isDropdownOpen && (
               <DropdownContent>
                 {HEADER_DROPDOWN_ITEMS.map((item) => (
-                  <Link href={item.link} key={item.link}>
+                  <Link href={`/${item.link}`} key={item.link}>
                     <HeaderText>{item.title}</HeaderText>
                   </Link>
                 ))}

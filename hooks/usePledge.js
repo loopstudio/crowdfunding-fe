@@ -17,11 +17,14 @@ export const usePledge = (id, pledgeAmount) => {
 
   const debouncedPledgeAmount = useDebounce(pledgeAmount, 500);
 
+  const isEnabled = !!debouncedPledgeAmount;
+
   const { config } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_LT,
     abi,
     functionName: FUNCTIONS.approve,
     args: [process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF, debouncedPledgeAmount],
+    enabled: isEnabled,
   });
 
   const { write } = useContractWrite({
@@ -36,6 +39,7 @@ export const usePledge = (id, pledgeAmount) => {
     abi: cfAbi,
     functionName: FUNCTIONS.pledge,
     args: [id, debouncedPledgeAmount],
+    enabled: isEnabled,
   });
 
   const { data, write: cfWrite } = useContractWrite({

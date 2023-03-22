@@ -22,7 +22,7 @@ export const Project = ({ project }) => {
               : 0
           }
         />
-        <Button href={`/pledge/${project.onchainId}`}>View details</Button>
+        <Button href={`/project/${project.onchainId}`}>View details</Button>
       </InformationContainer>
     </ProjectContainer>
   );
