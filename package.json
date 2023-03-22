@@ -30,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
     "react-modal": "^3.16.1",
+    "react-toastify": "^9.1.2",
     "wagmi": "^0.7.4",
     "yup": "^0.32.11"
   },

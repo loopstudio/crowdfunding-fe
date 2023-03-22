@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
@@ -113,6 +115,8 @@ export default function Home() {
             />
           </PaginationContainer>
         </Grid>
+
+        <ToastContainer />
       </Main>
     </>
   );
