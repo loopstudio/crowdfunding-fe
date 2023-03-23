@@ -98,10 +98,11 @@ export const DropdownContent = styled.div`
   border: 1px solid #ddd;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  top: 60px;
-  right: 70px;
+  top: 40px;
+  right: 35px;
   padding: 18px;
   gap: 8px;
+  white-space: nowrap;
 
   a {
     position: relative;

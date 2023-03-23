@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -7,64 +6,36 @@ import { useAccount, useSignMessage } from "wagmi";
 
 import { AuthWrapper, Header } from "components";
 import MetamaskLogo from "assets/metamask-logo.svg";
-import { ACCESS_TOKEN } from "../../constants";
+import { useAuth } from "context/AuthContext";
+import { postLogin } from "utils/post";
+import { fetchNonce } from "utils/fetch";
+import { ROUTES } from "../../constants";
 
 import { StyledButton, Wrapper } from "./login.styles";
 
 const Login = () => {
   const router = useRouter();
+  const { login, isUserAuthenticated } = useAuth();
   const { address, isConnected } = useAccount();
   const [nonce, setNonce] = useState(null);
-
-  const login = async (address, data) => {
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/login`,
-        {
-          publicAddress: address,
-          signature: data,
-        }
-      );
-
-      const accessToken = res.data.data.accessToken;
-      sessionStorage.setItem(ACCESS_TOKEN, accessToken);
-
-      router.push("/");
-    } catch (error) {
-      console.error(`Error logging in: ${error}`);
-    }
-  };
 
   const { signMessage } = useSignMessage({
     message: `Signing login nonce: ${nonce}`,
     onSuccess(data) {
-      login(address, data);
+      postLogin(address, data, login, router);
     },
   });
 
-  const fetchNonce = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/${address}/nonce`
-      );
-      setNonce(res.data.data);
-    } catch (error) {
-      console.log(`Error querying nonce: ${error}`);
-    }
-  };
-
   useEffect(() => {
-    fetchNonce();
+    fetchNonce(address, setNonce);
   }, [address]);
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-
-    if (accessToken) router.push("/");
+    if (isUserAuthenticated) router.push(ROUTES.home);
   }, []);
 
   useEffect(() => {
-    if (!isConnected) router.push("/connect-wallet");
+    if (!isConnected) router.push(ROUTES.connectWallet);
   }, [isConnected]);
 
   return (

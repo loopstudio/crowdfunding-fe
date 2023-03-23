@@ -1,13 +1,15 @@
 import { useConnect } from "wagmi";
 import { useRouter } from "next/router";
 
+import { ROUTES } from "../../constants";
+
 import { Button, Container } from "./connectWallet.styles";
 
 const ConnectWallet = () => {
   const router = useRouter();
   const { connect, connectors } = useConnect({
     onSuccess() {
-      router.push("/login");
+      router.push(ROUTES.login);
     },
   });
 

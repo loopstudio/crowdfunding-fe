@@ -36,10 +36,23 @@ export const FUNCTIONS = {
   claim: "claim",
 };
 
-export const LINKS = ["logIn", "signUp"];
+export const ROUTES = {
+  home: "/",
+  login: "/login",
+  signUp: "/signup",
+  create: "/create",
+  pledgedProjects: "/pledged-projects",
+  createdProjects: "/created-projects",
+  connectWallet: "/connect-wallet",
+};
+
+export const UNAUTHENTICATED_ITEMS = [
+  { link: ROUTES.login, title: "Login" },
+  { link: ROUTES.signUp, title: "Sign Up" },
+];
 export const HEADER_DROPDOWN_ITEMS = [
-  { link: "pledged-projects", title: "Pledged Projects" },
-  { link: "created-projects", title: "Created Projects" },
+  { link: ROUTES.pledgedProjects, title: "Pledged Projects" },
+  { link: ROUTES.createdProjects, title: "Created Projects" },
 ];
 
 export const CAMPAIGN_MAX_DURATION = 20;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ACCESS_TOKEN } from "../constants";
+import { ACCESS_TOKEN, ROUTES } from "../constants";
 
 export const postData = async (formData, router) => {
   try {
@@ -40,8 +40,43 @@ export const postData = async (formData, router) => {
       }
     );
 
-    router.push("/created-projects");
+    router.push(ROUTES.createdProjects);
   } catch (error) {
     console.error(error);
   }
+};
+
+export const postLogin = async (address, data, login, router) => {
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/login`,
+      {
+        publicAddress: address,
+        signature: data,
+      }
+    );
+
+    const accessToken = res.data.data.accessToken;
+    login(accessToken);
+
+    router.push(ROUTES.home);
+  } catch (error) {
+    console.error(`Error logging in: ${error}`);
+  }
+};
+
+export const postRegister = async (address, formData, setNonce, reset) => {
+  const { username, email } = formData;
+
+  const {
+    data: { data },
+  } = await axios.post(`${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/users`, {
+    username,
+    email,
+    publicAddress: address,
+  });
+
+  setNonce(data.nonce);
+
+  reset();
 };

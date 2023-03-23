@@ -5,8 +5,9 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 
 import { Header, ConnectWallet } from "components";
-import { ACCESS_TOKEN } from "../../constants";
+import { useAuth } from "context/AuthContext";
 import backgroundImage from "assets/bg-connect-wallet.png";
+import { ROUTES } from "../../constants";
 
 import {
   Container,
@@ -17,13 +18,12 @@ import {
 
 const ConnectWalletPage = () => {
   const { isConnected } = useAccount();
+  const { isUserAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-
-    if (accessToken && isConnected) router.push("/");
-    if (!accessToken && isConnected) router.push("/login");
+    if (isUserAuthenticated && isConnected) router.push(ROUTES.home);
+    if (!isUserAuthenticated && isConnected) router.push(ROUTES.login);
   }, []);
 
   return (

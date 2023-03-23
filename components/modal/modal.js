@@ -7,6 +7,7 @@ import { Button } from "components";
 import { GoBackModalStyles } from "utils/modal";
 import { TOAST_SUCCESS_CONFIG } from "utils/toast";
 import toastIcon from "assets/icons/toast-success.svg";
+import { ROUTES } from "../../constants";
 
 import {
   Question,
@@ -24,7 +25,7 @@ export const Modal = ({ isModalOpen, handleModal }) => {
   };
 
   const handleConfirm = () => {
-    router.push("/");
+    router.push(ROUTES.home);
     toast(
       <ToastContent>
         <ToastTitle>

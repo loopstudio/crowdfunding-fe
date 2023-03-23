@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAccount, useSignMessage } from "wagmi";
@@ -7,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { USERNAME, EMAIL, ACCESS_TOKEN } from "../../constants";
+import { useAuth } from "context/AuthContext";
 import { Input, Button, AuthWrapper, Header } from "components";
+import { postLogin, postRegister } from "utils/post";
+import { USERNAME, EMAIL, ROUTES } from "../../constants";
 
 import { Form, InputWrapper } from "./signup.styles";
 
@@ -21,34 +22,16 @@ const validationSchema = object().shape({
 
 const SignUp = () => {
   const router = useRouter();
+  const { login, isUserAuthenticated } = useAuth();
   const { address, isConnected } = useAccount();
   const [nonce, setNonce] = useState(null);
 
   const { signMessage } = useSignMessage({
     message: `Signing login nonce: ${nonce}`,
     onSuccess(data) {
-      login(address, data);
+      postLogin(address, data, login, router);
     },
   });
-
-  const login = async (address, data) => {
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/auth/login`,
-        {
-          publicAddress: address,
-          signature: data,
-        }
-      );
-
-      const accessToken = res.data.data.accessToken;
-      sessionStorage.setItem(ACCESS_TOKEN, accessToken);
-
-      router.push("/");
-    } catch (error) {
-      console.error(`Error logging in: ${error}`);
-    }
-  };
 
   const {
     handleSubmit,
@@ -61,20 +44,8 @@ const SignUp = () => {
     mode: "onChange",
   });
 
-  const onSubmit = async (formData) => {
-    const { username, email } = formData;
-
-    const {
-      data: { data },
-    } = await axios.post(`${process.env.NEXT_PUBLIC_CROWDFUNDING_API}/users`, {
-      username,
-      email,
-      publicAddress: address,
-    });
-
-    setNonce(data.nonce);
-
-    reset();
+  const onSubmit = (formData) => {
+    postRegister(address, formData, setNonce, reset);
   };
 
   useEffect(() => {
@@ -84,13 +55,11 @@ const SignUp = () => {
   }, [nonce]);
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-
-    if (accessToken) router.push("/");
+    if (isUserAuthenticated) router.push(ROUTES.home);
   }, []);
 
   useEffect(() => {
-    if (!isConnected) router.push("/connect-wallet");
+    if (!isConnected) router.push(ROUTES.connectWallet);
   }, [isConnected]);
 
   return (
