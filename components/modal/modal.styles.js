@@ -22,3 +22,19 @@ export const ButtonsContainer = styled.div`
     margin: 0;
   }
 `;
+
+export const ToastContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  p {
+    margin: 0px;
+    margin-left: 33px;
+  }
+`;
+
+export const ToastTitle = styled.div`
+  display: flex;
+  align-items: center;
+`;
