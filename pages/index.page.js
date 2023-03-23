@@ -9,12 +9,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
 import { calculatePages } from "utils/pagination";
-import {
-  QUERIES,
-  SEARCH,
-  NUM_OF_ELEMENTS_MAIN,
-  ACCESS_TOKEN,
-} from "../constants";
+import { QUERIES, SEARCH, NUM_OF_ELEMENTS_MAIN, ROUTES } from "../constants";
 import background from "assets/background.gif";
 import add from "assets/icons/add.svg";
 
@@ -54,10 +49,6 @@ export default function Home() {
     reset();
   };
 
-  const accessToken =
-    typeof window !== "undefined" && sessionStorage.getItem(ACCESS_TOKEN);
-  const isLoggedIn = !!accessToken;
-
   return (
     <>
       <Head>
@@ -93,7 +84,7 @@ export default function Home() {
                 />
               </form>
 
-              <Button href={isLoggedIn ? "/create" : "/login"}>
+              <Button href={ROUTES.create}>
                 <Image height={15} width={15} src={add} alt="add icon" />
                 New Project
               </Button>

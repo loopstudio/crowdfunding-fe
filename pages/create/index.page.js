@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import { SideBar, Header, Input, Dropdown, Modal } from "components";
 import { useLaunch } from "hooks/useLaunch";
+import { useAuth } from "context/AuthContext";
 import { fetchTokens } from "utils/fetch";
 import { postData } from "utils/post";
 import { getMaxMinDate, getTomorrow } from "utils/date";
@@ -21,6 +23,7 @@ import {
   CAMPAIGN_MAX_DURATION,
   CAMPAIGN_MIN_DURATION,
   COLLABORATORS,
+  ROUTES,
 } from "../../constants";
 
 import {
@@ -39,9 +42,11 @@ import {
 
 const Create = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isUserAuthenticated, accessToken } = useAuth();
+  const router = useRouter();
   const { data: tokens, isLoading: isTokensLoading } = useQuery(
-    [QUERIES.tokens],
-    fetchTokens
+    [QUERIES.tokens, accessToken],
+    () => fetchTokens(accessToken)
   );
 
   const {
@@ -64,6 +69,11 @@ const Create = () => {
   };
 
   const handleModal = () => setIsModalOpen(true);
+
+  useEffect(() => {
+    if (!isUserAuthenticated) router.push(ROUTES.login);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

@@ -12,6 +12,7 @@ import {
 } from "components";
 import { fetchPledgedCampaigns } from "utils/fetch";
 import { calculatePages } from "utils/pagination";
+import { useAuth } from "context/AuthContext";
 import {
   QUERIES,
   SEARCH,
@@ -30,6 +31,7 @@ const PledgedProjects = () => {
   const skeletons = new Array(3).fill(null);
   const [activePage, setActivePage] = useState(1);
   const [search, setSearch] = useState("");
+  const { accessToken } = useAuth();
 
   const { handleSubmit, register, reset } = useForm({
     defaultValues: { [SEARCH]: "" },
@@ -37,8 +39,8 @@ const PledgedProjects = () => {
   });
 
   const { data, isLoading, isError } = useQuery(
-    [QUERIES.campaigns, TOTAL, activePage, search],
-    () => fetchPledgedCampaigns(activePage, search),
+    [QUERIES.campaigns, TOTAL, activePage, search, accessToken],
+    () => fetchPledgedCampaigns(activePage, search, accessToken),
     {
       keepPreviousData: true,
     }

@@ -2,11 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { startCase } from "lodash";
 
 import smallLogo from "assets/small-logo.svg";
 import { useHasMounted } from "hooks/useHasMounted";
-import { ACCESS_TOKEN, LINKS, HEADER_DROPDOWN_ITEMS } from "../../constants";
+import { useAuth } from "context/AuthContext";
+import {
+  UNAUTHENTICATED_ITEMS,
+  HEADER_DROPDOWN_ITEMS,
+  ROUTES,
+} from "../../constants";
 
 import {
   AppName,
@@ -22,15 +26,13 @@ import {
 export const Header = () => {
   const router = useRouter();
   const hasMounted = useHasMounted();
+  const { logout, isUserAuthenticated } = useAuth();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const accessToken =
-    typeof window !== "undefined" && sessionStorage.getItem(ACCESS_TOKEN);
-  const isLoggedIn = !!accessToken;
-
   const onLogOut = () => {
-    sessionStorage.removeItem(ACCESS_TOKEN);
-    router.push("/");
+    logout();
+    router.push(ROUTES.home);
   };
 
   if (!hasMounted) {
@@ -40,7 +42,7 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <HeaderRow>
-        <Link href="/">
+        <Link href={ROUTES.home}>
           <LogoWrapper>
             <Image
               priority
@@ -55,7 +57,7 @@ export const Header = () => {
       </HeaderRow>
 
       <HeaderRow>
-        {isLoggedIn ? (
+        {isUserAuthenticated ? (
           <>
             <DropdownButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <HeaderText isDropdownOpen={isDropdownOpen}>
@@ -65,7 +67,7 @@ export const Header = () => {
             {isDropdownOpen && (
               <DropdownContent>
                 {HEADER_DROPDOWN_ITEMS.map((item) => (
-                  <Link href={`/${item.link}`} key={item.link}>
+                  <Link href={item.link} key={item.link}>
                     <HeaderText>{item.title}</HeaderText>
                   </Link>
                 ))}
@@ -74,9 +76,9 @@ export const Header = () => {
             <LogOutButton onClick={onLogOut}>Log Out</LogOutButton>
           </>
         ) : (
-          LINKS.map((link) => (
-            <Link href={`/${link.toLowerCase()}`} key={link}>
-              <HeaderText>{startCase(link)}</HeaderText>
+          UNAUTHENTICATED_ITEMS.map((item) => (
+            <Link href={item.link} key={item.link}>
+              <HeaderText>{item.title}</HeaderText>
             </Link>
           ))
         )}
