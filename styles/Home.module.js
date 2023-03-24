@@ -37,19 +37,6 @@ export const Title = styled.span`
   letter-spacing: 22px;
 `;
 
-export const BackgroundContainer = styled.div`
-  position: absolute;
-  align-self: center;
-  margin-top: 60px;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-  width: 100%;
-  height: 700px;
-  overflow: hidden;
-  mix-blend-mode: screen;
-`;
-
 export const PlanetGIF = styled(Image)`
   mix-blend-mode: screen;
   position: absolute;
