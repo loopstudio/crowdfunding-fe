@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useClickAway } from "use-click-away";
 
 import downArrow from "assets/icons/downArrow.svg";
 
@@ -16,10 +17,15 @@ import {
 export const Dropdown = ({ options, handleSelect, label, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const clickRef = useRef("");
 
   const handleButtonClick = () => {
     setIsOpen((prev) => !prev);
   };
+
+  useClickAway(clickRef, () => {
+    setIsOpen(false);
+  });
 
   const handleOptionClick = (option) => {
     setSelectedOption(option.symbol);
@@ -30,7 +36,7 @@ export const Dropdown = ({ options, handleSelect, label, isLoading }) => {
   if (isLoading)
     return (
       <div>
-        <Label htmlFor="dropdown">{label}</Label>
+        <Label>{label}</Label>
         <Container>
           <Skeleton />
         </Container>
@@ -49,7 +55,7 @@ export const Dropdown = ({ options, handleSelect, label, isLoading }) => {
         </Wrapper>
 
         {isOpen && (
-          <DropdownList>
+          <DropdownList ref={clickRef}>
             {options.map((option) => (
               <DropdownItem
                 key={option.symbol}

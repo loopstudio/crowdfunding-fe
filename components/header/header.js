@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
+import { useClickAway } from "use-click-away";
 
 import smallLogo from "assets/small-logo.svg";
 import { useHasMounted } from "hooks/useHasMounted";
@@ -26,9 +27,14 @@ import {
 export const Header = () => {
   const router = useRouter();
   const hasMounted = useHasMounted();
+  const clickRef = useRef("");
   const { logout, isUserAuthenticated } = useAuth();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useClickAway(clickRef, () => {
+    setIsDropdownOpen(false);
+  });
 
   const onLogOut = () => {
     logout();
@@ -65,7 +71,7 @@ export const Header = () => {
               </HeaderText>
             </DropdownButton>
             {isDropdownOpen && (
-              <DropdownContent>
+              <DropdownContent ref={clickRef}>
                 {HEADER_DROPDOWN_ITEMS.map((item) => (
                   <Link href={item.link} key={item.link}>
                     <HeaderText>{item.title}</HeaderText>
