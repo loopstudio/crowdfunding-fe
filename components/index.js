@@ -16,6 +16,7 @@ import { ProjectDetailSkeleton } from "./ProjectDetailSkeleton/projectDetailSkel
 import { Slider } from "./slider/slider";
 import { Dropdown } from "./dropdown/dropdown";
 import { Modal } from "./modal/modal";
+import { ToastContent } from "./toastContent/toastContent";
 
 export {
   Input,
@@ -36,4 +37,5 @@ export {
   Slider,
   Dropdown,
   Modal,
+  ToastContent,
 };

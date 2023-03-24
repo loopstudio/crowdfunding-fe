@@ -5,7 +5,10 @@ import {
   useContractEvent,
 } from "wagmi";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
+import { ToastContent } from "components";
+import { TOAST_SUCCESS_CONFIG } from "utils/toast";
 import { useDebounce } from "./useDebounce";
 import { FUNCTIONS, EVENTS } from "../constants";
 import crowdfundingConfig from "../crowdfunding.config.json";
@@ -47,6 +50,13 @@ export const useLaunch = (fundGoal, formData, postData) => {
     ...config,
     onSuccess() {
       postData(formData, router);
+      toast(
+        <ToastContent
+          title="Project posted"
+          description="Your project has been posted successfully"
+        />,
+        TOAST_SUCCESS_CONFIG
+      );
     },
   });
 

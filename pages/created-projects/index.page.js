@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import {
   Header,
@@ -87,6 +89,8 @@ const CreatedProjects = () => {
           />
         </Content>
       </Container>
+
+      <ToastContainer />
     </>
   );
 };
