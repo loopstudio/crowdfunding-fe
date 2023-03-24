@@ -29,8 +29,7 @@ export const ToastContent = styled.div`
   gap: 4px;
 
   p {
-    margin: 0px;
-    margin-left: 33px;
+    margin: 0 0 10px 33px;
   }
 `;
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ACCESS_TOKEN } from "../constants";
 
 export const fetchCampaigns = async (activePage, search) => {
   try {

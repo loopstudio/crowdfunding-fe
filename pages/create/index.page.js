@@ -44,6 +44,7 @@ const Create = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isUserAuthenticated, accessToken } = useAuth();
   const router = useRouter();
+
   const { data: tokens, isLoading: isTokensLoading } = useQuery(
     [QUERIES.tokens, accessToken],
     () => fetchTokens(accessToken)
