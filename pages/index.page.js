@@ -17,7 +17,6 @@ import {
   Main,
   TitleContainer,
   Title,
-  LogoContainer,
   Grid,
   ButtonsContainer,
   Button,
@@ -25,6 +24,7 @@ import {
   Wrapper,
   TextWrapper,
   PaginationContainer,
+  PlanetGIF,
 } from "../styles/Home.module.js";
 
 export default function Home() {
@@ -60,9 +60,7 @@ export default function Home() {
       <Main>
         <Header />
 
-        <LogoContainer>
-          <Image src={background} alt="Logo" fill />
-        </LogoContainer>
+        <PlanetGIF src={background} alt="Logo" height={1200} width={2200} />
 
         <TitleContainer>
           <Title>CROWD</Title>

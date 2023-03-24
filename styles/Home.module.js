@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Image from "next/image";
 
 export const Main = styled.main`
   min-height: 100vh;
@@ -36,16 +37,12 @@ export const Title = styled.span`
   letter-spacing: 22px;
 `;
 
-export const LogoContainer = styled.div`
+export const PlanetGIF = styled(Image)`
+  mix-blend-mode: screen;
   position: absolute;
-  align-self: center;
-  margin-top: 60px;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-  width: 100%;
-  height: 700px;
-  overflow: hidden;
+  top: -300px;
+  right: -450px;
+  margin-top: 40px;
 `;
 
 export const Grid = styled.div`
