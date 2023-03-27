@@ -13,7 +13,7 @@ import { AuthProvider } from "context/AuthContext";
 import "../styles/globals.css";
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.goerli, chain.localhost, chain.hardhat],
+  [chain.sepolia, chain.localhost, chain.hardhat],
   [publicProvider()]
 );
 
