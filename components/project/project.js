@@ -14,7 +14,7 @@ export const Project = ({ project }) => {
       <InformationContainer>
         <Text>{project.title}</Text>
         <Text>{getFormattedDate(project.endDate)}</Text>
-        {project.goal.length > 0 && <Text>LT ${project.goal[0].amount}</Text>}
+        {project.goal.length > 0 && <Text>USDT ${project.goal[0].amount}</Text>}
         <ProgressBar
           percentage={
             project.goal.length > 0 && project.currentAmount.length > 0
