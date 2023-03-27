@@ -1,0 +1,15 @@
+runtime: nodejs18
+service: crowdfunding-fe
+instance_class: F2
+automatic_scaling:
+  min_instances: 1
+
+env_variables:
+  NEXT_PUBLIC_CROWDFUNDING_API: https://crowdfunding-api-dot-crowdfunding-380517.de.r.appspot.com/api/v1
+  NEXT_PUBLIC_CONTRACT_ADDRESS_CF: 0x5C50243490a612cE56678fbBDDFFbAe91B2fB506
+  NEXT_PUBLIC_CONTRACT_ADDRESS_LT: 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
