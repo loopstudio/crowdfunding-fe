@@ -43,7 +43,7 @@ export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
       <ProgressBarContainer>
         <ProgressBarLabelWrapper>
           <ProgressBarLabel>Goal</ProgressBarLabel>
-          <ProgressBarLabel>{goal[0].amount} LT</ProgressBarLabel>
+          <ProgressBarLabel>{goal[0].amount} USDT</ProgressBarLabel>
         </ProgressBarLabelWrapper>
         <ProgressBar
           percentage={getProgressPercentage(
@@ -58,7 +58,7 @@ export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
       <BoxContainer>
         <Box>
           <Subtitle>Revenue</Subtitle>
-          <Value>{currentAmount[0].amount}LT</Value>
+          <Value>{currentAmount[0].amount}USDT</Value>
         </Box>
 
         <Box>

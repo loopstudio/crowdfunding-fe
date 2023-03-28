@@ -40,7 +40,7 @@ export const PledgeSideBar = ({ register, handleSubmit, onSubmit }) => {
                 name={PLEDGE_AMOUNT}
               />
 
-              <Currency>LT</Currency>
+              <Currency>USDT</Currency>
             </Wrapper>
           ) : (
             <Placeholder onClick={onActivateInput}>Type Pledge</Placeholder>
