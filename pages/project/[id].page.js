@@ -44,7 +44,7 @@ const ProjectPage = () => {
     mode: "onChange",
   });
 
-  const { data: campaign, isLoading } = useQuery([QUERIES.campaign, id], () =>
+  const { data, isLoading } = useQuery([QUERIES.campaign, id], () =>
     fetchCampaign(id)
   );
 
@@ -53,7 +53,9 @@ const ProjectPage = () => {
     watch(PLEDGE_AMOUNT)
   );
 
-  const isOwner = address === campaign?.campaign?.owner?.publicAddress;
+  const { campaign, pledges } = data || {};
+
+  const isOwner = address === campaign?.owner?.publicAddress;
 
   const { write } = useClaim(id, isOwner);
 
@@ -71,12 +73,12 @@ const ProjectPage = () => {
       <Header />
       <Container>
         <Wrapper>
-          <Title>{campaign?.campaign.title}</Title>
+          <Title>{campaign?.title}</Title>
 
           <DescriptionTag>Description</DescriptionTag>
 
           <DescriptionContainer>
-            <p>{campaign?.campaign.story}</p>
+            <p>{campaign?.story}</p>
           </DescriptionContainer>
         </Wrapper>
 
@@ -88,6 +90,7 @@ const ProjectPage = () => {
           />
         ) : (
           <ProjectSideBar
+            numOfPledges={pledges}
             campaign={campaign}
             onClick={write}
             isOwner={isOwner}

@@ -17,10 +17,16 @@ import {
   Value,
 } from "./projectSideBar.style";
 
-export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
+export const ProjectSideBar = ({
+  campaign,
+  numOfPledges,
+  onClick,
+  isOwner,
+  setIsPledge,
+}) => {
   const router = useRouter();
   const { isUserAuthenticated } = useAuth();
-  const { goal, currentAmount } = campaign.campaign;
+  const { goal, currentAmount } = campaign;
 
   const buttonToRender = () => {
     if (!isUserAuthenticated)
@@ -67,7 +73,7 @@ export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
 
         <Box>
           <Subtitle>Pledges</Subtitle>
-          <Value>{campaign.pledges}</Value>
+          <Value>{numOfPledges}</Value>
         </Box>
       </BoxContainer>
 
