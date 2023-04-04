@@ -4,6 +4,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+import BigNumber from "bignumber.js";
 
 import { FUNCTIONS, EVENTS } from "./../constants";
 import { useDebounce } from "./useDebounce";
@@ -15,7 +16,14 @@ export const usePledge = (id, pledgeAmount) => {
   const { abi } = loopTokenConfig;
   const { abi: cfAbi } = crowdfundingConfig;
 
-  const debouncedPledgeAmount = useDebounce(pledgeAmount, 500);
+  const parseValue = (value) => {
+    const decimal = new BigNumber(10).pow(18);
+    const wei = new BigNumber(value);
+
+    return wei.multipliedBy(decimal);
+  };
+
+  const debouncedPledgeAmount = useDebounce(parseValue(pledgeAmount), 500);
 
   const isEnabled = !!debouncedPledgeAmount;
 
@@ -27,7 +35,7 @@ export const usePledge = (id, pledgeAmount) => {
     enabled: isEnabled,
   });
 
-  const { write } = useContractWrite({
+  const { write, isSuccess } = useContractWrite({
     ...config,
     onSuccess() {
       cfWrite?.();
@@ -39,7 +47,7 @@ export const usePledge = (id, pledgeAmount) => {
     abi: cfAbi,
     functionName: FUNCTIONS.pledge,
     args: [id, debouncedPledgeAmount],
-    enabled: isEnabled,
+    enabled: isSuccess,
   });
 
   const { data, write: cfWrite } = useContractWrite({

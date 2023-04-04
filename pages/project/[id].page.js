@@ -53,7 +53,7 @@ const ProjectPage = () => {
     watch(PLEDGE_AMOUNT)
   );
 
-  const isOwner = address === campaign?.owner?.publicAddress;
+  const isOwner = address === campaign?.campaign?.owner?.publicAddress;
 
   const { write } = useClaim(id, isOwner);
 
@@ -71,12 +71,12 @@ const ProjectPage = () => {
       <Header />
       <Container>
         <Wrapper>
-          <Title>{campaign?.title}</Title>
+          <Title>{campaign?.campaign.title}</Title>
 
           <DescriptionTag>Description</DescriptionTag>
 
           <DescriptionContainer>
-            <p>{campaign?.story}</p>
+            <p>{campaign?.campaign.story}</p>
           </DescriptionContainer>
         </Wrapper>
 
