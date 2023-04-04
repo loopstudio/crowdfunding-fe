@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 
 import { ProgressBar, Button } from "components";
 import { getProgressPercentage } from "utils/percentage";
-import { ACCESS_TOKEN } from "../../constants";
+import { useAuth } from "context/AuthContext";
+import { ROUTES } from "../../constants";
 
 import {
   Container,
@@ -16,14 +17,23 @@ import {
   Value,
 } from "./projectSideBar.style";
 
-export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
+export const ProjectSideBar = ({
+  campaign,
+  numOfPledges,
+  onClick,
+  isOwner,
+  setIsPledge,
+}) => {
   const router = useRouter();
+  const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign;
 
   const buttonToRender = () => {
-    if (!sessionStorage.getItem(ACCESS_TOKEN))
+    if (!isUserAuthenticated)
       return (
-        <Button onClick={() => router.push("/login")}>Log in to Pledge</Button>
+        <Button onClick={() => router.push(ROUTES.login)}>
+          Log in to Pledge
+        </Button>
       );
 
     if (isOwner)
@@ -58,12 +68,12 @@ export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
       <BoxContainer>
         <Box>
           <Subtitle>Revenue</Subtitle>
-          <Value>{currentAmount[0].amount}USDT</Value>
+          <Value>{currentAmount[0].amount} USDT</Value>
         </Box>
 
         <Box>
           <Subtitle>Pledges</Subtitle>
-          <Value>0</Value>
+          <Value>{numOfPledges}</Value>
         </Box>
       </BoxContainer>
 
