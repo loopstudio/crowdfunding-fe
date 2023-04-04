@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 
 import { ProgressBar, Button } from "components";
 import { getProgressPercentage } from "utils/percentage";
-import { ACCESS_TOKEN, ROUTES } from "../../constants";
+import { useAuth } from "context/AuthContext";
+import { ROUTES } from "../../constants";
 
 import {
   Container,
@@ -18,10 +19,11 @@ import {
 
 export const ProjectSideBar = ({ campaign, onClick, isOwner, setIsPledge }) => {
   const router = useRouter();
+  const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign.campaign;
 
   const buttonToRender = () => {
-    if (!sessionStorage.getItem(ACCESS_TOKEN))
+    if (!isUserAuthenticated)
       return (
         <Button onClick={() => router.push(ROUTES.login)}>
           Log in to Pledge
