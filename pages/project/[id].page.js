@@ -44,8 +44,10 @@ const ProjectPage = () => {
     mode: "onChange",
   });
 
-  const { data, isLoading } = useQuery([QUERIES.campaign, id], () =>
-    fetchCampaign(id)
+  const { data, isLoading } = useQuery(
+    [QUERIES.campaign, id],
+    () => fetchCampaign(id),
+    { enabled: Boolean(id) }
   );
 
   const { onSubmit, isTransactionComplete } = usePledge(
