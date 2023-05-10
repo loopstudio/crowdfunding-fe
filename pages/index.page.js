@@ -10,7 +10,7 @@ import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
 import { calculatePages } from "utils/pagination";
 import { QUERIES, SEARCH, NUM_OF_ELEMENTS_MAIN, ROUTES } from "../constants";
-import background from "assets/background.gif";
+import background from "assets/background.png";
 import add from "assets/icons/add.svg";
 
 import {
@@ -60,7 +60,7 @@ export default function Home() {
       <Main>
         <Header />
 
-        <PlanetGIF src={background} alt="Logo" height={1200} width={2200} />
+        <PlanetGIF src={background} alt="Logo"  />
 
         <TitleContainer>
           <Title>CROWD</Title>
