@@ -40,9 +40,8 @@ export const Title = styled.span`
 export const PlanetGIF = styled(Image)`
   mix-blend-mode: screen;
   position: absolute;
-  top: -300px;
-  right: -450px;
-  margin-top: 40px;
+  right: 20%;
+
 `;
 
 export const Grid = styled.div`
