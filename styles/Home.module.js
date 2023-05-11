@@ -37,12 +37,11 @@ export const Title = styled.span`
   letter-spacing: 22px;
 `;
 
-export const PlanetGIF = styled(Image)`
+export const PlanetImg = styled(Image)`
   mix-blend-mode: screen;
   position: absolute;
-  top: -300px;
-  right: -450px;
-  margin-top: 40px;
+  top: 60px;
+  right: 350px;
 `;
 
 export const Grid = styled.div`

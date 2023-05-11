@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
-  padding: 40px;
-  left: 0px;
-  min-height: 100vh;
   background-color: #ffffff0f;
+  display: flex;
   flex-direction: column;
   gap: 18px;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px;
+  position: absolute;
+  right: 0;
   white-space: nowrap;
 
   button {

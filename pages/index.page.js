@@ -10,7 +10,7 @@ import { Header, CardSkeleton, Project, Input, Pagination } from "components";
 import { fetchCampaigns } from "utils/fetch";
 import { calculatePages } from "utils/pagination";
 import { QUERIES, SEARCH, NUM_OF_ELEMENTS_MAIN, ROUTES } from "../constants";
-import background from "assets/background.gif";
+import planet from "assets/big-logo.svg";
 import add from "assets/icons/add.svg";
 
 import {
@@ -24,7 +24,7 @@ import {
   Wrapper,
   TextWrapper,
   PaginationContainer,
-  PlanetGIF,
+  PlanetImg,
 } from "../styles/Home.module.js";
 
 export default function Home() {
@@ -60,7 +60,7 @@ export default function Home() {
       <Main>
         <Header />
 
-        <PlanetGIF src={background} alt="Logo" height={1200} width={2200} />
+        <PlanetImg src={planet} alt="Logo" height={600} width={800} />
 
         <TitleContainer>
           <Title>CROWD</Title>

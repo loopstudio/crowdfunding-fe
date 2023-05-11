@@ -55,8 +55,8 @@ export const DescriptionTagBox = styled.div`
 
 export const DescriptionBox = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.25);
-  width: 1000px;
-  height: 500px;
+  width: 980px;
+  height: 300px;
   background-color: #ffffff0f;
   animation: pulse 1.5s ease-in-out infinite;
 
@@ -74,15 +74,16 @@ export const DescriptionBox = styled.div`
 `;
 
 export const SideBar = styled.div`
-  display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
-  padding: 40px;
-  left: 0px;
-  min-height: 100vh;
   background-color: #ffffff0f;
+  display: flex;
   flex-direction: column;
   gap: 24px;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px;
+  position: absolute;
+  right: 0;
   white-space: nowrap;
   width: 390px;
 `;
