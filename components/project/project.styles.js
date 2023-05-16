@@ -42,3 +42,8 @@ export const InformationContainer = styled.div`
   height: 190px;
   justify-content: space-between;
 `;
+
+export const DateContainer = styled.div`
+  display: flex;
+  gap: 12px;
+`;
