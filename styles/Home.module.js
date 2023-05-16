@@ -40,8 +40,6 @@ export const Title = styled.span`
 export const PlanetImg = styled(Image)`
   mix-blend-mode: screen;
   position: absolute;
-  top: 60px;
-  right: 350px;
 `;
 
 export const Grid = styled.div`
@@ -118,4 +116,9 @@ export const PaginationContainer = styled.div`
     bottom: 20px;
     right: 10px;
   }
+`;
+
+export const PlanetImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;

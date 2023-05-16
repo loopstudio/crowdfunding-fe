@@ -23,6 +23,7 @@ export const ProjectSideBar = ({
   onClick,
   isOwner,
   setIsPledge,
+  hasReachedEndDate,
 }) => {
   const router = useRouter();
   const { isUserAuthenticated } = useAuth();
@@ -43,7 +44,11 @@ export const ProjectSideBar = ({
         </Button>
       );
 
-    return <Button onClick={() => setIsPledge(true)}>Pledge Now</Button>;
+    return (
+      <Button onClick={() => setIsPledge(true)} disabled={hasReachedEndDate}>
+        {hasReachedEndDate ? 'Finished campaign' : 'Pledge Now'}
+      </Button>
+    );
   };
 
   return (

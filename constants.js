@@ -60,3 +60,5 @@ export const CAMPAIGN_MIN_DURATION = 1;
 
 export const AMOUNT_OF_ELEMENTS_PER_PAGE = 9;
 export const NUM_OF_ELEMENTS_MAIN = 12;
+
+export const today = new Date();

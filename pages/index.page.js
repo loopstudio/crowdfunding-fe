@@ -25,6 +25,7 @@ import {
   TextWrapper,
   PaginationContainer,
   PlanetImg,
+  PlanetImgWrapper,
 } from "../styles/Home.module.js";
 
 export default function Home() {
@@ -60,7 +61,9 @@ export default function Home() {
       <Main>
         <Header />
 
-        <PlanetImg src={planet} alt="Logo" height={600} width={800} />
+        <PlanetImgWrapper>
+          <PlanetImg src={planet} alt="Logo" height={600} width={800} />
+        </PlanetImgWrapper>
 
         <TitleContainer>
           <Title>CROWD</Title>

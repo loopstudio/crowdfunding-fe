@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { object, number } from "yup";
 
-import { QUERIES, PLEDGE_AMOUNT } from "../../constants";
+import { QUERIES, PLEDGE_AMOUNT, today } from "../../constants";
 import { usePledge } from "hooks/usePledge";
 import { useClaim } from "hooks/useClaim";
 import {
@@ -68,6 +68,10 @@ const ProjectPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTransactionComplete]);
 
+  const endDate = new Date(campaign?.endDate).getTime();
+
+  const hasReachedEndDate = today.getTime() > endDate;
+
   if (isLoading || !campaign) return <ProjectDetailSkeleton />;
 
   return (
@@ -89,6 +93,7 @@ const ProjectPage = () => {
             register={register}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
+            hasReachedEndDate={hasReachedEndDate}
           />
         ) : (
           <ProjectSideBar
@@ -97,6 +102,7 @@ const ProjectPage = () => {
             onClick={write}
             isOwner={isOwner}
             setIsPledge={setIsPledge}
+            hasReachedEndDate={hasReachedEndDate}
           />
         )}
       </Container>

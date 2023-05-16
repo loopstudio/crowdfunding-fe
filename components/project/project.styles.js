@@ -22,6 +22,7 @@ export const Button = styled.a`
   letter-spacing: 0.5px;
   border: 1px solid;
   text-align: center;
+  margin-top: 5px;
 
   :hover {
     background-color: #1b1b1b;
@@ -43,7 +44,12 @@ export const InformationContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const DateContainer = styled.div`
-  display: flex;
-  gap: 12px;
+export const PendingButton = styled.div`
+  font: 400 14px "Share Tech Mono";
+  border: 1px solid #ffcc00;
+  padding: 8px 50px;
+  text-align: center;
+  color: #ffcc00;
+  cursor: not-allowed;
+  margin-top: 5px !important;
 `;
