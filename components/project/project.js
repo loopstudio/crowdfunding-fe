@@ -6,6 +6,7 @@ import {
   Button,
   Text,
   InformationContainer,
+  DateContainer,
 } from "./project.styles.js";
 
 export const Project = ({ project }) => {
@@ -13,7 +14,10 @@ export const Project = ({ project }) => {
     <ProjectContainer>
       <InformationContainer>
         <Text>{project.title}</Text>
-        <Text>{getFormattedDate(project.endDate)}</Text>
+        <DateContainer>
+          <Text>From: {getFormattedDate(project.startDate)}</Text>
+          <Text>To: {getFormattedDate(project.endDate)}</Text>
+        </DateContainer>
         {project.goal.length > 0 && <Text>USDT ${project.goal[0].amount}</Text>}
         <ProgressBar
           percentage={
