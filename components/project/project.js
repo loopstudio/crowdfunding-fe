@@ -8,6 +8,8 @@ import {
   Text,
   InformationContainer,
   PendingButton,
+  TextWrapper,
+  Title
 } from "./project.styles.js";
 
 export const Project = ({ project }) => {
@@ -18,13 +20,17 @@ export const Project = ({ project }) => {
   return (
     <ProjectContainer>
       <InformationContainer>
-        <Text>{project.title}</Text>
+        <Title>{project.title}</Title>
 
-        <Text>From: {getFormattedDate(project.startDate)}</Text>
-
-        <Text>To: {getFormattedDate(project.endDate)}</Text>
-
-        {project.goal.length > 0 && <Text>USDT ${project.goal[0].amount}</Text>}
+        <TextWrapper>
+          <Text>Start date</Text>{" "}
+          <Text>{getFormattedDate(project.startDate)}</Text>
+        </TextWrapper>
+        <TextWrapper>
+          <Text>End date</Text>{" "}
+          <Text>{getFormattedDate(project.endDate)}</Text>
+        </TextWrapper>
+        {project.goal.length > 0 &&<TextWrapper><Text>Goal</Text> <Text>USDT ${project.goal[0].amount}</Text></TextWrapper> }
         <ProgressBar
           percentage={
             project.goal.length > 0 && project.currentAmount.length > 0

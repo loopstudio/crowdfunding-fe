@@ -31,9 +31,20 @@ export const Button = styled.a`
   }
 `;
 
+export const TextWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
 export const Text = styled.p`
+  font: 400 14px "NTR";
+  margin: 0;
+`;
+
+export const Title = styled.h1`
   font: 400 14px "Share Tech Mono";
-  margin: 15px 0 0 0;
+  margin-top: 15px;
 `;
 
 export const InformationContainer = styled.div`

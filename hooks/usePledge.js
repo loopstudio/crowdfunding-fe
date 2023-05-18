@@ -4,9 +4,13 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import BigNumber from "bignumber.js";
 
-import { FUNCTIONS, EVENTS } from "./../constants";
+import { FUNCTIONS, EVENTS, ROUTES } from "./../constants";
+import { ToastContent } from "components";
+import { TOAST_SUCCESS_CONFIG } from "utils/toast";
 import { useDebounce } from "./useDebounce";
 
 import loopTokenConfig from "../loopToken.config.json";
@@ -15,6 +19,8 @@ import crowdfundingConfig from "../crowdfunding.config.json";
 export const usePledge = (id, pledgeAmount) => {
   const { abi } = loopTokenConfig;
   const { abi: cfAbi } = crowdfundingConfig;
+
+  const router = useRouter();
 
   const parseValue = (value) => {
     const decimal = new BigNumber(10).pow(18);
@@ -52,6 +58,16 @@ export const usePledge = (id, pledgeAmount) => {
 
   const { data, write: cfWrite } = useContractWrite({
     ...cfConfig,
+    onSuccess() {
+      router.push(ROUTES.home);
+      toast(
+        <ToastContent
+          title="Pledge successfully"
+          description="Your pledge has been successful"
+        />,
+        TOAST_SUCCESS_CONFIG
+      );
+    },
   });
 
   const onSubmit = () => {
