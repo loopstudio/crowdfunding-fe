@@ -1,3 +1,6 @@
+import { useMemo } from "react";
+import { BigNumber, utils } from "ethers";
+
 import { ProgressBar } from "components";
 import { getFormattedDate } from "utils/date";
 import { today } from "../../constants";
@@ -9,7 +12,7 @@ import {
   InformationContainer,
   PendingButton,
   TextWrapper,
-  Title
+  Title,
 } from "./project.styles.js";
 
 export const Project = ({ project }) => {
@@ -17,6 +20,14 @@ export const Project = ({ project }) => {
 
   const hasStarted = today.getTime() >= startDate;
   const hasOnchainId = !!project.onchainId;
+
+  const roundedCurrAmount = Math.round(project.currentAmount[0].amount).toString();
+
+  const formattedCurrentAmount = useMemo(
+    () => utils.formatEther(BigNumber.from(roundedCurrAmount)),
+    [roundedCurrAmount]
+  );
+
   return (
     <ProjectContainer>
       <InformationContainer>
@@ -27,14 +38,17 @@ export const Project = ({ project }) => {
           <Text>{getFormattedDate(project.startDate)}</Text>
         </TextWrapper>
         <TextWrapper>
-          <Text>End date</Text>{" "}
-          <Text>{getFormattedDate(project.endDate)}</Text>
+          <Text>End date</Text> <Text>{getFormattedDate(project.endDate)}</Text>
         </TextWrapper>
-        {project.goal.length > 0 &&<TextWrapper><Text>Goal</Text> <Text>USDT ${project.goal[0].amount}</Text></TextWrapper> }
+        {project.goal.length > 0 && (
+          <TextWrapper>
+            <Text>Goal</Text> <Text>USDT ${project.goal[0].amount}</Text>
+          </TextWrapper>
+        )}
         <ProgressBar
           percentage={
             project.goal.length > 0 && project.currentAmount.length > 0
-              ? (project.currentAmount[0].amount * 100) / project.goal[0].amount
+              ? (formattedCurrentAmount * 100) / project.goal[0].amount
               : 0
           }
         />

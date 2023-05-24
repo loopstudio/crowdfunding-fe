@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useRouter } from "next/router";
-import { ethers } from "ethers";
+import { BigNumber, utils } from "ethers";
 
 import { ProgressBar, Button } from "components";
 import { getProgressPercentage } from "utils/percentage";
@@ -31,9 +31,11 @@ export const ProjectSideBar = ({
   const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign;
 
+  const roundedCurrAmount = Math.round(currentAmount[0].amount).toString();
+  
   const formattedCurrentAmount = useMemo(
-    () => ethers.utils.formatEther(currentAmount[0].amount),
-    [currentAmount]
+    () => utils.formatEther(BigNumber.from(roundedCurrAmount)),
+    [roundedCurrAmount]
   );
 
   const buttonToRender = () => {
