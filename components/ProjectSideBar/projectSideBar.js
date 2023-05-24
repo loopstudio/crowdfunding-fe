@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 
@@ -30,7 +31,10 @@ export const ProjectSideBar = ({
   const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign;
 
-  const formattedCurrentAmount = ethers.utils.formatEther(currentAmount[0].amount);
+  const formattedCurrentAmount = useMemo(
+    () => ethers.utils.formatEther(currentAmount[0].amount),
+    [currentAmount]
+  );
 
   const buttonToRender = () => {
     if (!isUserAuthenticated)
@@ -76,9 +80,7 @@ export const ProjectSideBar = ({
       <BoxContainer>
         <Box>
           <Subtitle>Revenue</Subtitle>
-          <Value>
-            {formattedCurrentAmount} USDT
-          </Value>
+          <Value>{formattedCurrentAmount} USDT</Value>
         </Box>
 
         <Box>
