@@ -3,12 +3,18 @@ import {
   useContractWrite,
   usePrepareContractWrite,
 } from "wagmi";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
-import { FUNCTIONS, EVENTS } from "../constants";
+import { FUNCTIONS, EVENTS, ROUTES } from "../constants";
+import { ToastContent } from "components";
+import { TOAST_SUCCESS_CONFIG } from "utils/toast";
 import crowdfundingConfig from "../crowdfunding.config.json";
 
 export const useClaim = (id, isOwner) => {
   const { abi } = crowdfundingConfig;
+
+  const router = useRouter();
 
   const { config } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
@@ -20,6 +26,16 @@ export const useClaim = (id, isOwner) => {
 
   const { write } = useContractWrite({
     ...config,
+    onSuccess() {
+      router.push(ROUTES.home);
+      toast(
+        <ToastContent
+          title="Successful claim"
+          description="Your claim was processed successfully"
+        />,
+        TOAST_SUCCESS_CONFIG
+      );
+    },
   });
 
   useContractEvent({
