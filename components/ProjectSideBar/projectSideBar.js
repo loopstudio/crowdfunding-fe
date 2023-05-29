@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { useRouter } from "next/router";
+import { BigNumber, utils } from "ethers";
 
 import { ProgressBar, Button } from "components";
 import { getProgressPercentage } from "utils/percentage";
@@ -29,6 +31,13 @@ export const ProjectSideBar = ({
   const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign;
 
+  const roundedCurrAmount = Math.round(currentAmount[0].amount).toString();
+  
+  const formattedCurrentAmount = useMemo(
+    () => utils.formatEther(BigNumber.from(roundedCurrAmount)),
+    [roundedCurrAmount]
+  );
+
   const buttonToRender = () => {
     if (!isUserAuthenticated)
       return (
@@ -46,7 +55,7 @@ export const ProjectSideBar = ({
 
     return (
       <Button onClick={() => setIsPledge(true)} disabled={hasReachedEndDate}>
-        {hasReachedEndDate ? 'Finished campaign' : 'Pledge Now'}
+        {hasReachedEndDate ? "Finished campaign" : "Pledge Now"}
       </Button>
     );
   };
@@ -62,7 +71,7 @@ export const ProjectSideBar = ({
         </ProgressBarLabelWrapper>
         <ProgressBar
           percentage={getProgressPercentage(
-            currentAmount[0].amount,
+            formattedCurrentAmount,
             goal[0].amount
           )}
         />
@@ -73,7 +82,7 @@ export const ProjectSideBar = ({
       <BoxContainer>
         <Box>
           <Subtitle>Revenue</Subtitle>
-          <Value>{currentAmount[0].amount} USDT</Value>
+          <Value>{formattedCurrentAmount} USDT</Value>
         </Box>
 
         <Box>
