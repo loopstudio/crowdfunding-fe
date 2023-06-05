@@ -38,6 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Deploy on GCloud
 
-Install [gcloud CLI](https://cloud.google.com/sdk/docs/install)
-Build project with `yarn build`
-Upload to gcloud: `gcloud app deploy `
+- Install [gcloud CLI](https://cloud.google.com/sdk/docs/install).
+- Useful link to set up your [gcloud account](https://devopscube.com/setup-google-cloud-clisdk/)
+- Build project with `yarn build`
+- Upload to gcloud: `gcloud app deploy `
