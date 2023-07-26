@@ -9,11 +9,13 @@ import { object, number } from "yup";
 import { QUERIES, PLEDGE_AMOUNT, today } from "../../constants";
 import { usePledge } from "hooks/usePledge";
 import { useClaim } from "hooks/useClaim";
+import { useCancel } from "hooks/useCancel";
 import {
   Header,
   ProjectSideBar,
   PledgeSideBar,
   ProjectDetailSkeleton,
+  CancelModal,
 } from "components";
 import { fetchCampaign } from "utils/fetch";
 
@@ -34,6 +36,7 @@ const ProjectPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isPledge, setIsPledge] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const { handleSubmit, register, watch } = useForm({
@@ -59,7 +62,12 @@ const ProjectPage = () => {
 
   const isOwner = address === campaign?.owner?.publicAddress;
 
-  const { write } = useClaim(id, isOwner);
+  const handleCancelModal = (boolean) => {
+    setIsModalOpen(boolean);
+  };
+
+  const { write: claimWrite } = useClaim(id, isOwner);
+  const { write: cancelWrite } = useCancel(id, isOwner, handleCancelModal);
 
   useEffect(() => {
     if (isTransactionComplete) {
@@ -76,6 +84,15 @@ const ProjectPage = () => {
 
   return (
     <>
+      {isModalOpen && (
+        <CancelModal
+          isModalOpen={isModalOpen}
+          handleModal={handleCancelModal}
+          projectName={campaign?.title}
+          onConfirm={cancelWrite}
+        />
+      )}
+
       <Header />
       <Container>
         <Wrapper>
@@ -99,10 +116,11 @@ const ProjectPage = () => {
           <ProjectSideBar
             numOfPledges={pledges}
             campaign={campaign}
-            onClick={write}
+            onClick={claimWrite}
             isOwner={isOwner}
             setIsPledge={setIsPledge}
             hasReachedEndDate={hasReachedEndDate}
+            handleModal={handleCancelModal}
           />
         )}
       </Container>

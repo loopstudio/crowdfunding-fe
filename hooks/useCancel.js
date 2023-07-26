@@ -11,7 +11,7 @@ import { ToastContent } from "components";
 import { TOAST_SUCCESS_CONFIG } from "utils/toast";
 import crowdfundingConfig from "../crowdfunding.config.json";
 
-export const useClaim = (id, isOwner) => {
+export const useCancel = (id, isOwner, setIsModalOpen) => {
   const { abi } = crowdfundingConfig;
 
   const router = useRouter();
@@ -19,19 +19,20 @@ export const useClaim = (id, isOwner) => {
   const { config } = usePrepareContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
     abi,
-    functionName: FUNCTIONS.claim,
+    functionName: FUNCTIONS.cancel,
     args: [id],
-    enabled: false,
+    enabled: isOwner,
   });
 
   const { write } = useContractWrite({
     ...config,
     onSuccess() {
+      setIsModalOpen(false);
       router.push(ROUTES.home);
       toast(
         <ToastContent
-          title="Successful claim"
-          description="Your claim was processed successfully"
+          title="Project deleted successfully"
+          description="Your project had been deleted successfully."
         />,
         TOAST_SUCCESS_CONFIG
       );
@@ -41,9 +42,9 @@ export const useClaim = (id, isOwner) => {
   useContractEvent({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_CF,
     abi,
-    eventName: EVENTS.claim,
+    eventName: EVENTS.cancel,
     listener(campaignId, owner, amount) {
-      console.log("CLAIM:", campaignId, owner, amount);
+      console.log("CANCEL:", campaignId, owner, amount);
     },
   });
 
