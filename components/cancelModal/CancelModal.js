@@ -36,7 +36,7 @@ export const CancelModal = ({
 
       <ButtonsContainer>
         <Button onClick={handleClose}>No</Button>
-        <Button onClick={() => onConfirm?.()}>Yes</Button>
+        <Button onClick={handleConfirm}>Yes</Button>
       </ButtonsContainer>
     </ReactModal>
   );
