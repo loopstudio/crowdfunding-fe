@@ -21,7 +21,7 @@ export const useClaim = (id, isOwner) => {
     abi,
     functionName: FUNCTIONS.claim,
     args: [id],
-    enabled: false,
+    enabled: isOwner,
   });
 
   const { write } = useContractWrite({
