@@ -69,3 +69,25 @@ export const BoxContainer = styled.div`
   gap: 24px;
   width: 100%;
 `;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 33px;
+
+  > button:nth-of-type(2) {
+    right: 0;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid #ffffff99;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  animation: fill-background 0.3s ease-in-out forwards;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+`;
