@@ -17,25 +17,27 @@ import { Slider } from "./slider/slider";
 import { Dropdown } from "./dropdown/dropdown";
 import { Modal } from "./modal/modal";
 import { ToastContent } from "./toastContent/toastContent";
+import { CancelModal } from "./cancelModal/CancelModal";
 
 export {
-  Input,
-  Select,
-  Button,
-  ProgressBar,
-  ConnectWallet,
-  Project,
-  Header,
-  CardSkeleton,
   AuthWrapper,
-  SideBar,
-  Filter,
-  Pagination,
-  ProjectSideBar,
-  PledgeSideBar,
-  ProjectDetailSkeleton,
-  Slider,
+  Button,
+  CardSkeleton,
+  ConnectWallet,
   Dropdown,
+  Filter,
+  Header,
+  Input,
   Modal,
+  Pagination,
+  PledgeSideBar,
+  ProgressBar,
+  Project,
+  ProjectDetailSkeleton,
+  ProjectSideBar,
+  Select,
+  SideBar,
+  Slider,
   ToastContent,
+  CancelModal,
 };

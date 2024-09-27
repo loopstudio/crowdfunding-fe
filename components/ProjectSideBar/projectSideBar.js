@@ -8,14 +8,15 @@ import { useAuth } from "context/AuthContext";
 import { ROUTES } from "../../constants";
 
 import {
-  Container,
-  Subtitle,
-  Title,
-  ProgressBarContainer,
-  ProgressBarLabelWrapper,
-  ProgressBarLabel,
   Box,
   BoxContainer,
+  ButtonsWrapper,
+  Container,
+  ProgressBarContainer,
+  ProgressBarLabel,
+  ProgressBarLabelWrapper,
+  Subtitle,
+  Title,
   Value,
 } from "./projectSideBar.style";
 
@@ -26,13 +27,14 @@ export const ProjectSideBar = ({
   isOwner,
   setIsPledge,
   hasReachedEndDate,
+  handleModal,
 }) => {
   const router = useRouter();
   const { isUserAuthenticated } = useAuth();
   const { goal, currentAmount } = campaign;
 
   const roundedCurrAmount = Math.round(currentAmount[0].amount).toString();
-  
+
   const formattedCurrentAmount = useMemo(
     () => utils.formatEther(BigNumber.from(roundedCurrAmount)),
     [roundedCurrAmount]
@@ -48,9 +50,12 @@ export const ProjectSideBar = ({
 
     if (isOwner)
       return (
-        <Button disabled={!onClick} onClick={() => onClick?.()}>
-          Claim
-        </Button>
+        <ButtonsWrapper>
+          <Button disabled={!onClick} onClick={() => onClick?.()}>
+            Claim
+          </Button>
+          <Button onClick={() => handleModal(true)}>Cancel Project</Button>
+        </ButtonsWrapper>
       );
 
     return (
